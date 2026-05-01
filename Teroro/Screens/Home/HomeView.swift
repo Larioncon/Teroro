@@ -53,7 +53,6 @@ struct HomeView: View {
                 .allowsHitTesting(isShowingPastTerms)
                 .accessibilityHidden(!isShowingPastTerms)
             }
-            .animation(.easeInOut(duration: 0.28), value: isShowingPastTerms)
 
             if showPermissionOverlay && !dismissedPermissionOverlay {
                 NotificationPermissionView(
@@ -69,8 +68,9 @@ struct HomeView: View {
                 )
             }
         }
+        .background(Color(uiColor: .systemGroupedBackground))
         .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbarBackground(.clear, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .principal) {
                 AnimatedNavTitle(isShowingPastTerms: isShowingPastTerms)
@@ -146,7 +146,6 @@ private struct AnimatedNavTitle: View {
             .scaleEffect(isVisible ? 1 : 0.94)
             .blur(radius: isVisible ? 0 : 1.5)
             .offset(y: isVisible ? 0 : -3)
-            .animation(.easeInOut(duration: 0.28), value: isVisible)
     }
 }
 
