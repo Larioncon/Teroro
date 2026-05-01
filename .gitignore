@@ -1,0 +1,24 @@
+# Xcode
+DerivedData/
+build/
+*.xcworkspace/xcuserdata/
+*.xcworkspace
+**/*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+xcuserdata/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Swift Package Manager
+.build/
+
+# Secrets
+Secrets.xcconfig
+.env
+config.json
+*.local
