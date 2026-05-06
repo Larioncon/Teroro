@@ -22,3 +22,6 @@ Secrets.xcconfig
 .env
 config.json
 *.local
+
+# Firebase
+GoogleService-Info.plist

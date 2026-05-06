@@ -30,6 +30,30 @@ struct SettingsView: View {
                     Label("Контакти", systemImage: "person.crop.circle")
                 }
             }
+
+            Section {
+                HStack {
+                    Spacer(minLength: 0)
+                    Button {
+                        viewModel.signOut()
+                    } label: {
+                        Text("Вийти")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.red)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 10)
+                            .background(.thinMaterial, in: Capsule(style: .continuous))
+                            .overlay(
+                                Capsule(style: .continuous)
+                                    .strokeBorder(Color.red.opacity(0.35), lineWidth: 1)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                    Spacer(minLength: 0)
+                }
+                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                .listRowBackground(Color.clear)
+            }
         }
         .navigationTitle("Налаштування")
         .onAppear {
@@ -38,6 +62,15 @@ struct SettingsView: View {
         .onChange(of: scenePhase) { newPhase in
             viewModel.onScenePhaseChanged(newPhase)
         }
+        .alert("Помилка", isPresented: Binding(get: {
+            viewModel.signOutErrorMessage != nil
+        }, set: { newValue in
+            if !newValue { viewModel.signOutErrorMessage = nil }
+        }), actions: {
+            Button("OK") { viewModel.signOutErrorMessage = nil }
+        }, message: {
+            Text(viewModel.signOutErrorMessage ?? "")
+        })
     }
 }
 

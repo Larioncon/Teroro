@@ -7,12 +7,18 @@ final class SettingsVM: ObservableObject {
     @AppStorage("isDarkMode") var isDarkMode: Bool = false
 
     let contactURL = URL(string: "https://sites.google.com/view/0047coslw")!
+    private let authService: FirebaseAuthService
 
     @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
     @Published private(set) var statusFlipRotation: Double = 0
+    @Published var signOutErrorMessage: String?
 
     var isNotificationsEnabled: Bool {
         notificationStatus == .authorized || notificationStatus == .provisional
+    }
+
+    init(authService: FirebaseAuthService = .shared) {
+        self.authService = authService
     }
 
     // MARK: - View Events
@@ -37,6 +43,15 @@ final class SettingsVM: ObservableObject {
     func openSystemSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
+    }
+
+    func signOut() {
+        signOutErrorMessage = nil
+        do {
+            try authService.signOut()
+        } catch {
+            signOutErrorMessage = error.localizedDescription
+        }
     }
 
     func refreshNotificationStatus(animated: Bool) async {
