@@ -1,8 +1,11 @@
 import SwiftUI
+import UIKit
 
 struct AuthScreen: View {
     @ObservedObject var viewModel: AuthVM
     @FocusState private var focusedField: Field?
+    @State private var presentingViewController: UIViewController?
+    @State private var isShowingAppleStubAlert: Bool = false
 
     enum Field: Hashable {
         case email
@@ -67,6 +70,9 @@ struct AuthScreen: View {
                     .disabled(viewModel.isLoading)
                     .opacity(viewModel.isLoading ? 0.7 : 1)
 
+                    socialSection
+                        .padding(.top, 6)
+
                     toggleModeFooter
                         .padding(.top, 10)
 
@@ -76,6 +82,7 @@ struct AuthScreen: View {
                 .padding(.top, 28)
             }
             .scrollDismissesKeyboard(.interactively)
+            .background(ViewControllerReader(viewController: $presentingViewController))
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -92,6 +99,11 @@ struct AuthScreen: View {
             Button("OK") { viewModel.alertMessage = nil }
         }, message: {
             Text(viewModel.alertMessage ?? "")
+        })
+        .alert("Незабаром", isPresented: $isShowingAppleStubAlert, actions: {
+            Button("OK", role: .cancel) {}
+        }, message: {
+            Text("Опція входу через Apple зʼявиться пізніше.")
         })
     }
 
@@ -129,6 +141,34 @@ struct AuthScreen: View {
             .accessibilityLabel(viewModel.toggleActionTitle)
 
             Spacer(minLength: 0)
+        }
+    }
+
+    private var socialSection: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 12) {
+                Rectangle()
+                    .fill(Color.secondary.opacity(0.25))
+                    .frame(height: 1)
+                Text("або")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                Rectangle()
+                    .fill(Color.secondary.opacity(0.25))
+                    .frame(height: 1)
+            }
+
+            PrimaryButton(title: "Continue with Apple", style: .siwa, frameHeight: 52) {
+                focusedField = nil
+                isShowingAppleStubAlert = true
+            }
+
+            PrimaryButton(title: "Continue with Google", style: .siwg, frameHeight: 52) {
+                focusedField = nil
+                viewModel.signInWithGoogle(presenting: presentingViewController)
+            }
+            .disabled(viewModel.isLoading)
+            .opacity(viewModel.isLoading ? 0.7 : 1)
         }
     }
 
@@ -198,6 +238,24 @@ struct AuthScreen: View {
                     break
                 }
             }
+    }
+}
+
+private struct ViewControllerReader: UIViewControllerRepresentable {
+    @Binding var viewController: UIViewController?
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        let controller = UIViewController()
+        controller.view.backgroundColor = .clear
+        DispatchQueue.main.async {
+            // Capture the nearest UIViewController to present GoogleSignIn.
+            self.viewController = controller
+        }
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // no-op
     }
 }
 

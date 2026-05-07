@@ -1,5 +1,6 @@
 import Combine
 import SwiftUI
+import UIKit
 
 @MainActor
 final class AuthVM: ObservableObject {
@@ -114,6 +115,23 @@ final class AuthVM: ObservableObject {
             try auth.signOut()
         } catch {
             alertMessage = error.localizedDescription
+        }
+    }
+
+    func signInWithGoogle(presenting: UIViewController?) {
+        alertMessage = nil
+        guard let presenting else {
+            alertMessage = "Не вдалося відкрити Google Sign-In."
+            return
+        }
+        isLoading = true
+        Task {
+            do {
+                _ = try await auth.signInWithGoogle(presenting: presenting)
+            } catch {
+                alertMessage = error.localizedDescription
+            }
+            isLoading = false
         }
     }
 }

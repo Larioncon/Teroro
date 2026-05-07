@@ -1,5 +1,6 @@
 import SwiftUI
 import FirebaseCore
+import GoogleSignIn
 
 
 @main
@@ -45,6 +46,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 //            object: nil
 //        )
         return true
+    }
+
+    func application(
+        _ app: UIApplication,
+        open url: URL,
+        options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        GIDSignIn.sharedInstance.handle(url)
     }
     
 //    func applicationDidBecomeActive(_ application: UIApplication) {

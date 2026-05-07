@@ -1,5 +1,8 @@
 import FirebaseAuth
+import FirebaseCore
+import GoogleSignIn
 import SwiftUI
+import UIKit
 
 @MainActor
 final class FirebaseAuthService: ObservableObject {
@@ -60,5 +63,41 @@ final class FirebaseAuthService: ObservableObject {
 
     func resetPassword(email: String) async throws {
         try await Auth.auth().sendPasswordReset(withEmail: email)
+    }
+
+    func isLogin() -> Bool {
+        isLoggedIn
+    }
+
+    func signInWithGoogle(presenting: UIViewController) async throws -> UserData {
+        guard let clientID = FirebaseApp.app()?.options.clientID else {
+            throw NSError(domain: "FirebaseAuthService", code: -1, userInfo: [
+                NSLocalizedDescriptionKey: "Firebase clientID не знайдено. Перевірте GoogleService-Info.plist."
+            ])
+        }
+
+        let config = GIDConfiguration(clientID: clientID)
+        // Newer GoogleSignIn SDK uses `configuration` + `signIn(withPresenting:)`.
+        GIDSignIn.sharedInstance.configuration = config
+        let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: presenting)
+
+        guard
+            let idToken = result.user.idToken?.tokenString
+        else {
+            throw NSError(domain: "FirebaseAuthService", code: -2, userInfo: [
+                NSLocalizedDescriptionKey: "Google Sign-In не повернув idToken."
+            ])
+        }
+
+        let accessToken = result.user.accessToken.tokenString
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+
+        let authResult = try await Auth.auth().signIn(with: credential)
+        let user = authResult.user
+        return UserData(
+            id: user.uid,
+            email: user.email ?? "",
+            createdAt: user.metadata.creationDate
+        )
     }
 }

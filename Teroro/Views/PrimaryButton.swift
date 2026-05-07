@@ -45,9 +45,9 @@ enum ButtonVisualStyle {
     var iconAssetName: String? {
         switch self {
         case .siwa:
-            return "appleIc"
+            return "appleIcon"
         case .siwg:
-            return "googleIc"
+            return "googleIcon"
         default:
             return nil
         }
@@ -113,4 +113,3 @@ extension Color {
     }
     .padding()
 }
-
