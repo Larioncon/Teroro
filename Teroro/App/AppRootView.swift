@@ -8,11 +8,15 @@ struct AppRootView: View {
     @StateObject private var homeVM: HomeVM
     @StateObject private var mapVM = TermsMapVM()
     @StateObject private var pomodoroVM = PomodoroVM()
-    @AppStorage("isDarkMode") private var isDarkMode: Bool = false
+    @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
 
     init() {
 
         _homeVM = StateObject(wrappedValue: HomeVM(container: PersistenceController.shared.container))
+    }
+
+    private var preferredColorScheme: ColorScheme? {
+        (AppAppearance(rawValue: appearanceRawValue) ?? .system).preferredColorScheme
     }
 
     var body: some View {
@@ -83,7 +87,7 @@ struct AppRootView: View {
                 AuthScreen(viewModel: authVM)
             }
         }
-        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .preferredColorScheme(preferredColorScheme)
         .fullScreenCover(isPresented: $appState.isShowPaywall) {
             PaywallScreen()
                 .environmentObject(appState)

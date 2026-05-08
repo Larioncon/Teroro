@@ -243,6 +243,8 @@
 		};
 		119A0ECB2F60767200E71F4D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 11525A4B2F8D64DB00A949B1 /* Teroro */;
+			baseConfigurationReferenceRelativePath = Support/Secrets.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -338,6 +340,8 @@
 		};
 		119A0ECE2F60767200E71F4D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 11525A4B2F8D64DB00A949B1 /* Teroro */;
+			baseConfigurationReferenceRelativePath = Support/Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

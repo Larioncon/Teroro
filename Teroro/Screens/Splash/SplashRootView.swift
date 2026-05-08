@@ -8,6 +8,11 @@ struct SplashRootView: View {
     @StateObject private var onboardingVM = OnboardingFlowVM()
     @StateObject private var onboardingRouter = AppRouter()
     @State private var hideMainUntilSplashCompletes = true
+    @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
+
+    private var preferredColorScheme: ColorScheme? {
+        (AppAppearance(rawValue: appearanceRawValue) ?? .system).preferredColorScheme
+    }
 
     var body: some View {
         ZStack {
@@ -35,6 +40,7 @@ struct SplashRootView: View {
             .opacity(onboardingRouter.path.count > 0 ? 1 : 0)
             .allowsHitTesting(onboardingRouter.path.count > 0)
         }
+        .preferredColorScheme(preferredColorScheme)
         .task {
             try? await Task.sleep(nanoseconds: 3_000_000_000)
             onboardingVM.navigationRouter = onboardingRouter

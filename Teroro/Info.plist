@@ -2,18 +2,81 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.129801524527-d8efnok69b00fdpg6qmtat11l3d73g4t</string>
-			</array>
-		</dict>
-	</array>
-	<key>GIDClientID</key>
-	<string>129801524527-d8efnok69b00fdpg6qmtat11l3d73g4t.apps.googleusercontent.com</string>
+
+    <!-- MARK: - Google Sign In -->
+
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.129801524527-d8efnok69b00fdpg6qmtat11l3d73g4t</string>
+            </array>
+        </dict>
+    </array>
+
+    <key>GIDClientID</key>
+    <string>129801524527-d8efnok69b00fdpg6qmtat11l3d73g4t.apps.googleusercontent.com</string>
+
+
+    <!-- MARK: - RevenueCat -->
+
+    <key>APP_ID</key>
+    <string>$(APP_ID)</string>
+
+    <key>REVENUECAT_PUBLIC_KEY</key>
+    <string>$(REVENUECAT_PUBLIC_KEY)</string>
+
+    <key>DEFAULT_OFFERING_ID</key>
+    <string>$(DEFAULT_OFFERING_ID)</string>
+
+
+    <!-- MARK: - Product IDs -->
+
+    <key>WEEKLY_PRODUCT_ID</key>
+    <string>$(WEEKLY_PRODUCT_ID)</string>
+
+    <key>MONTHLY_PRODUCT_ID</key>
+    <string>$(MONTHLY_PRODUCT_ID)</string>
+
+    <key>YEARLY_PRODUCT_ID</key>
+    <string>$(YEARLY_PRODUCT_ID)</string>
+
+    <key>WEEKLY_TRIAL_PRODUCT_ID</key>
+    <string>$(WEEKLY_TRIAL_PRODUCT_ID)</string>
+
+    <key>MONTHLY_TRIAL_PRODUCT_ID</key>
+    <string>$(MONTHLY_TRIAL_PRODUCT_ID)</string>
+
+    <key>YEARLY_TRIAL_PRODUCT_ID</key>
+    <string>$(YEARLY_TRIAL_PRODUCT_ID)</string>
+
+    <key>LIFETIME_PRODUCT_ID</key>
+    <string>$(LIFETIME_PRODUCT_ID)</string>
+
+    <key>YEARLY_SPECIAL_OFFER_PRODUCT_ID</key>
+    <string>$(YEARLY_SPECIAL_OFFER_PRODUCT_ID)</string>
+
+
+    <!-- MARK: - Links & Support -->
+
+    <key>TERMS_OF_USE_URL</key>
+    <string>$(TERMS_OF_USE_URL)</string>
+
+    <key>PRIVACY_POLICY_URL</key>
+    <string>$(PRIVACY_POLICY_URL)</string>
+
+    <key>CONTACT_URL</key>
+    <string>$(CONTACT_URL)</string>
+
+    <key>SUPPORT_EMAIL</key>
+    <string>$(SUPPORT_EMAIL)</string>
+
+    <key>APP_STORE_URL</key>
+    <string>$(APP_STORE_URL)</string>
+
 </dict>
 </plist>

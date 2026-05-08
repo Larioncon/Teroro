@@ -7,9 +7,17 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section {
-                Toggle(isOn: $viewModel.isDarkMode) {
-                    Label("Темна тема", systemImage: "moon.fill")
+                Picker("Режим", selection: Binding(get: {
+                    viewModel.appearance
+                }, set: { newValue in
+                    viewModel.appearance = newValue
+                })) {
+                    ForEach(AppAppearance.allCases) { mode in
+                        Label(mode.title, systemImage: mode.icon)
+                            .tag(mode)
+                    }
                 }
+                .pickerStyle(.segmented)
             }
 
             Section {
@@ -26,9 +34,40 @@ struct SettingsView: View {
                     }
                 }
 
-                Link(destination: viewModel.contactURL) {
-                    Label("Контакти", systemImage: "person.crop.circle")
+//                Link(destination: viewModel.contactURL) {
+//                    Label("Контакти", systemImage: "person.crop.circle")
+//                }
+            }
+
+            Section {
+                Button {
+                    viewModel.openFeedback()
+                } label: {
+                    Label("Написати фідбек", systemImage: "envelope.fill")
                 }
+
+                if let appStoreURL = viewModel.appStoreURL {
+                    ShareLink(item: appStoreURL) {
+                        Label("Поділитися застосунком", systemImage: "square.and.arrow.up")
+                    }
+                } else {
+                    Label("Поділитися застосунком", systemImage: "square.and.arrow.up")
+                        .foregroundStyle(.secondary)
+                }
+
+                Button {
+                    viewModel.openTermsOfUse()
+                } label: {
+                    Label("Умови використання", systemImage: "doc.text")
+                }
+                .disabled(viewModel.termsURL == nil)
+
+                Button {
+                    viewModel.openPrivacyPolicy()
+                } label: {
+                    Label("Політика конфіденційності", systemImage: "hand.raised.fill")
+                }
+                .disabled(viewModel.privacyURL == nil)
             }
 
             Section {

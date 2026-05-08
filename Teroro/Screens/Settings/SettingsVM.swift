@@ -4,9 +4,13 @@ import UIKit
 
 @MainActor
 final class SettingsVM: ObservableObject {
-    @AppStorage("isDarkMode") var isDarkMode: Bool = false
+    @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
 
-    let contactURL = URL(string: "https://sites.google.com/view/0047coslw")!
+    var appearance: AppAppearance {
+        get { AppAppearance(rawValue: appearanceRawValue) ?? .system }
+        set { appearanceRawValue = newValue.rawValue }
+    }
+
     private let authService: FirebaseAuthService
 
     @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
@@ -19,6 +23,7 @@ final class SettingsVM: ObservableObject {
 
     init(authService: FirebaseAuthService = .shared) {
         self.authService = authService
+        migrateLegacyThemeIfNeeded()
     }
 
     // MARK: - View Events
@@ -40,9 +45,48 @@ final class SettingsVM: ObservableObject {
         return (angle < 90) || (angle > 270)
     }
 
+    var contactURL: URL {
+        URL(string: AppConstants.contactUsLink) ?? URL(string: "https://sites.google.com/view/0047coslw")!
+    }
+
+    var termsURL: URL? {
+        URL(string: AppConstants.termsOfUseLink)
+    }
+
+    var privacyURL: URL? {
+        URL(string: AppConstants.privacyPolicyLink)
+    }
+
+    var appStoreURL: URL? {
+        URL(string: AppConstants.appStoreLink)
+    }
+
     func openSystemSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
+    }
+
+    func openTermsOfUse() {
+        guard let url = termsURL else { return }
+        UIApplication.shared.open(url)
+    }
+
+    func openPrivacyPolicy() {
+        guard let url = privacyURL else { return }
+        UIApplication.shared.open(url)
+    }
+
+    func openFeedback() {
+        // Prefer email, fallback to contact page.
+        let email = AppConstants.contactUsEmail.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !email.isEmpty,
+           let url = URL(string: "mailto:\(email)"),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+            return
+        }
+
+        UIApplication.shared.open(contactURL)
     }
 
     func signOut() {
@@ -70,5 +114,16 @@ final class SettingsVM: ObservableObject {
             notificationStatus = status
             statusFlipRotation = targetRotation
         }
+    }
+
+    // MARK: - Private
+
+    private func migrateLegacyThemeIfNeeded() {
+        let defaults = UserDefaults.standard
+        guard defaults.object(forKey: "appAppearance") == nil else { return }
+        guard defaults.object(forKey: "isDarkMode") != nil else { return }
+
+        let wasDark = defaults.bool(forKey: "isDarkMode")
+        appearanceRawValue = (wasDark ? AppAppearance.dark : AppAppearance.light).rawValue
     }
 }
