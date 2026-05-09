@@ -34,9 +34,6 @@ struct SettingsView: View {
                     }
                 }
 
-//                Link(destination: viewModel.contactURL) {
-//                    Label("Контакти", systemImage: "person.crop.circle")
-//                }
             }
 
             Section {

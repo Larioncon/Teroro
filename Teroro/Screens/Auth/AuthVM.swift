@@ -86,7 +86,8 @@ final class AuthVM: ObservableObject {
                     _ = try await auth.signIn(email: trimmedEmail, password: password)
                 }
             } catch {
-                alertMessage = error.localizedDescription
+                alertMessage = UserFacingAuthError(from: error).errorDescription
+                    ?? UserFacingAuthError.generic.errorDescription
             }
             isLoading = false
         }
@@ -104,7 +105,8 @@ final class AuthVM: ObservableObject {
                 try await auth.resetPassword(email: trimmedEmail)
                 alertMessage = "Лист для відновлення паролю надіслано."
             } catch {
-                alertMessage = error.localizedDescription
+                alertMessage = UserFacingAuthError(from: error).errorDescription
+                    ?? UserFacingAuthError.generic.errorDescription
             }
             isLoading = false
         }
@@ -114,7 +116,8 @@ final class AuthVM: ObservableObject {
         do {
             try auth.signOut()
         } catch {
-            alertMessage = error.localizedDescription
+            alertMessage = UserFacingAuthError(from: error).errorDescription
+                ?? UserFacingAuthError.generic.errorDescription
         }
     }
 
@@ -129,7 +132,8 @@ final class AuthVM: ObservableObject {
             do {
                 _ = try await auth.signInWithGoogle(presenting: presenting)
             } catch {
-                alertMessage = error.localizedDescription
+                alertMessage = UserFacingAuthError(from: error).errorDescription
+                    ?? UserFacingAuthError.generic.errorDescription
             }
             isLoading = false
         }
