@@ -14,97 +14,108 @@ struct AuthScreen: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    header
+        ZStack {
+            NavigationStack {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        header
 
-                    VStack(spacing: 12) {
-                        textField(
-                            title: "Email",
-                            text: $viewModel.email,
-                            keyboard: .emailAddress,
-                            contentType: .emailAddress,
-                            submit: .next
-                        )
-                        .focused($focusedField, equals: .email)
-
-                        secureField(
-                            title: "Password",
-                            text: $viewModel.password,
-                            contentType: .password,
-                            submit: viewModel.mode == .signUp ? .next : .go
-                        )
-                        .focused($focusedField, equals: .password)
-
-                        if viewModel.mode == .signUp {
-                            secureField(
-                                title: "Confirm password",
-                                text: $viewModel.confirmPassword,
-                                contentType: .newPassword,
-                                submit: .go
+                        VStack(spacing: 12) {
+                            textField(
+                                title: "Email",
+                                text: $viewModel.email,
+                                keyboard: .emailAddress,
+                                contentType: .emailAddress,
+                                submit: .next
                             )
-                            .focused($focusedField, equals: .confirm)
-                            .transition(.opacity.combined(with: .move(edge: .trailing)))
+                            .focused($focusedField, equals: .email)
+
+                            secureField(
+                                title: "Password",
+                                text: $viewModel.password,
+                                contentType: .password,
+                                submit: viewModel.mode == .signUp ? .next : .go
+                            )
+                            .focused($focusedField, equals: .password)
+
+                            if viewModel.mode == .signUp {
+                                secureField(
+                                    title: "Confirm password",
+                                    text: $viewModel.confirmPassword,
+                                    contentType: .newPassword,
+                                    submit: .go
+                                )
+                                .focused($focusedField, equals: .confirm)
+                                .transition(.opacity.combined(with: .move(edge: .trailing)))
+                            }
                         }
-                    }
-                    .animation(.easeInOut(duration: 0.25), value: viewModel.mode)
+                        .animation(.easeInOut(duration: 0.25), value: viewModel.mode)
 
-                    if viewModel.mode == .signIn {
-                        Button("Forgot password?") {
-                            viewModel.resetPassword()
+                        if viewModel.mode == .signIn {
+                            Button("Forgot password?") {
+                                viewModel.resetPassword()
+                            }
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.blue)
+                            .padding(.top, 2)
                         }
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.blue)
-                        .padding(.top, 2)
+
+                        PrimaryButton(
+                            title: viewModel.primaryButtonTitle,
+                            style: .primaryWhiteText,
+                            frameHeight: 54
+                        ) {
+                            focusedField = nil
+                            viewModel.submit()
+                        }
+                        .disabled(viewModel.isLoading)
+                        .opacity(viewModel.isLoading ? 0.7 : 1)
+
+                        socialSection
+                            .padding(.top, 6)
+
+                        toggleModeFooter
+                            .padding(.top, 10)
+
+                        Spacer(minLength: 0)
                     }
-
-                    PrimaryButton(
-                        title: viewModel.primaryButtonTitle,
-                        style: .primaryWhiteText,
-                        frameHeight: 54
-                    ) {
-                        focusedField = nil
-                        viewModel.submit()
+                    .padding(.horizontal, 20)
+                    .padding(.top, 28)
+                }
+                .scrollDismissesKeyboard(.interactively)
+                .background(ViewControllerReader(viewController: $presentingViewController))
+                .toolbar {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Готово") { focusedField = nil }
                     }
-                    .disabled(viewModel.isLoading)
-                    .opacity(viewModel.isLoading ? 0.7 : 1)
-
-                    socialSection
-                        .padding(.top, 6)
-
-                    toggleModeFooter
-                        .padding(.top, 10)
-
-                    Spacer(minLength: 0)
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 28)
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .scrollDismissesKeyboard(.interactively)
-            .background(ViewControllerReader(viewController: $presentingViewController))
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Готово") { focusedField = nil }
-                }
+            .alert("Помилка", isPresented: Binding(get: {
+                viewModel.alertMessage != nil
+            }, set: { newValue in
+                if !newValue { viewModel.alertMessage = nil }
+            }), actions: {
+                Button("OK") { viewModel.alertMessage = nil }
+            }, message: {
+                Text(viewModel.alertMessage ?? "")
+            })
+            .alert("Незабаром", isPresented: $isShowingAppleStubAlert, actions: {
+                Button("OK", role: .cancel) {}
+            }, message: {
+                Text("Опція входу через Apple зʼявиться пізніше.")
+            })
+
+            if viewModel.isLoading {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(1.5)
             }
-            .navigationBarTitleDisplayMode(.inline)
         }
-        .alert("Помилка", isPresented: Binding(get: {
-            viewModel.alertMessage != nil
-        }, set: { newValue in
-            if !newValue { viewModel.alertMessage = nil }
-        }), actions: {
-            Button("OK") { viewModel.alertMessage = nil }
-        }, message: {
-            Text(viewModel.alertMessage ?? "")
-        })
-        .alert("Незабаром", isPresented: $isShowingAppleStubAlert, actions: {
-            Button("OK", role: .cancel) {}
-        }, message: {
-            Text("Опція входу через Apple зʼявиться пізніше.")
-        })
     }
 
     private var header: some View {
