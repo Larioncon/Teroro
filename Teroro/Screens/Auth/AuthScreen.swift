@@ -21,36 +21,46 @@ struct AuthScreen: View {
                         header
 
                         VStack(spacing: 12) {
-                            textField(
+                            AuthTextField(
                                 title: "Email",
                                 text: $viewModel.email,
-                                keyboard: .emailAddress,
+                                keyboardType: .emailAddress,
                                 contentType: .emailAddress,
-                                submit: .next
+                                submitLabel: .next,
+                                onSubmit: { focusedField = .password }
                             )
                             .focused($focusedField, equals: .email)
 
-                            secureField(
+                            AuthTextField(
                                 title: "Password",
                                 text: $viewModel.password,
+                                isSecure: true,
                                 contentType: .password,
-                                submit: viewModel.mode == .signUp ? .next : .go
+                                submitLabel: viewModel.mode == .signUp ? .next : .go,
+                                onSubmit: {
+                                    focusedField = viewModel.mode == .signUp ? .confirm : nil
+                                    if viewModel.mode == .signIn { viewModel.submit() }
+                                }
                             )
                             .focused($focusedField, equals: .password)
 
                             if viewModel.mode == .signUp {
-                                secureField(
+                                AuthTextField(
                                     title: "Confirm password",
                                     text: $viewModel.confirmPassword,
+                                    isSecure: true,
                                     contentType: .newPassword,
-                                    submit: .go
+                                    submitLabel: .go,
+                                    onSubmit: {
+                                        focusedField = nil
+                                        viewModel.submit()
+                                    }
                                 )
                                 .focused($focusedField, equals: .confirm)
                                 .transition(.opacity.combined(with: .move(edge: .trailing)))
                             }
                         }
                         .animation(.easeInOut(duration: 0.25), value: viewModel.mode)
-
                         if viewModel.mode == .signIn {
                             Button("Forgot password?") {
                                 viewModel.resetPassword()
@@ -126,7 +136,7 @@ struct AuthScreen: View {
                 .transition(.opacity.combined(with: .move(edge: .trailing)))
 
             Text(viewModel.mode == .signUp
-                 ? "Create an account to start using Teroro."
+                 ? "Create an account to start using Timora."
                  : "Sign in to continue.")
             .font(.subheadline)
             .foregroundStyle(.secondary)
@@ -181,74 +191,6 @@ struct AuthScreen: View {
             .disabled(viewModel.isLoading)
             .opacity(viewModel.isLoading ? 0.7 : 1)
         }
-    }
-
-    private func textField(
-        title: String,
-        text: Binding<String>,
-        keyboard: UIKeyboardType,
-        contentType: UITextContentType?,
-        submit: SubmitLabel
-    ) -> some View {
-        TextField(title, text: text)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-            .keyboardType(keyboard)
-            .textContentType(contentType)
-            .submitLabel(submit)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 14)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .strokeBorder(Color.secondary.opacity(0.2), lineWidth: 1)
-            )
-            .onSubmit {
-                switch focusedField {
-                case .email:
-                    focusedField = .password
-                case .password:
-                    focusedField = viewModel.mode == .signUp ? .confirm : nil
-                    if viewModel.mode == .signIn { viewModel.submit() }
-                case .confirm:
-                    focusedField = nil
-                    viewModel.submit()
-                default:
-                    break
-                }
-            }
-    }
-
-    private func secureField(
-        title: String,
-        text: Binding<String>,
-        contentType: UITextContentType?,
-        submit: SubmitLabel
-    ) -> some View {
-        SecureField(title, text: text)
-            .textInputAutocapitalization(.never)
-            .autocorrectionDisabled()
-            .textContentType(contentType)
-            .submitLabel(submit)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 14)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .strokeBorder(Color.secondary.opacity(0.2), lineWidth: 1)
-            )
-            .onSubmit {
-                switch focusedField {
-                case .password:
-                    focusedField = viewModel.mode == .signUp ? .confirm : nil
-                    if viewModel.mode == .signIn { viewModel.submit() }
-                case .confirm:
-                    focusedField = nil
-                    viewModel.submit()
-                default:
-                    break
-                }
-            }
     }
 }
 
