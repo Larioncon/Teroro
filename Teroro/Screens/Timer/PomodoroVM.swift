@@ -11,6 +11,7 @@ final class PomodoroVM: ObservableObject {
     }
     @Published private(set) var remainingSeconds: Int = 25 * 60
     @Published private(set) var isRunning: Bool = false
+    @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
     
     // Progress for the wave effect (0.0 to 1.0)
     var progress: Double {
@@ -24,6 +25,14 @@ final class PomodoroVM: ObservableObject {
     init() {
         // Initialize remainingSeconds with the persisted value
         _remainingSeconds = Published(initialValue: max(1, selectedMinutes) * 60)
+        refreshNotificationStatus()
+    }
+
+    func refreshNotificationStatus() {
+        Task {
+            let status = await NotificationService.shared.authorizationStatus()
+            self.notificationStatus = status
+        }
     }
 
     func applySelectedDuration() {
@@ -33,11 +42,11 @@ final class PomodoroVM: ObservableObject {
     }
 
     func toggle() {
-        isRunning ? pause() : start()
+        isRunning ? pause(isManual: true) : start()
     }
 
     func reset() {
-        pause()
+        pause(isManual: true)
         remainingSeconds = max(1, selectedMinutes) * 60
     }
 
@@ -51,13 +60,25 @@ final class PomodoroVM: ObservableObject {
             .sink { [weak self] _ in
                 self?.tick()
             }
+
+        Task {
+            await NotificationService.shared.requestAuthorizationIfNeeded()
+            refreshNotificationStatus()
+            await NotificationService.shared.schedulePomodoroNotification(after: remainingSeconds)
+        }
     }
 
-    private func pause() {
+    private func pause(isManual: Bool = false) {
         isRunning = false
         ticker?.cancel()
         ticker = nil
         endDate = nil
+
+        if isManual {
+            Task {
+                await NotificationService.shared.cancelPomodoroNotification()
+            }
+        }
     }
 
     func stop() {
@@ -71,7 +92,15 @@ final class PomodoroVM: ObservableObject {
             remainingSeconds = newValue
         }
         if remainingSeconds <= 0 {
-            reset()
+            // Natural finish: stop the ticker and reset to initial state
+            // but DO NOT cancel the scheduled notification
+            isRunning = false
+            ticker?.cancel()
+            ticker = nil
+            self.endDate = nil
+            
+            // Auto-reset seconds
+            remainingSeconds = max(1, selectedMinutes) * 60
         }
     }
 

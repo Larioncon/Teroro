@@ -3,6 +3,7 @@ import SwiftUI
 struct PomodoroView: View {
     @ObservedObject var viewModel: PomodoroVM
     @State private var isShowingPicker = false
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ZStack {
@@ -27,6 +28,22 @@ struct PomodoroView: View {
                         .kerning(2)
                         .foregroundStyle(.secondary)
                         .padding(.top, 4)
+
+                    if viewModel.notificationStatus == .denied {
+                        Button(action: {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "bell.slash.fill")
+                                Text("Сповіщення вимкнено")
+                            }
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.red)
+                            .padding(.top, 4)
+                        }
+                    }
                 }
                 .padding(.top, 40)
 
@@ -95,6 +112,11 @@ struct PomodoroView: View {
         .navigationBarHidden(true)
         .toolbar(viewModel.isRunning ? .hidden : .visible, for: .tabBar)
         .animation(.easeInOut, value: viewModel.isRunning)
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                viewModel.refreshNotificationStatus()
+            }
+        }
     }
 
     private var timerText: some View {

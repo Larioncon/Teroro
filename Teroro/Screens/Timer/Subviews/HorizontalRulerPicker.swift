@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HorizontalRulerPicker: View {
     @Binding var selection: Int
-    private let values = Array(stride(from: 5, through: 120, by: 5))
+    private let values = Array(stride(from: 1, through: 120, by: 5))
     private let impact = UIImpactFeedbackGenerator(style: .light)
 
     var body: some View {
