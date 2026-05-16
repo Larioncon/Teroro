@@ -2,6 +2,11 @@ import Foundation
 import Combine
 import SwiftUI
 
+enum PomodoroMode {
+    case focus
+    case rest
+}
+
 @MainActor
 final class PomodoroVM: ObservableObject {
     @AppStorage("pomodoroSelectedMinutes") var selectedMinutes: Int = 25 {
@@ -11,12 +16,15 @@ final class PomodoroVM: ObservableObject {
     }
     @Published private(set) var remainingSeconds: Int = 25 * 60
     @Published private(set) var isRunning: Bool = false
+    @Published private(set) var mode: PomodoroMode = .focus
     @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
     
     // Progress for the wave effect (0.0 to 1.0)
     var progress: Double {
-        let total = Double(max(1, selectedMinutes) * 60)
-        return 1.0 - (Double(remainingSeconds) / total)
+        let total = Double((mode == .focus ? max(1, selectedMinutes) : 5) * 60)
+        let raw = 1.0 - (Double(remainingSeconds) / total)
+        // If focus: 0 -> 1 (filling up). If rest: 1 -> 0 (draining).
+        return mode == .focus ? raw : (1.0 - raw)
     }
 
     private var ticker: AnyCancellable?
@@ -36,7 +44,7 @@ final class PomodoroVM: ObservableObject {
     }
 
     func applySelectedDuration() {
-        guard !isRunning else { return }
+        guard !isRunning, mode == .focus else { return }
         remainingSeconds = max(1, selectedMinutes) * 60
         objectWillChange.send()
     }
@@ -47,6 +55,7 @@ final class PomodoroVM: ObservableObject {
 
     func reset() {
         pause(isManual: true)
+        mode = .focus
         remainingSeconds = max(1, selectedMinutes) * 60
     }
 
@@ -64,7 +73,11 @@ final class PomodoroVM: ObservableObject {
         Task {
             await NotificationService.shared.requestAuthorizationIfNeeded()
             refreshNotificationStatus()
-            await NotificationService.shared.schedulePomodoroNotification(after: remainingSeconds)
+            if mode == .focus {
+                await NotificationService.shared.schedulePomodoroNotification(after: remainingSeconds)
+            } else {
+                await NotificationService.shared.scheduleRestNotification(after: remainingSeconds)
+            }
         }
     }
 
@@ -92,15 +105,21 @@ final class PomodoroVM: ObservableObject {
             remainingSeconds = newValue
         }
         if remainingSeconds <= 0 {
-            // Natural finish: stop the ticker and reset to initial state
-            // but DO NOT cancel the scheduled notification
-            isRunning = false
-            ticker?.cancel()
-            ticker = nil
-            self.endDate = nil
-            
-            // Auto-reset seconds
-            remainingSeconds = max(1, selectedMinutes) * 60
+            if mode == .focus {
+                // Switch to rest mode automatically
+                mode = .rest
+                remainingSeconds = 5 * 60
+                self.endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
+                
+                Task {
+                    await NotificationService.shared.scheduleRestNotification(after: remainingSeconds)
+                }
+            } else {
+                // Rest is over, back to focus and stop
+                pause(isManual: false)
+                mode = .focus
+                remainingSeconds = max(1, selectedMinutes) * 60
+            }
         }
     }
 

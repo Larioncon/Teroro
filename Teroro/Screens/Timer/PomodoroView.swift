@@ -23,10 +23,10 @@ struct PomodoroView: View {
                     .buttonStyle(.plain)
                     .disabled(viewModel.isRunning)
                     
-                    Text("FOCUS TIME")
+                    Text(viewModel.mode == .focus ? "FOCUS TIME" : "RELAX")
                         .font(.system(size: 14, weight: .black))
                         .kerning(2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(viewModel.mode == .focus ? Color.secondary : Color.green)
                         .padding(.top, 4)
 
                     if viewModel.notificationStatus == .denied {
@@ -59,7 +59,7 @@ struct PomodoroView: View {
                                 .fill(.ultraThinMaterial)
                                 .overlay {
                                     Wave(phase: phase, progress: viewModel.progress)
-                                        .fill(Color.red.opacity(0.4))
+                                        .fill((viewModel.mode == .focus ? Color.red : Color.green).opacity(0.4))
                                         .clipShape(Circle())
                                 }
                                 .overlay {
@@ -90,7 +90,7 @@ struct PomodoroView: View {
                     }
 
                     PomodoroButton(
-                        title: "СТОП",
+                        title: viewModel.mode == .focus ? "СТОП" : "ЗАВЕРШИТИ",
                         icon: "stop.fill",
                         color: .primary
                     ) {
@@ -105,13 +105,49 @@ struct PomodoroView: View {
 
             // Time Picker Overlay
             if isShowingPicker {
-                pickerOverlay
-                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                // Dimming Background
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+                    .transition(.opacity)
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            isShowingPicker = false
+                        }
+                    }
+                    .zIndex(1)
+
+                // Card Content
+                VStack(spacing: 30) {
+                    Text("Тривалість")
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+
+                    HorizontalRulerPicker(selection: $viewModel.selectedMinutes)
+
+                    Button(action: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            isShowingPicker = false
+                        }
+                    }) {
+                        Text("Готово")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 40)
+                            .padding(.vertical, 14)
+                            .background(Color.accentColor, in: Capsule())
+                    }
+                }
+                .padding(.vertical, 40)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
+                .padding(.horizontal, 20)
+                .transition(.opacity.combined(with: .scale(scale: 0.9, anchor: .center)))
+                .zIndex(2)
             }
         }
-        .navigationBarHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
+        .animation(.spring(), value: viewModel.isRunning)
+        .animation(.spring(), value: viewModel.mode)
         .toolbar(viewModel.isRunning ? .hidden : .visible, for: .tabBar)
-        .animation(.easeInOut, value: viewModel.isRunning)
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
                 viewModel.refreshNotificationStatus()
@@ -124,42 +160,6 @@ struct PomodoroView: View {
             .font(.system(size: 64, weight: .bold, design: .rounded))
             .monospacedDigit()
             .foregroundStyle(.primary)
-    }
-
-    private var pickerOverlay: some View {
-        ZStack {
-            Color.black.opacity(0.2)
-                .ignoresSafeArea()
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        isShowingPicker = false
-                    }
-                }
-
-            VStack(spacing: 30) {
-                Text("Тривалість")
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-
-                HorizontalRulerPicker(selection: $viewModel.selectedMinutes)
-
-                Button(action: {
-                    withAnimation(.spring()) {
-                        isShowingPicker = false
-                    }
-                }) {
-                    Text("Готово")
-                        .font(.headline)
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 14)
-                        .background(Color.accentColor, in: Capsule())
-                }
-            }
-            .padding(.vertical, 40)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
-            .padding(.horizontal, 20)
-        }
     }
 }
 

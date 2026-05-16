@@ -89,9 +89,38 @@ actor NotificationService {
         }
     }
 
+    func scheduleRestNotification(after seconds: Int) async {
+        guard seconds > 0 else { return }
+        let center = UNUserNotificationCenter.current()
+
+        let content = UNMutableNotificationContent()
+        content.title = "Відпочинок завершено! 🎉"
+        content.body = "Чудовий відпочинок! Ви набралися сил і готові до нових звершень. Почнемо нову сесію?"
+        content.sound = .default
+
+        let fireDate = Date().addingTimeInterval(TimeInterval(seconds))
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: fireDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        
+        let request = UNNotificationRequest(
+            identifier: "rest_timer",
+            content: content,
+            trigger: trigger
+        )
+
+        do {
+            center.removePendingNotificationRequests(withIdentifiers: ["rest_timer"])
+            center.removeDeliveredNotifications(withIdentifiers: ["rest_timer"])
+            try await center.add(request)
+        } catch {
+            print("--- Failed to schedule Rest notification: \(error)")
+        }
+    }
+
     func cancelPomodoroNotification() async {
-        UNUserNotificationCenter.current()
-            .removePendingNotificationRequests(withIdentifiers: ["pomodoro_timer"])
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["pomodoro_timer"])
+        center.removePendingNotificationRequests(withIdentifiers: ["rest_timer"])
     }
 
     private static func reminderBody(for termDate: Date) -> String {
