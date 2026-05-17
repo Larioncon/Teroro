@@ -70,12 +70,30 @@ struct PomodoroView: View {
                         .frame(width: 260, height: 260)
                     }
 
-                    // 3. Tomato Asset (Always on top)
-                    Image("tomato")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 220, height: 220)
-                        .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+                    // 3. Tomato/Cucumber Asset with Flip Animation
+                    ZStack {
+                        Image(.tomato)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 220, height: 220)
+                            .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+                            .opacity(viewModel.mode == .focus ? 1 : 0)
+                            .rotation3DEffect(
+                                .degrees(viewModel.mode == .focus ? 0 : 180),
+                                axis: (x: 0, y: 1, z: 0)
+                            )
+
+                        Image(.cucumber)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 180, height: 180)
+                            .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+                            .opacity(viewModel.mode == .rest ? 1 : 0)
+                            .rotation3DEffect(
+                                .degrees(viewModel.mode == .rest ? 0 : -180),
+                                axis: (x: 0, y: 1, z: 0)
+                            )
+                    }
                 }
 
 

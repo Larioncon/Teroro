@@ -105,18 +105,14 @@ final class PomodoroVM: ObservableObject {
             remainingSeconds = newValue
         }
         if remainingSeconds <= 0 {
+            pause(isManual: false)
+            
             if mode == .focus {
-                // Switch to rest mode automatically
+                // Switch to rest mode, but wait for manual start
                 mode = .rest
                 remainingSeconds = 5 * 60
-                self.endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
-                
-                Task {
-                    await NotificationService.shared.scheduleRestNotification(after: remainingSeconds)
-                }
             } else {
-                // Rest is over, back to focus and stop
-                pause(isManual: false)
+                // Rest is over, back to focus
                 mode = .focus
                 remainingSeconds = max(1, selectedMinutes) * 60
             }
