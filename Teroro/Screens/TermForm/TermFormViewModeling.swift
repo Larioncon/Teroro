@@ -14,7 +14,8 @@ protocol TermFormViewModeling: ObservableObject {
     var date: Date { get set }
     var reminderEnabled: Bool { get set }
     var reminderDate: Date { get set }
+    var isLoading: Bool { get }
     var isSaveEnabled: Bool { get }
 
-    func save() -> Bool
+    func save() async -> Bool
 }

@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct AppRootView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var appState: AppState
     @StateObject private var navigator = AppRouter()
     @StateObject private var authVM = AuthVM()
@@ -11,8 +10,7 @@ struct AppRootView: View {
     @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
 
     init() {
-
-        _homeVM = StateObject(wrappedValue: HomeVM(container: PersistenceController.shared.container))
+        _homeVM = StateObject(wrappedValue: HomeVM())
     }
 
     private var preferredColorScheme: ColorScheme? {
@@ -35,7 +33,7 @@ struct AppRootView: View {
                                 EmptyView()
                             case .addTerm:
                                 TermFormView(
-                                    viewModel: AddTermVM(context: viewContext),
+                                    viewModel: AddTermVM(),
                                     title: "Новий термін",
                                     onSave: {
                                         homeVM.fetchTerms()
@@ -45,7 +43,7 @@ struct AppRootView: View {
                                 )
                             case .editTerm(let id):
                                 TermFormView(
-                                    viewModel: EditTermVM(termID: id, context: viewContext),
+                                    viewModel: EditTermVM(termID: id),
                                     title: "Редагувати",
                                     onSave: {
                                         homeVM.fetchTerms()
@@ -64,7 +62,7 @@ struct AppRootView: View {
                         Label("Терміни", systemImage: "calendar")
                     }
 
-                    TermsMapView(viewModel: mapVM, terms: homeVM.terms)
+                    TermsMapView(viewModel: mapVM, terms: homeVM.terms, isLoading: homeVM.isLoading)
                         .tabItem {
                             Label("Мапа", systemImage: "map")
                         }
@@ -95,6 +93,13 @@ struct AppRootView: View {
         .fullScreenCover(isPresented: $appState.isShowPwTrial) {
             PaywallScreen()
                 .environmentObject(appState)
+        }
+        .alert(item: $appState.alertData) { data in
+            Alert(
+                title: Text(data.title),
+                message: Text(data.message),
+                dismissButton: .default(Text("OK"))
+            )
         }
     }
 }

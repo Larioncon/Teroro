@@ -25,14 +25,17 @@ struct HomeView: View {
         let now = Date()
         let upcoming = viewModel.upcomingTerms(referenceDate: now)
         let past = viewModel.pastTerms(referenceDate: now)
-        let isPastToggleDisabled = !isShowingPastTerms && past.isEmpty
+        let displayedUpcoming = viewModel.isLoading ? viewModel.placeholderTerms : upcoming
+        let displayedPast = viewModel.isLoading ? viewModel.placeholderPastTerms : past
+        let isPastToggleDisabled = !viewModel.isLoading && !isShowingPastTerms && past.isEmpty
 
         ZStack {
             ZStack {
                 TermsList(
                     viewModel: viewModel,
-                    terms: upcoming,
+                    terms: displayedUpcoming,
                     emptyText: "Немає актуальних термінів",
+                    isLoading: viewModel.isLoading,
                     onDeleteTerm: onDeleteTerm
                 )
                 .opacity(isShowingPastTerms ? 0 : 1)
@@ -43,8 +46,9 @@ struct HomeView: View {
 
                 TermsList(
                     viewModel: viewModel,
-                    terms: past,
+                    terms: displayedPast,
                     emptyText: "Немає минулих термінів",
+                    isLoading: viewModel.isLoading,
                     onDeleteTerm: onDeleteTerm
                 )
                 .opacity(isShowingPastTerms ? 1 : 0)
@@ -174,17 +178,20 @@ private struct TermsList: View {
     let viewModel: HomeVM
     let terms: [Term]
     let emptyText: String
+    let isLoading: Bool
     let onDeleteTerm: (Term) -> Void
 
     var body: some View {
         List {
             Section {
-                if terms.isEmpty {
+                if terms.isEmpty && !isLoading {
                     Text(emptyText)
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(terms) { term in
                         TermRow(viewModel: viewModel, term: term)
+                            .redacted(reason: isLoading ? .placeholder : [])
+                            .allowsHitTesting(!isLoading)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
                                     onDeleteTerm(term)
@@ -228,7 +235,7 @@ private struct TermRow: View {
 #Preview {
     NavigationStack {
         HomeView(
-            viewModel: HomeVM(container: PersistenceController.shared.container),
+            viewModel: HomeVM(),
             onAddTerm: {},
             onDeleteTerm: { _ in }
         )

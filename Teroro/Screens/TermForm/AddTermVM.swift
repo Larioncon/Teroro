@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreData
 
 @MainActor
 final class AddTermVM: ObservableObject, TermFormViewModeling {
@@ -16,41 +15,41 @@ final class AddTermVM: ObservableObject, TermFormViewModeling {
     @Published var reminderEnabled: Bool = false
     @Published var reminderDate: Date = Date()
 
-    private let context: NSManagedObjectContext
+    private let repository: TermsRepository
 
-    init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
-        self.context = context
+    init(repository: TermsRepository = .shared) {
+        self.repository = repository
     }
 
     var isSaveEnabled: Bool {
         !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    func save() -> Bool {
-        let newEntity = TermEntity(context: context)
-        let newID = UUID()
-        newEntity.id = newID
-        newEntity.title = title
-        newEntity.details = details
-        newEntity.date = date
-        newEntity.reminderDate = reminderEnabled ? reminderDate : nil
+    var isLoading: Bool {
+        false
+    }
 
+    func save() async -> Bool {
         do {
-            try context.save()
+            let newID = try await repository.createTerm(
+                title: title.trimmingCharacters(in: .whitespacesAndNewlines),
+                details: details,
+                date: date,
+                reminderDate: reminderEnabled ? reminderDate : nil
+            )
+
             if reminderEnabled {
-                Task {
-                    await NotificationService.shared.requestAuthorizationIfNeeded()
-                    await NotificationService.shared.scheduleReminder(
-                        termID: newID,
-                        title: title,
-                        termDate: date,
-                        reminderDate: reminderDate
-                    )
-                }
+                await NotificationService.shared.requestAuthorizationIfNeeded()
+                await NotificationService.shared.scheduleReminder(
+                    termID: newID,
+                    title: title,
+                    termDate: date,
+                    reminderDate: reminderDate
+                )
             }
             return true
         } catch {
-            print("Помилка збереження: \(error)")
+            AppState.shared.showErrorAlert(error.localizedDescription)
             return false
         }
     }

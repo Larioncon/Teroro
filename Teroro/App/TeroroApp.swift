@@ -7,7 +7,7 @@ import UserNotifications
 @main
 struct TeroroApp: App {
   let persistenceController = PersistenceController.shared
-  @StateObject private var appState = AppState()
+  @StateObject private var appState = AppState.shared
   @UIApplicationDelegateAdaptor(AppDelegate.self) private var firebaseDelegate
     
     init() {

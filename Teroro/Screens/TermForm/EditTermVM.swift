@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreData
 
 @MainActor
 final class EditTermVM: ObservableObject, TermFormViewModeling {
@@ -15,73 +14,81 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
     @Published var date: Date
     @Published var reminderEnabled: Bool
     @Published var reminderDate: Date
+    @Published private(set) var isLoading: Bool
 
     private let termID: UUID
-    private let context: NSManagedObjectContext
+    private let repository: TermsRepository
+    private var loadedTerm: Term?
 
-    init(termID: UUID, context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+    init(termID: UUID, repository: TermsRepository = .shared) {
         self.termID = termID
-        self.context = context
+        self.repository = repository
+        self.title = "Завантаження терміну"
+        self.details = "Деталі терміну відобразяться тут після завантаження"
+        self.date = Date()
+        self.reminderEnabled = false
+        self.reminderDate = Date()
+        self.isLoading = true
 
-        let request = NSFetchRequest<TermEntity>(entityName: "TermEntity")
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "id == %@", termID as CVarArg)
-
-        if let entity = try? context.fetch(request).first {
-            self.title = entity.title ?? ""
-            self.details = entity.details ?? ""
-            self.date = entity.date ?? Date()
-            if let reminder = entity.reminderDate {
-                self.reminderEnabled = true
-                self.reminderDate = reminder
-            } else {
-                self.reminderEnabled = false
-                self.reminderDate = Date()
-            }
-        } else {
-            self.title = ""
-            self.details = ""
-            self.date = Date()
-            self.reminderEnabled = false
-            self.reminderDate = Date()
+        Task {
+            await loadTerm()
         }
     }
 
     var isSaveEnabled: Bool {
-        !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !isLoading && !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
-    func save() -> Bool {
-        let request = NSFetchRequest<TermEntity>(entityName: "TermEntity")
-        request.fetchLimit = 1
-        request.predicate = NSPredicate(format: "id == %@", termID as CVarArg)
-
+    func save() async -> Bool {
         do {
-            if let entity = try context.fetch(request).first {
-                entity.title = title
-                entity.details = details
-                entity.date = date
-                entity.reminderDate = reminderEnabled ? reminderDate : nil
-                try context.save()
-                Task {
-                    if reminderEnabled {
-                        await NotificationService.shared.requestAuthorizationIfNeeded()
-                        await NotificationService.shared.scheduleReminder(
-                            termID: termID,
-                            title: title,
-                            termDate: date,
-                            reminderDate: reminderDate
-                        )
-                    } else {
-                        await NotificationService.shared.cancelReminder(termID: termID)
-                    }
-                }
-                return true
+            var term = loadedTerm ?? Term(id: termID, title: title, details: details, date: date)
+            term.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+            term.details = details
+            term.date = date
+            term.reminderDate = reminderEnabled ? reminderDate : nil
+            try await repository.updateTerm(term)
+
+            if reminderEnabled {
+                await NotificationService.shared.requestAuthorizationIfNeeded()
+                await NotificationService.shared.scheduleReminder(
+                    termID: termID,
+                    title: title,
+                    termDate: date,
+                    reminderDate: reminderDate
+                )
+            } else {
+                await NotificationService.shared.cancelReminder(termID: termID)
             }
-            return false
+            loadedTerm = term
+            return true
         } catch {
-            print("Помилка збереження: \(error)")
+            AppState.shared.showErrorAlert(error.localizedDescription)
             return false
+        }
+    }
+
+    private func loadTerm() async {
+        do {
+            guard let term = try await repository.term(id: termID) else {
+                isLoading = false
+                return
+            }
+            loadedTerm = term
+            title = term.title
+            details = term.details
+            date = term.date
+
+            if let reminder = term.reminderDate {
+                reminderEnabled = true
+                reminderDate = reminder
+            } else {
+                reminderEnabled = false
+                reminderDate = Date()
+            }
+            isLoading = false
+        } catch {
+            isLoading = false
+            AppState.shared.showErrorAlert(error.localizedDescription)
         }
     }
 }

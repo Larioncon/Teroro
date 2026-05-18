@@ -6,32 +6,42 @@
 //
 
 import Foundation
-import CoreData
 import Combine
+import FirebaseFirestore
 
 @MainActor
 final class HomeVM: ObservableObject {
     @Published private(set) var terms: [Term] = []
-    private let container: NSPersistentContainer
+    @Published private(set) var errorMessage: String?
+    @Published private(set) var isLoading = true
 
-    init(container: NSPersistentContainer = PersistenceController.shared.container) {
-        self.container = container
+    private let repository: TermsRepository
+    private var termsListener: ListenerRegistration?
+
+    init(repository: TermsRepository = .shared) {
+        self.repository = repository
         fetchTerms()
     }
 
-    func fetchTerms() {
-        container.performBackgroundTask { context in
-            let request = NSFetchRequest<TermEntity>(entityName: "TermEntity")
-            request.sortDescriptors = [NSSortDescriptor(keyPath: \TermEntity.date, ascending: true)]
+    deinit {
+        termsListener?.remove()
+    }
 
-            do {
-                let entities = try context.fetch(request)
-                let mapped = entities.map(Term.init)
-                Task { @MainActor in
-                    self.terms = mapped
+    func fetchTerms() {
+        termsListener?.remove()
+        termsListener = repository.listenTerms { [weak self] result in
+            Task { @MainActor in
+                switch result {
+                case .success(let terms):
+                    self?.isLoading = false
+                    self?.terms = terms
+                    self?.errorMessage = nil
+                    self?.syncReminders(for: terms)
+                case .failure(let error):
+                    self?.isLoading = false
+                    self?.errorMessage = error.localizedDescription
+                    AppState.shared.showErrorAlert(error.localizedDescription)
                 }
-            } catch {
-                print("Помилка завантаження Core Data: \(error)")
             }
         }
     }
@@ -41,22 +51,13 @@ final class HomeVM: ObservableObject {
     }
 
     func deleteTerm(_ term: Term) {
-        container.performBackgroundTask { context in
-            let request = NSFetchRequest<TermEntity>(entityName: "TermEntity")
-            request.fetchLimit = 1
-            request.predicate = NSPredicate(format: "id == %@", term.id as CVarArg)
-
+        Task {
             do {
-                if let entity = try context.fetch(request).first {
-                    context.delete(entity)
-                    try context.save()
-                    Task { @MainActor in
-                        await NotificationService.shared.cancelReminder(termID: term.id)
-                        self.fetchTerms()
-                    }
-                }
+                try await repository.deleteTerm(term)
+                await NotificationService.shared.cancelReminder(termID: term.id)
             } catch {
-                print("Помилка видалення: \(error)")
+                errorMessage = error.localizedDescription
+                AppState.shared.showErrorAlert(error.localizedDescription)
             }
         }
     }
@@ -83,6 +84,31 @@ final class HomeVM: ObservableObject {
 
     func timeText(for date: Date) -> String {
         Self.timeFormatter.string(from: date)
+    }
+
+    var placeholderTerms: [Term] {
+        Self.placeholderUpcomingTerms
+    }
+
+    var placeholderPastTerms: [Term] {
+        Self.placeholderArchivedTerms
+    }
+
+    private func syncReminders(for terms: [Term]) {
+        Task {
+            for term in terms {
+                if let reminderDate = term.reminderDate, reminderDate > Date() {
+                    await NotificationService.shared.scheduleReminder(
+                        termID: term.id,
+                        title: term.title,
+                        termDate: term.date,
+                        reminderDate: reminderDate
+                    )
+                } else {
+                    await NotificationService.shared.cancelReminder(termID: term.id)
+                }
+            }
+        }
     }
 
     private static let dateFormatter: DateFormatter = {
@@ -112,4 +138,15 @@ final class HomeVM: ObservableObject {
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
+
+    private static let placeholderUpcomingTerms: [Term] = [
+        Term(title: "Візит до лікаря", details: "Підготувати документи", date: Date().addingTimeInterval(86_400)),
+        Term(title: "Подати документи", details: "Перевірити дедлайн", date: Date().addingTimeInterval(172_800)),
+        Term(title: "Зустріч", details: "Уточнити адресу", date: Date().addingTimeInterval(259_200))
+    ]
+
+    private static let placeholderArchivedTerms: [Term] = [
+        Term(title: "Минулі документи", details: "Архівний запис", date: Date().addingTimeInterval(-86_400)),
+        Term(title: "Завершений термін", details: "Архівний запис", date: Date().addingTimeInterval(-172_800))
+    ]
 }

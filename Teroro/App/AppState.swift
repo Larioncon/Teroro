@@ -2,6 +2,8 @@ import SwiftUI
 
 @MainActor
 final class AppState: ObservableObject {
+    static let shared = AppState()
+    
     @Published var isAppLoaded: Bool = false
     @Published var isAppAccountInitiated: Bool = false
     

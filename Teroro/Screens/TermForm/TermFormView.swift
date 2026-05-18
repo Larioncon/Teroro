@@ -12,6 +12,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
     let onSave: () -> Void
     let onCancel: () -> Void
     @AppStorage("showNotificationPermissionOverlay") private var showPermissionOverlay = false
+    @State private var isSaving = false
     @FocusState private var focusedField: TermFormField?
 
     var body: some View {
@@ -19,20 +20,33 @@ struct TermFormView<VM: TermFormViewModeling>: View {
             // Використовуємо LazyVStack для кращої продуктивності розмітки
             LazyVStack(spacing: 16) {
                 TitleDetailsSection(viewModel: viewModel, focusedField: $focusedField)
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                    .allowsHitTesting(!viewModel.isLoading)
 
                 DateTimeSection(date: $viewModel.date)
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                    .allowsHitTesting(!viewModel.isLoading)
 
                 ReminderSection(
                     enabled: $viewModel.reminderEnabled,
                     reminderDate: $viewModel.reminderDate,
                     onStatusCheck: checkNotificationStatus
                 )
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                .allowsHitTesting(!viewModel.isLoading)
 
                 ActionButtonsSection(
-                    isSaveEnabled: viewModel.isSaveEnabled,
+                    isSaveEnabled: viewModel.isSaveEnabled && !viewModel.isLoading && !isSaving,
+                    isSaving: isSaving,
                     onSave: {
-                        if viewModel.save() {
-                            onSave()
+                        Task {
+                            isSaving = true
+                            let didSave = await viewModel.save()
+                            isSaving = false
+
+                            if didSave {
+                                onSave()
+                            }
                         }
                     },
                     onCancel: onCancel
@@ -219,6 +233,7 @@ private struct ReminderSection: View {
 
 private struct ActionButtonsSection: View {
     let isSaveEnabled: Bool
+    let isSaving: Bool
     let onSave: () -> Void
     let onCancel: () -> Void
 
@@ -230,7 +245,7 @@ private struct ActionButtonsSection: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .foregroundStyle(.primary)
 
-            Button("Зберегти", action: onSave)
+            Button(isSaving ? "Збереження..." : "Зберегти", action: onSave)
                 .frame(maxWidth: .infinity, minHeight: 52)
                 .background(isSaveEnabled ? Color.accentColor : Color.secondary.opacity(0.3))
                 .clipShape(RoundedRectangle(cornerRadius: 16))

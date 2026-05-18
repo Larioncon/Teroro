@@ -4,11 +4,13 @@ import MapKit
 struct TermsMapView: View {
     @ObservedObject var viewModel: TermsMapVM
     let terms: [Term]
+    let isLoading: Bool
     @State private var region: MKCoordinateRegion
 
-    init(viewModel: TermsMapVM, terms: [Term]) {
+    init(viewModel: TermsMapVM, terms: [Term], isLoading: Bool = false) {
         self.viewModel = viewModel
         self.terms = terms
+        self.isLoading = isLoading
         _region = State(initialValue: TermsMapVM.defaultRegion)
     }
 
@@ -39,10 +41,21 @@ struct TermsMapView: View {
         .ignoresSafeArea()
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Group {
-                if terms.isEmpty {
+                if isLoading {
+                    EmptyStateCard(
+                        title: "Завантаження термінів",
+                        subtitle: "Мапа оновиться після синхронізації."
+                    )
+                    .redacted(reason: .placeholder)
+                } else if terms.isEmpty {
                     EmptyStateCard(
                         title: "Немає термінів",
                         subtitle: "Створіть перший термін, щоб побачити його на мапі."
+                    )
+                } else if items.isEmpty {
+                    EmptyStateCard(
+                        title: "Немає локацій",
+                        subtitle: "Терміни без місця не відображаються на мапі."
                     )
                 } else {
                     HintCard()
@@ -64,7 +77,7 @@ private struct HintCard: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Мапа термінів")
                     .font(.headline)
-                Text("Поки що локації не налаштовуються — відображення демонстраційне.")
+                Text("Показує терміни, для яких задано місце.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
@@ -96,6 +109,6 @@ private struct EmptyStateCard: View {
 
 #Preview {
     NavigationStack {
-        TermsMapView(viewModel: TermsMapVM(), terms: [])
+        TermsMapView(viewModel: TermsMapVM(), terms: [], isLoading: true)
     }
 }
