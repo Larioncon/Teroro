@@ -21,6 +21,12 @@
     <key>GIDClientID</key>
     <string>129801524527-d8efnok69b00fdpg6qmtat11l3d73g4t.apps.googleusercontent.com</string>
 
+    <key>NSCameraUsageDescription</key>
+    <string>Застосунок використовує камеру, щоб ви могли зробити фото профілю.</string>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Застосунок використовує галерею, щоб ви могли обрати фото профілю.</string>
+
 
     <!-- MARK: - RevenueCat -->
 

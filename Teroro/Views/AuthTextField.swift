@@ -6,6 +6,7 @@ struct AuthTextField: View {
     var isSecure: Bool = false
     var keyboardType: UIKeyboardType = .default
     var contentType: UITextContentType? = nil
+    var textInputAutocapitalization: TextInputAutocapitalization = .never
     var submitLabel: SubmitLabel = .done
     var onSubmit: (() -> Void)? = nil
 
@@ -24,7 +25,7 @@ struct AuthTextField: View {
                         .textContentType(contentType)
                 }
             }
-            .textInputAutocapitalization(.never)
+            .textInputAutocapitalization(textInputAutocapitalization)
             .autocorrectionDisabled()
             .submitLabel(submitLabel)
             .onSubmit {

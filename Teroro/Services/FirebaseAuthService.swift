@@ -1,5 +1,6 @@
 import FirebaseAuth
 import FirebaseCore
+import FirebaseFirestore
 import GoogleSignIn
 import SwiftUI
 import UIKit
@@ -10,22 +11,26 @@ final class FirebaseAuthService: ObservableObject {
 
     @Published private(set) var currentUser: UserData?
     @Published private(set) var isLoggedIn: Bool = false
+    @Published private(set) var isResolvingProfile: Bool = true
 
     private var stateListener: AuthStateDidChangeListenerHandle?
+    private var profileListener: ListenerRegistration?
+    private let profileService: UserProfileService
 
-    private init() {
+    private init(profileService: UserProfileService = .shared) {
+        self.profileService = profileService
+
         stateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self else { return }
             Task { @MainActor in
                 self.isLoggedIn = (user != nil)
                 if let user {
-                    self.currentUser = UserData(
-                        id: user.uid,
-                        email: user.email ?? "",
-                        createdAt: user.metadata.creationDate
-                    )
+                    self.listenProfile(for: user)
                 } else {
+                    self.profileListener?.remove()
+                    self.profileListener = nil
                     self.currentUser = nil
+                    self.isResolvingProfile = false
                 }
             }
         }
@@ -35,6 +40,7 @@ final class FirebaseAuthService: ObservableObject {
         if let stateListener {
             Auth.auth().removeStateDidChangeListener(stateListener)
         }
+        profileListener?.remove()
     }
 
     func createNewUser(email: String, password: String) async throws -> UserData {
@@ -44,6 +50,8 @@ final class FirebaseAuthService: ObservableObject {
             return UserData(
                 id: user.uid,
                 email: user.email ?? email,
+                name: nil,
+                avatarURL: nil,
                 createdAt: user.metadata.creationDate
             )
         } catch {
@@ -58,6 +66,8 @@ final class FirebaseAuthService: ObservableObject {
             return UserData(
                 id: user.uid,
                 email: user.email ?? email,
+                name: nil,
+                avatarURL: nil,
                 createdAt: user.metadata.creationDate
             )
         } catch {
@@ -114,10 +124,36 @@ final class FirebaseAuthService: ObservableObject {
             return UserData(
                 id: user.uid,
                 email: user.email ?? "",
+                name: nil,
+                avatarURL: nil,
                 createdAt: user.metadata.creationDate
             )
         } catch {
             throw UserFacingAuthError(from: error)
         }
+    }
+
+    private func listenProfile(for authUser: FirebaseAuth.User) {
+        profileListener?.remove()
+        isResolvingProfile = true
+
+        profileListener = profileService.userDocumentReference(userID: authUser.uid)
+            .addSnapshotListener { [weak self] snapshot, error in
+                Task { @MainActor in
+                    guard let self else { return }
+                    if let error {
+                        self.currentUser = self.profileService.userData(for: authUser, profileData: nil)
+                        self.isResolvingProfile = false
+                        AppState.shared.showErrorAlert(error.localizedDescription)
+                        return
+                    }
+
+                    self.currentUser = self.profileService.userData(
+                        for: authUser,
+                        profileData: snapshot?.data()
+                    )
+                    self.isResolvingProfile = false
+                }
+            }
     }
 }

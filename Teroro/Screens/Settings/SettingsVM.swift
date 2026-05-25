@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 import UserNotifications
 import UIKit
@@ -12,18 +13,39 @@ final class SettingsVM: ObservableObject {
     }
 
     private let authService: FirebaseAuthService
+    private let profileService: UserProfileService
+    private let avatarCache: UserAvatarCache
 
     @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
     @Published private(set) var statusFlipRotation: Double = 0
+    @Published private(set) var currentUser: UserData?
+    @Published private(set) var isAvatarUpdating = false
     @Published var signOutErrorMessage: String?
+
+    private var cancellables: Set<AnyCancellable> = []
 
     var isNotificationsEnabled: Bool {
         notificationStatus == .authorized || notificationStatus == .provisional
     }
 
-    init(authService: FirebaseAuthService = .shared) {
+    init(
+        authService: FirebaseAuthService? = nil,
+        profileService: UserProfileService = .shared,
+        avatarCache: UserAvatarCache? = nil
+    ) {
+        let authService = authService ?? FirebaseAuthService.shared
         self.authService = authService
+        self.profileService = profileService
+        self.avatarCache = avatarCache ?? .shared
+        self.currentUser = authService.currentUser
         migrateLegacyThemeIfNeeded()
+
+        authService.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.currentUser = user
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - View Events
@@ -95,6 +117,22 @@ final class SettingsVM: ObservableObject {
             try authService.signOut()
         } catch {
             signOutErrorMessage = error.localizedDescription
+        }
+    }
+
+    func updateAvatar(with image: UIImage) {
+        signOutErrorMessage = nil
+        isAvatarUpdating = true
+
+        Task {
+            do {
+                let user = try await profileService.updateAvatar(.image(image))
+                avatarCache.store(image, for: user.avatarURL)
+                currentUser = user
+            } catch {
+                signOutErrorMessage = error.localizedDescription
+            }
+            isAvatarUpdating = false
         }
     }
 

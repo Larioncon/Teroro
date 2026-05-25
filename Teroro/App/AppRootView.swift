@@ -19,7 +19,12 @@ struct AppRootView: View {
 
     var body: some View {
         Group {
-            if authVM.isLoggedIn {
+            if authVM.isLoggedIn, authVM.isResolvingProfile {
+                ProgressView()
+                    .controlSize(.large)
+            } else if authVM.needsProfileSetup {
+                SetupAuthScreen(viewModel: SetupAuthVM())
+            } else if authVM.isLoggedIn {
                 TabView {
                     NavigationStack(path: $navigator.path) {
                         HomeView(

@@ -1,11 +1,58 @@
+import PhotosUI
 import SwiftUI
+import UIKit
 
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsVM
     @Environment(\.scenePhase) private var scenePhase
+    @State private var selectedPhotoItem: PhotosPickerItem?
+    @State private var isCameraShowing = false
+    @State private var isPhotoPickerShowing = false
 
     var body: some View {
         List {
+            Section {
+                HStack(spacing: 14) {
+                    Menu {
+                        Button {
+                            isCameraShowing = true
+                        } label: {
+                            Label("Сфотографировать", systemImage: "camera.fill")
+                        }
+                        .disabled(!UIImagePickerController.isSourceTypeAvailable(.camera))
+
+                        Button {
+                            isPhotoPickerShowing = true
+                        } label: {
+                            Label("Выбрать в галерее", systemImage: "photo.on.rectangle.angled")
+                        }
+                    } label: {
+                        ZStack {
+                            UserAvatarView(avatarURL: viewModel.currentUser?.avatarURL, size: 64)
+                                .opacity(viewModel.isAvatarUpdating ? 0.45 : 1)
+
+                            if viewModel.isAvatarUpdating {
+                                ProgressView()
+                                    .controlSize(.small)
+                            }
+                        }
+                    }
+                    .buttonStyle(.plain)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(viewModel.currentUser?.name ?? "Профіль")
+                            .font(.headline)
+                            .lineLimit(1)
+
+                        Text(viewModel.currentUser?.email ?? "")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                    }
+                }
+                .padding(.vertical, 6)
+            }
+
             Section {
                 Picker("Режим", selection: Binding(get: {
                     viewModel.appearance
@@ -98,6 +145,16 @@ struct SettingsView: View {
         .onChange(of: scenePhase) { newPhase in
             viewModel.onScenePhaseChanged(newPhase)
         }
+        .onChange(of: selectedPhotoItem) { item in
+            loadSelectedPhoto(item)
+        }
+        .photosPicker(isPresented: $isPhotoPickerShowing, selection: $selectedPhotoItem, matching: .images)
+        .sheet(isPresented: $isCameraShowing) {
+            CameraPicker { image in
+                viewModel.updateAvatar(with: image)
+            }
+            .ignoresSafeArea()
+        }
         .alert("Помилка", isPresented: Binding(get: {
             viewModel.signOutErrorMessage != nil
         }, set: { newValue in
@@ -107,6 +164,25 @@ struct SettingsView: View {
         }, message: {
             Text(viewModel.signOutErrorMessage ?? "")
         })
+    }
+
+    private func loadSelectedPhoto(_ item: PhotosPickerItem?) {
+        guard let item else { return }
+
+        Task {
+            do {
+                guard
+                    let data = try await item.loadTransferable(type: Data.self),
+                    let image = UIImage(data: data)
+                else {
+                    viewModel.signOutErrorMessage = "Не вдалося прочитати фото."
+                    return
+                }
+                viewModel.updateAvatar(with: image)
+            } catch {
+                viewModel.signOutErrorMessage = error.localizedDescription
+            }
+        }
     }
 }
 

@@ -16,11 +16,14 @@ final class AuthVM: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var alertMessage: String?
     @Published private(set) var isLoggedIn: Bool = false
+    @Published private(set) var isResolvingProfile: Bool = true
+    @Published private(set) var currentUser: UserData?
 
     private let auth: FirebaseAuthService
     private var cancellables: Set<AnyCancellable> = []
 
-    init(auth: FirebaseAuthService = .shared) {
+    init(auth: FirebaseAuthService? = nil) {
+        let auth = auth ?? FirebaseAuthService.shared
         self.auth = auth
         self.isLoggedIn = auth.isLoggedIn
 
@@ -30,6 +33,25 @@ final class AuthVM: ObservableObject {
                 self?.isLoggedIn = value
             }
             .store(in: &cancellables)
+
+        auth.$isResolvingProfile
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
+                self?.isResolvingProfile = value
+            }
+            .store(in: &cancellables)
+
+        auth.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.currentUser = user
+            }
+            .store(in: &cancellables)
+    }
+
+    var needsProfileSetup: Bool {
+        guard isLoggedIn, !isResolvingProfile else { return false }
+        return currentUser?.isProfileComplete != true
     }
 
     var primaryButtonTitle: String {
