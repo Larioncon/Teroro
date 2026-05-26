@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-enum PomodoroMode {
+enum PomodoroMode: String {
     case focus
     case rest
 }
@@ -14,6 +14,13 @@ final class PomodoroVM: ObservableObject {
             applySelectedDuration()
         }
     }
+    
+
+    @AppStorage("pomodoroIsRunning") private var persistedIsRunning: Bool = false
+    @AppStorage("pomodoroMode") private var persistedMode: String = PomodoroMode.focus.rawValue
+    @AppStorage("pomodoroEndDate") private var persistedEndDate: Double = 0
+    @AppStorage("pomodoroRemainingSeconds") private var persistedRemainingSeconds: Int = 25 * 60
+
     @Published private(set) var remainingSeconds: Int = 25 * 60
     @Published private(set) var isRunning: Bool = false
     @Published private(set) var mode: PomodoroMode = .focus
@@ -31,8 +38,37 @@ final class PomodoroVM: ObservableObject {
     private var endDate: Date?
 
     init() {
-        // Initialize remainingSeconds with the persisted value
-        _remainingSeconds = Published(initialValue: max(1, selectedMinutes) * 60)
+        // Restore state
+        let mode = PomodoroMode(rawValue: persistedMode) ?? .focus
+        self.mode = mode
+        
+        if persistedIsRunning {
+            let endDate = Date(timeIntervalSince1970: persistedEndDate)
+            let diff = Int(endDate.timeIntervalSinceNow.rounded(.up))
+            
+            if diff > 0 {
+                self.remainingSeconds = diff
+                self.endDate = endDate
+                self.isRunning = true
+                startTicker()
+            } else {
+                // Timer finished while app was closed
+                self.isRunning = false
+                self.persistedIsRunning = false
+                if mode == .focus {
+                    self.mode = .rest
+                    self.remainingSeconds = 5 * 60
+                } else {
+                    self.mode = .focus
+                    self.remainingSeconds = max(1, selectedMinutes) * 60
+                }
+                self.persistedMode = self.mode.rawValue
+                self.persistedRemainingSeconds = self.remainingSeconds
+            }
+        } else {
+            self.remainingSeconds = persistedRemainingSeconds
+        }
+        
         refreshNotificationStatus()
     }
 
@@ -46,6 +82,7 @@ final class PomodoroVM: ObservableObject {
     func applySelectedDuration() {
         guard !isRunning, mode == .focus else { return }
         remainingSeconds = max(1, selectedMinutes) * 60
+        persistedRemainingSeconds = remainingSeconds
         objectWillChange.send()
     }
 
@@ -57,18 +94,21 @@ final class PomodoroVM: ObservableObject {
         pause(isManual: true)
         mode = .focus
         remainingSeconds = max(1, selectedMinutes) * 60
+        persistedMode = mode.rawValue
+        persistedRemainingSeconds = remainingSeconds
     }
 
     private func start() {
         guard !isRunning else { return }
         isRunning = true
         endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
+        
+        // Save persistence
+        persistedIsRunning = true
+        persistedEndDate = endDate?.timeIntervalSince1970 ?? 0
+        persistedMode = mode.rawValue
 
-        ticker = Timer.publish(every: 0.1, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] _ in
-                self?.tick()
-            }
+        startTicker()
 
         Task {
             await NotificationService.shared.requestAuthorizationIfNeeded()
@@ -80,12 +120,24 @@ final class PomodoroVM: ObservableObject {
             }
         }
     }
+    
+    private func startTicker() {
+        ticker?.cancel()
+        ticker = Timer.publish(every: 0.1, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.tick()
+            }
+    }
 
     private func pause(isManual: Bool = false) {
         isRunning = false
         ticker?.cancel()
         ticker = nil
         endDate = nil
+        
+        persistedIsRunning = false
+        persistedRemainingSeconds = remainingSeconds
 
         if isManual {
             Task {
@@ -96,6 +148,17 @@ final class PomodoroVM: ObservableObject {
 
     func stop() {
         reset()
+    }
+
+    func sync() {
+        guard isRunning, let endDate = endDate else { return }
+        let newValue = max(0, Int(endDate.timeIntervalSinceNow.rounded(.up)))
+        if newValue != remainingSeconds {
+            remainingSeconds = newValue
+        }
+        if remainingSeconds <= 0 {
+            tick() // Trigger completion logic
+        }
     }
 
     private func tick() {
@@ -116,6 +179,10 @@ final class PomodoroVM: ObservableObject {
                 mode = .focus
                 remainingSeconds = max(1, selectedMinutes) * 60
             }
+            
+            // Save persistence for the new state
+            persistedMode = mode.rawValue
+            persistedRemainingSeconds = remainingSeconds
         }
     }
 
