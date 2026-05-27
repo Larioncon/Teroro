@@ -35,6 +35,10 @@ struct TermFormView<VM: TermFormViewModeling>: View {
                 .redacted(reason: viewModel.isLoading ? .placeholder : [])
                 .allowsHitTesting(!viewModel.isLoading)
 
+                LocationSection(location: $viewModel.location)
+                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                    .allowsHitTesting(!viewModel.isLoading)
+
                 ActionButtonsSection(
                     isSaveEnabled: viewModel.isSaveEnabled && !viewModel.isLoading && !isSaving,
                     isSaving: isSaving,
@@ -88,6 +92,60 @@ struct TermFormView<VM: TermFormViewModeling>: View {
             default:
                 break
             }
+        }
+    }
+}
+
+private struct LocationSection: View {
+    @Binding var location: TermLocation?
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Місце")
+                        .font(.headline)
+                    if let location = location {
+                        HStack(spacing: 4) {
+                            Image(systemName: "mappin.and.ellipse")
+                                .foregroundStyle(.red)
+                            Text(location.title ?? location.address ?? "Локація обрана")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else {
+                        Text("Додайте адресу для зустрічі")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
+                
+                NavigationLink {
+                    LocationPickerView { selectedLoc in
+                        location = selectedLoc
+                    }
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "map")
+                        Text(location == nil ? "Додати" : "Змінити")
+                    }
+                    .font(.subheadline.weight(.semibold))
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.accentColor.opacity(0.1))
+                    .clipShape(Capsule())
+                }
+            }
+            .padding(16)
+        }
+        .background {
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color(.systemBackground))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(Color.secondary.opacity(0.15))
+                }
         }
     }
 }

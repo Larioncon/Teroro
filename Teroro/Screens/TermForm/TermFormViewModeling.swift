@@ -14,6 +14,7 @@ protocol TermFormViewModeling: ObservableObject {
     var date: Date { get set }
     var reminderEnabled: Bool { get set }
     var reminderDate: Date { get set }
+    var location: TermLocation? { get set }
     var isLoading: Bool { get }
     var isSaveEnabled: Bool { get }
 

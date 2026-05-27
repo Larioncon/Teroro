@@ -14,6 +14,7 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
     @Published var date: Date
     @Published var reminderEnabled: Bool
     @Published var reminderDate: Date
+    @Published var location: TermLocation?
     @Published private(set) var isLoading: Bool
 
     private let termID: UUID
@@ -28,6 +29,7 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
         self.date = Date()
         self.reminderEnabled = false
         self.reminderDate = Date()
+        self.location = nil
         self.isLoading = true
 
         Task {
@@ -46,6 +48,7 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
             term.details = details
             term.date = date
             term.reminderDate = reminderEnabled ? reminderDate : nil
+            term.location = location
             try await repository.updateTerm(term)
 
             if reminderEnabled {
@@ -77,6 +80,7 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
             title = term.title
             details = term.details
             date = term.date
+            location = term.location
 
             if let reminder = term.reminderDate {
                 reminderEnabled = true

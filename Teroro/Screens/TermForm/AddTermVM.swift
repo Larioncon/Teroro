@@ -14,6 +14,7 @@ final class AddTermVM: ObservableObject, TermFormViewModeling {
     @Published var date: Date = Date()
     @Published var reminderEnabled: Bool = false
     @Published var reminderDate: Date = Date()
+    @Published var location: TermLocation? = nil
 
     private let repository: TermsRepository
 
@@ -35,7 +36,8 @@ final class AddTermVM: ObservableObject, TermFormViewModeling {
                 title: title.trimmingCharacters(in: .whitespacesAndNewlines),
                 details: details,
                 date: date,
-                reminderDate: reminderEnabled ? reminderDate : nil
+                reminderDate: reminderEnabled ? reminderDate : nil,
+                location: location
             )
 
             if reminderEnabled {

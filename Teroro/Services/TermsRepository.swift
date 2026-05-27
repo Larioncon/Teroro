@@ -56,7 +56,7 @@ final class TermsRepository {
         return try await term(from: document, currentUserID: userID)
     }
 
-    func createTerm(title: String, details: String, date: Date, reminderDate: Date?) async throws -> UUID {
+    func createTerm(title: String, details: String, date: Date, reminderDate: Date?, location: TermLocation?) async throws -> UUID {
         guard let userID = auth.currentUser?.uid else {
             throw TermsRepositoryError.missingUser
         }
@@ -67,7 +67,7 @@ final class TermsRepository {
         let memberRef = termRef.collection("members").document(userID)
 
         let batch = db.batch()
-        batch.setData([
+        var termData: [String: Any] = [
             "id": id.uuidString,
             "title": title,
             "details": details,
@@ -77,7 +77,17 @@ final class TermsRepository {
             "createdBy": userID,
             "participantIds": [userID],
             "status": TermStatus.active.rawValue
-        ], forDocument: termRef)
+        ]
+
+        if let location {
+            termData["location"] = [
+                "geoPoint": location.geoPoint,
+                "title": location.title as Any,
+                "address": location.address as Any
+            ]
+        }
+
+        batch.setData(termData, forDocument: termRef)
         var memberData: [String: Any] = [
             "userId": userID,
             "role": TermMemberRole.owner.rawValue,
