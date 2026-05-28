@@ -1,5 +1,6 @@
 import Foundation
 import FirebaseAuth
+import AuthenticationServices
 
 /// A user-friendly representation of Firebase Auth errors.
 ///
@@ -142,6 +143,13 @@ enum UserFacingAuthError: LocalizedError, Equatable {
         if nsError.domain == NSCocoaErrorDomain, nsError.code == NSUserCancelledError {
             self = .cancelled
             return
+        }
+        
+        if nsError.domain == ASAuthorizationError.errorDomain {
+            if (nsError as? ASAuthorizationError)?.code == .canceled {
+                self = .cancelled
+                return
+            }
         }
 
         self = .generic

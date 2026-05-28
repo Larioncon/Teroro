@@ -181,8 +181,10 @@ struct AuthScreen: View {
 
             PrimaryButton(title: "Continue with Apple", style: .siwa, frameHeight: 52) {
                 focusedField = nil
-                isShowingAppleStubAlert = true
+                viewModel.signInWithApple()
             }
+            .disabled(viewModel.isLoading)
+            .opacity(viewModel.isLoading ? 0.7 : 1)
 
             PrimaryButton(title: "Continue with Google", style: .siwg, frameHeight: 52) {
                 focusedField = nil

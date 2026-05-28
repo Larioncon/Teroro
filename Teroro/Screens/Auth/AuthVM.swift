@@ -160,4 +160,21 @@ final class AuthVM: ObservableObject {
             isLoading = false
         }
     }
+
+    func signInWithApple() {
+        alertMessage = nil
+        isLoading = true
+        Task {
+            do {
+                _ = try await auth.signInWithApple()
+            } catch {
+                // Ignore cancellation error to avoid showing an alert when the user just closes the sheet.
+                let authError = UserFacingAuthError(from: error)
+                if authError != .cancelled {
+                    alertMessage = authError.errorDescription ?? UserFacingAuthError.generic.errorDescription
+                }
+            }
+            isLoading = false
+        }
+    }
 }
