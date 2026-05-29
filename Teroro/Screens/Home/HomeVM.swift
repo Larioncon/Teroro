@@ -29,6 +29,10 @@ final class HomeVM: ObservableObject {
 
     func fetchTerms() {
         termsListener?.remove()
+        // Clear old terms to prevent data leaking between sessions
+        self.terms = []
+        self.isLoading = true
+        
         termsListener = repository.listenTerms { [weak self] result in
             Task { @MainActor in
                 switch result {
