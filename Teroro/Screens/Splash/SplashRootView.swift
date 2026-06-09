@@ -7,6 +7,7 @@ struct SplashRootView: View {
     @State private var isShowingSplash = true
     @StateObject private var onboardingVM = OnboardingFlowVM()
     @StateObject private var onboardingRouter = AppRouter()
+    @StateObject private var subscriptionService = SubscriptionService.shared
     @State private var hideMainUntilSplashCompletes = true
     @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
 
@@ -42,7 +43,10 @@ struct SplashRootView: View {
         }
         .preferredColorScheme(preferredColorScheme)
         .task {
-            try? await Task.sleep(nanoseconds: 3_000_000_000)
+            async let splashDelay: Void = Task.sleepIgnoringCancellation(nanoseconds: 3_000_000_000)
+            await subscriptionService.bootstrap()
+            await splashDelay
+
             onboardingVM.navigationRouter = onboardingRouter
             onboardingVM.appState = appState
             if onboardingVM.shouldShowOnboarding {
@@ -51,6 +55,8 @@ struct SplashRootView: View {
                 withTransaction(tx) {
                     onboardingRouter.push(.onboarding)
                 }
+            } else if !subscriptionService.isPremium {
+                appState.isShowPwTrial = true
             }
 
             withAnimation(.easeOut(duration: 0.25)) {
@@ -58,6 +64,12 @@ struct SplashRootView: View {
                 hideMainUntilSplashCompletes = false
             }
         }
+    }
+}
+
+private extension Task where Success == Never, Failure == Never {
+    static func sleepIgnoringCancellation(nanoseconds duration: UInt64) async {
+        try? await Task.sleep(nanoseconds: duration)
     }
 }
 

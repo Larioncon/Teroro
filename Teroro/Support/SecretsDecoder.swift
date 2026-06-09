@@ -40,9 +40,6 @@ enum Secrets {
         string(for: "YEARLY_TRIAL_PRODUCT_ID")
     }
     
-    static var lifetimeProductID: String {
-        string(for: "LIFETIME_PRODUCT_ID")
-    }
     
     static var yearlySpecialOfferProductID: String {
         string(for: "YEARLY_SPECIAL_OFFER_PRODUCT_ID")

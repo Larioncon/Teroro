@@ -5,6 +5,7 @@ import UIKit
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsVM
     @Environment(\.scenePhase) private var scenePhase
+    @StateObject private var subscriptionService = SubscriptionService.shared
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var isCameraShowing = false
     @State private var isPhotoPickerShowing = false
@@ -48,6 +49,8 @@ struct SettingsView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
+
+                        PremiumStatusPill(isPremium: subscriptionService.isPremium)
                     }
                 }
                 .padding(.vertical, 6)
@@ -205,6 +208,23 @@ private struct NotificationPermissionStatusIcon: View {
                 .rotation3DEffect(.degrees(rotation + 180), axis: (x: 0, y: 1, z: 0))
         }
         .animation(.easeInOut(duration: 0.35), value: rotation)
+    }
+}
+
+private struct PremiumStatusPill: View {
+    let isPremium: Bool
+
+    var body: some View {
+        Text(isPremium ? "Pro Mode" : "Non Pro")
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(isPremium ? .green : .secondary)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 5)
+            .background(isPremium ? Color.green.opacity(0.14) : Color.secondary.opacity(0.12), in: Capsule())
+            .overlay {
+                Capsule()
+                    .strokeBorder(isPremium ? Color.green.opacity(0.35) : Color.secondary.opacity(0.2), lineWidth: 1)
+            }
     }
 }
 

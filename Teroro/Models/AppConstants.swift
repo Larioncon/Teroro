@@ -24,7 +24,6 @@ struct AppConstants {
     static let monthlyTrialProductID = Secrets.monthlyTrialProductID
     static let yearlyTrialProductID = Secrets.yearlyTrialProductID
     
-    static let lifetimeProductID = Secrets.lifetimeProductID
     static let yearlySpecialProductID = Secrets.yearlySpecialOfferProductID
     
     // MARK: - Links

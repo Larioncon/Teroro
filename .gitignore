@@ -25,3 +25,6 @@ config.json
 
 # Firebase
 GoogleService-Info.plist
+
+*.storekit
+*.cer

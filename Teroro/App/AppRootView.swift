@@ -28,7 +28,7 @@ struct AppRootView: View {
                 .environmentObject(appState)
         }
         .fullScreenCover(isPresented: $appState.isShowPwTrial) {
-            PaywallScreen()
+            ExternalPW()
                 .environmentObject(appState)
         }
         .alert(item: $appState.alertData) { data in
