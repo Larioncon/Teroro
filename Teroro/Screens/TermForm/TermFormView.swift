@@ -58,6 +58,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
             }
             .padding(16)
         }
+        .toolbar(.hidden, for: .tabBar)
         .background(Color(.secondarySystemGroupedBackground).ignoresSafeArea())
         .scrollDismissesKeyboard(.interactively)
         .navigationTitle(title)

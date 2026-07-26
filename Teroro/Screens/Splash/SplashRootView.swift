@@ -33,6 +33,9 @@ struct SplashRootView: View {
                         case .onboarding:
                             OnboardingFlowView(viewModel: onboardingVM)
                                 .environmentObject(appState)
+                        case .onboardingPaywall:
+                            OnboardingPaywallView(onboardingRouter: onboardingRouter)
+                                .environmentObject(appState)
                         default:
                             EmptyView()
                         }

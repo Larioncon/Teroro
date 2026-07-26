@@ -5,10 +5,11 @@ import UIKit
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsVM
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject private var subscriptionService = SubscriptionService.shared
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var isCameraShowing = false
     @State private var isPhotoPickerShowing = false
+    let onShowPaywall: () -> Void
+    let onShowAppearance: () -> Void
 
     var body: some View {
         List {
@@ -50,24 +51,27 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
 
-                        PremiumStatusPill(isPremium: subscriptionService.isPremium)
+                        PremiumStatusPill(isPremium: viewModel.isPremium)
                     }
                 }
                 .padding(.vertical, 6)
             }
 
-            Section {
-                Picker("Режим", selection: Binding(get: {
-                    viewModel.appearance
-                }, set: { newValue in
-                    viewModel.appearance = newValue
-                })) {
-                    ForEach(AppAppearance.allCases) { mode in
-                        Label(mode.title, systemImage: mode.icon)
-                            .tag(mode)
+            if !viewModel.isPremium {
+                Section {
+                    Button {
+//                        viewModel.showPaywall()
+                        onShowPaywall()
+                    } label: {
+                        HStack {
+                            Label("Timexo Premium", systemImage: "star.fill")
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .font(.footnote.bold())
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
-                .pickerStyle(.segmented)
             }
 
             Section {
@@ -84,6 +88,17 @@ struct SettingsView: View {
                     }
                 }
 
+                Button {
+                    onShowAppearance()
+                } label: {
+                    HStack {
+                        Label("Вид", systemImage: "circle.lefthalf.filled")
+                        Spacer()
+                        Image(systemName: "chevron.forward")
+                            .font(.footnote.bold())
+                            .foregroundColor(.gray)
+                    }
+                }
             }
 
             Section {
@@ -228,8 +243,11 @@ private struct PremiumStatusPill: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        SettingsView(viewModel: SettingsVM())
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        SettingsView(
+//            viewModel: SettingsVM(appState: appState),
+//            onShowPaywall: { navigator.push(.pw) }
+//        )
+//    }
+//}

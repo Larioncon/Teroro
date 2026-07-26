@@ -23,7 +23,7 @@ struct OnboardingFlowView: View {
 
                 bottomBar
                     .padding(.horizontal, 20)
-                    .padding(.bottom, 35)
+                    .padding(.bottom, 64)
             }
         }
         .navigationBarHidden(true)

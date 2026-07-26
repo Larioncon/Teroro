@@ -28,8 +28,11 @@ final class AppRouter: ObservableObject {
 
 enum AppRoute: Hashable {
     case onboarding
+    case onboardingPaywall
     case addTerm
     case editTerm(UUID)
     case pastTerms
     case settings
+    case appearance
+    case pw
 }

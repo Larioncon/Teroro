@@ -3,7 +3,6 @@ import SwiftUI
 enum ButtonVisualStyle {
     case primary
     case primaryWhiteText
-//    case secondary
     case siwa
     case siwg
 
@@ -11,8 +10,6 @@ enum ButtonVisualStyle {
         switch self {
         case .primary, .primaryWhiteText:
             return .primaryColor
-//        case .secondary:
-//            return .pwOrangeBg
         case .siwa, .siwg:
             return .white
         }
@@ -24,8 +21,6 @@ enum ButtonVisualStyle {
             return .primaryBlackText
         case .primaryWhiteText:
             return .white
-//        case .secondary:
-//            return .primaryBlackText
         case .siwa, .siwg:
             return .black
         }
@@ -33,8 +28,6 @@ enum ButtonVisualStyle {
 
     var border: (Color, CGFloat)? {
         switch self {
-//        case .secondary:
-//            return (.primaryOrange, 1)
         case .siwa, .siwg:
             return (.gray, 1)
         default:
@@ -100,9 +93,7 @@ struct PrimaryButton: View {
 }
 
 extension Color {
-    // Minimal defaults; feel free to replace with Assets later.
     static let primaryColor = Color.blue
-    
     static let primaryBlackText = Color.primary
 }
 

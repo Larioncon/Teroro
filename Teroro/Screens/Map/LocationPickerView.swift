@@ -5,6 +5,7 @@ import Combine
 struct LocationPickerView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm = LocationPickerVM()
+    @State private var showMapPicker = false
     let onSelect: (TermLocation) -> Void
 
     var body: some View {
@@ -14,6 +15,9 @@ struct LocationPickerView: View {
                 suggestions: vm.suggestions,
                 onSelect: { suggestion in
                     vm.selectSuggestion(suggestion)
+                },
+                onOpenMap: {
+                    showMapPicker = true
                 }
             )
             .padding(.horizontal, 16)
@@ -80,6 +84,13 @@ struct LocationPickerView: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Пошук місця")
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $showMapPicker) {
+            MapLocationPickerView { selectedLoc in
+                vm.finalLocation = selectedLoc
+                vm.searchText = selectedLoc.title ?? ""
+                vm.suggestions = []
+            }
+        }
     }
 }
 
@@ -150,27 +161,46 @@ struct SearchField: View {
     @Binding var text: String
     let suggestions: [MKLocalSearchCompletion]
     let onSelect: (MKLocalSearchCompletion) -> Void
+    let onOpenMap: () -> Void
     @FocusState private var isFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
-            ZStack(alignment: .leading) {
-                TextField("Місто або адреса", text: $text)
-                    .focused($isFocused)
-                    .padding(.leading, 40)
-                    .padding(.trailing, 14)
-                    .padding(.vertical, 14)
-                
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                    .padding(.leading, 14)
+            HStack(spacing: 8) {
+                ZStack(alignment: .leading) {
+                    TextField("Місто або адреса", text: $text)
+                        .focused($isFocused)
+                        .padding(.leading, 40)
+                        .padding(.trailing, 14)
+                        .padding(.vertical, 14)
+                    
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                        .padding(.leading, 14)
+                }
+                .frame(height: 54)
+                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .strokeBorder(Color.secondary.opacity(isFocused ? 0.9 : 0.2), lineWidth: 1)
+                )
+
+                Button {
+                    isFocused = false
+                    onOpenMap()
+                } label: {
+                    Image("applemapicon")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 54, height: 54)
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .strokeBorder(Color.secondary.opacity(0.2), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(.plain)
             }
-            .frame(height: 54)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .strokeBorder(Color.secondary.opacity(isFocused ? 0.9 : 0.2), lineWidth: 1)
-            )
 
             if !suggestions.isEmpty {
                 VStack(alignment: .leading, spacing: 0) {
@@ -199,7 +229,7 @@ struct SearchField: View {
                             }
                         }
                     }
-                    .frame(maxHeight: 400) // Збільшено для кращого огляду результатів
+                    .frame(maxHeight: 400)
                 }
                 .background(.thinMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 14))

@@ -23,12 +23,12 @@ struct AppRootView: View {
             }
         }
         .preferredColorScheme(preferredColorScheme)
-        .fullScreenCover(isPresented: $appState.isShowPaywall) {
-            PaywallScreen()
-                .environmentObject(appState)
-        }
+//        .fullScreenCover(isPresented: $appState.isShowPaywall) {
+//            PaywallScreen()
+//                .environmentObject(appState)
+//        }
         .fullScreenCover(isPresented: $appState.isShowPwTrial) {
-            ExternalPW()
+            OnboardingPaywallView()
                 .environmentObject(appState)
         }
         .alert(item: $appState.alertData) { data in
@@ -84,7 +84,18 @@ private struct SessionContainerView: View {
                     case .pastTerms:
                         PastTermsView(viewModel: homeVM, onDeleteTerm: homeVM.deleteTerm)
                     case .settings:
-                        SettingsView(viewModel: SettingsVM())
+                        SettingsView(
+                            viewModel: SettingsVM(appState: appState),
+                            onShowPaywall: { navigator.push(.pw) },
+                            onShowAppearance: { navigator.push(.appearance) }
+                        )
+                    case .appearance:
+                        AppearanceView(viewModel: SettingsVM(appState: appState))
+                    case .pw:
+                        PaywallScreen()
+                            .environmentObject(appState)
+                    case .onboardingPaywall:
+                        EmptyView()
                     }
                 }
             }
@@ -104,8 +115,23 @@ private struct SessionContainerView: View {
                 Label("Таймер", systemImage: "timer")
             }
 
-            NavigationStack {
-                SettingsView(viewModel: SettingsVM())
+            NavigationStack(path: $navigator.path) {
+                SettingsView(
+                    viewModel: SettingsVM(appState: appState),
+                    onShowPaywall: { navigator.push(.pw) },
+                    onShowAppearance: { navigator.push(.appearance) }
+                )
+                .navigationDestination(for: AppRoute.self) { route in
+                    switch route {
+                    case .appearance:
+                        AppearanceView(viewModel: SettingsVM(appState: appState))
+                    case .pw:
+                        PaywallScreen()
+                            .environmentObject(appState)
+                    default:
+                        EmptyView()
+                    }
+                }
             }
             .tabItem {
                 Label("Профіль", systemImage: "person.crop.circle")

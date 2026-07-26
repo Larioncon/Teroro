@@ -15,11 +15,13 @@ final class SettingsVM: ObservableObject {
     private let authService: FirebaseAuthService
     private let profileService: UserProfileService
     private let avatarCache: UserAvatarCache
+    private let appState: AppState
 
     @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
     @Published private(set) var statusFlipRotation: Double = 0
     @Published private(set) var currentUser: UserData?
     @Published private(set) var isAvatarUpdating = false
+    @Published private(set) var isPremium = false
     @Published var signOutErrorMessage: String?
 
     private var cancellables: Set<AnyCancellable> = []
@@ -31,19 +33,29 @@ final class SettingsVM: ObservableObject {
     init(
         authService: FirebaseAuthService? = nil,
         profileService: UserProfileService = .shared,
-        avatarCache: UserAvatarCache? = nil
+        avatarCache: UserAvatarCache? = nil,
+        appState: AppState = .shared
     ) {
         let authService = authService ?? FirebaseAuthService.shared
         self.authService = authService
         self.profileService = profileService
         self.avatarCache = avatarCache ?? .shared
+        self.appState = appState
         self.currentUser = authService.currentUser
+        self.isPremium = SubscriptionService.shared.isPremium
         migrateLegacyThemeIfNeeded()
 
         authService.$currentUser
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in
                 self?.currentUser = user
+            }
+            .store(in: &cancellables)
+
+        SubscriptionService.shared.$isPremium
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isPremium in
+                self?.isPremium = isPremium
             }
             .store(in: &cancellables)
     }
@@ -119,6 +131,10 @@ final class SettingsVM: ObservableObject {
             signOutErrorMessage = error.localizedDescription
         }
     }
+
+//    func showPaywall() {
+//        appState.presentPaywall()
+//    }
 
     func updateAvatar(with image: UIImage) {
         signOutErrorMessage = nil

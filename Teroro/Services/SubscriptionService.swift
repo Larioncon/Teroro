@@ -5,6 +5,9 @@ import RevenueCat
 final class SubscriptionService: ObservableObject {
     static let shared = SubscriptionService()
 
+    private static let isPremiumKey = "isPremiumUser"
+    private static let subscriptionEndDateKey = "subscriptionEndDate"
+
     @Published private(set) var isPremium: Bool
     @Published private(set) var isLoading = false
     @Published private(set) var isPurchasing = false
@@ -14,24 +17,13 @@ final class SubscriptionService: ObservableObject {
     private(set) var defaultOffering: Offering?
 
     private let defaults: UserDefaults
-    private var isConfigured = false
 
     private init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         self.isPremium = defaults.bool(forKey: Self.isPremiumKey)
     }
 
-    func configureIfNeeded() {
-        guard !isConfigured else { return }
-        Purchases.configure(withAPIKey: AppConstants.revenueCatKey)
-        #if DEBUG
-        Purchases.logLevel = .debug
-        #endif
-        isConfigured = true
-    }
-
     func bootstrap() async {
-        configureIfNeeded()
         isLoading = true
         defer { isLoading = false }
 
@@ -46,7 +38,6 @@ final class SubscriptionService: ObservableObject {
     }
 
     func purchase(productID: String) async -> Bool {
-        configureIfNeeded()
         isPurchasing = true
         defer { isPurchasing = false }
 
@@ -71,7 +62,6 @@ final class SubscriptionService: ObservableObject {
     }
 
     func restore() async -> Bool {
-        configureIfNeeded()
         isPurchasing = true
         defer { isPurchasing = false }
 
@@ -86,7 +76,6 @@ final class SubscriptionService: ObservableObject {
     }
 
     func refreshCustomerInfo() async {
-        configureIfNeeded()
         do {
             let customerInfo = try await Purchases.shared.customerInfo()
             updateSubscriptionStatus(from: customerInfo)
@@ -152,9 +141,4 @@ final class SubscriptionService: ObservableObject {
             return ""
         }
     }
-}
-
-private extension SubscriptionService {
-    static let isPremiumKey = "isPremiumUser"
-    static let subscriptionEndDateKey = "subscriptionEndDate"
 }

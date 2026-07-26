@@ -94,9 +94,10 @@ final class OnboardingFlowVM: ObservableObject {
     
     func finishOnboarding(appState: AppState) {
         makeSeenOnb()
-        navigationRouter?.popToRoot()
         if !SubscriptionService.shared.isPremium {
-            appState.isShowPwTrial = true
+            navigationRouter?.push(.onboardingPaywall)
+        } else {
+            navigationRouter?.popToRoot()
         }
     }
 

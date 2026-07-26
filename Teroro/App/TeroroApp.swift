@@ -1,4 +1,5 @@
 import SwiftUI
+import RevenueCat
 import FirebaseCore
 import GoogleSignIn
 import UserNotifications
@@ -34,13 +35,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         
         
         // MARK: - RevenueCat init
-//        Purchases.configure(withAPIKey: AppConstants.revenueCatKey)
-//        
-//        Purchases.logLevel = .verbose
-        
-        // MARK: AppsFlyer init
-//        AppsFlyerLib.shared().appsFlyerDevKey = AppConstants.appsflyerKey
-//        AppsFlyerLib.shared().appleAppID = AppConstants.appleID
+        Purchases.configure(withAPIKey: AppConstants.revenueCatKey)
+        Purchases.logLevel = .verbose
         
 //        NotificationCenter.default.addObserver(
 //            self,
@@ -77,12 +73,5 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         completionHandler()
     }
     
-//    func applicationDidBecomeActive(_ application: UIApplication) {
-//        AppsFlyerLib.shared().start()
-//    }
-//    
-//    @objc private func sendLaunch() {
-//        AppsFlyerLib.shared().start()
-//    }
     
 }

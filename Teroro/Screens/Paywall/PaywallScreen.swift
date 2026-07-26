@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct PaywallScreen: View {
     @EnvironmentObject private var appState: AppState
@@ -18,7 +19,7 @@ struct PaywallScreen: View {
             LinearGradient(
                 colors: [
                     Color(.systemBackground),
-                    Color.green.opacity(0.18),
+                    Color.primaryColor.opacity(0.18),
                     Color(.secondarySystemBackground)
                 ],
                 startPoint: .top,
@@ -33,10 +34,10 @@ struct PaywallScreen: View {
 
                 Image(systemName: "calendar.badge.clock")
                     .font(.system(size: 54, weight: .semibold))
-                    .foregroundStyle(.green)
+                    .foregroundStyle(Color.primaryColor)
                     .frame(width: 116, height: 116)
                     .background(.ultraThinMaterial, in: Circle())
-                    .overlay(Circle().strokeBorder(Color.green.opacity(0.25), lineWidth: 1))
+                    .overlay(Circle().strokeBorder(Color.primaryColor.opacity(0.25), lineWidth: 1))
 
                 VStack(spacing: 8) {
                     Text("Unlock Pro")
@@ -90,7 +91,7 @@ struct PaywallScreen: View {
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 54)
-                        .background(subscriptionService.isPurchasing ? Color.secondary.opacity(0.35) : Color.green, in: Capsule())
+                        .background(subscriptionService.isPurchasing ? Color.secondary.opacity(0.35) : Color.primaryColor, in: Capsule())
                     }
                     .buttonStyle(.plain)
                     .disabled(subscriptionService.isPurchasing)
@@ -100,8 +101,11 @@ struct PaywallScreen: View {
             }
             .padding(.horizontal, 20)
             .padding(.top, 18)
-            .padding(.bottom, 14)
+            .padding(.bottom, 4)
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden, for: .tabBar)
+        .swipeBackGestureEnabled()
         .task {
             await subscriptionService.bootstrap()
         }
@@ -125,7 +129,7 @@ struct PaywallScreen: View {
             Button {
                 close()
             } label: {
-                Image(systemName: "xmark")
+                Image(systemName: "chevron.backward")
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundStyle(.primary)
                     .frame(width: 36, height: 36)
@@ -176,10 +180,11 @@ struct PaywallScreen: View {
     }
 
     private func close() {
-        appState.isShowPaywall = false
+//        appState.isShowPaywall = false
         dismiss()
     }
 }
+
 
 private struct PlanOptionView: View {
     let period: SubscriptionPlanPeriod
@@ -209,18 +214,18 @@ private struct PlanOptionView: View {
 
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                     .font(.title3)
-                    .foregroundStyle(isSelected ? .green : .secondary)
+                    .foregroundStyle(isSelected ? Color.primaryColor : .secondary)
             }
             .padding(16)
             .frame(maxWidth: .infinity, minHeight: 74)
             .background {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(isSelected ? Color.green.opacity(0.2) : Color(.systemBackground))
+                    .fill(isSelected ? Color.primaryColor.opacity(0.2) : Color(.systemBackground))
                     .animation(.easeInOut(duration: 0.2), value: isSelected)
             }
             .overlay {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .strokeBorder(isSelected ? Color.green.opacity(0.7) : Color.secondary.opacity(0.16), lineWidth: 1.2)
+                    .strokeBorder(isSelected ? Color.primaryColor.opacity(0.7) : Color.secondary.opacity(0.16), lineWidth: 1.2)
             }
         }
         .buttonStyle(.plain)
@@ -244,7 +249,7 @@ private struct TrialToggleView: View {
 
             Toggle("", isOn: $isTrialEnabled.animation(.spring(response: 0.28, dampingFraction: 0.82)))
                 .labelsHidden()
-                .tint(.green)
+                .tint(.primaryColor)
         }
         .padding(16)
         .background(Color(.systemBackground), in: RoundedRectangle(cornerRadius: 18, style: .continuous))

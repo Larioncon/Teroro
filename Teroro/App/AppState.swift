@@ -11,6 +11,10 @@ final class AppState: ObservableObject {
     @Published var isShowPaywall: Bool = false
     
     @Published var alertData: AlertData?
+    
+//    func presentPaywall() {
+//        isShowPaywall = true
+//    }
 }
 struct AlertData: Identifiable {
     let id = UUID()

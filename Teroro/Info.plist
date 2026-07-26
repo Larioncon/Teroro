@@ -6,6 +6,35 @@
 	<string>$(APP_ID)</string>
 	<key>APP_STORE_URL</key>
 	<string>$(APP_STORE_URL)</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>logoG</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>logoG</string>
+				</array>
+				<key>CFBundleIconName</key>
+				<string>logoG</string>
+			</dict>
+			<key>logoP</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>logoP</string>
+				</array>
+				<key>CFBundleIconName</key>
+				<string>logoP</string>
+			</dict>
+		</dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconName</key>
+			<string>AppIcon</string>
+		</dict>
+	</dict>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -47,5 +76,8 @@
 	<string>$(YEARLY_SPECIAL_OFFER_PRODUCT_ID)</string>
 	<key>YEARLY_TRIAL_PRODUCT_ID</key>
 	<string>$(YEARLY_TRIAL_PRODUCT_ID)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Дозвіл потрібен для відображення вашої поточної геопозиції на карті.</string>
 </dict>
+
 </plist>
