@@ -5,105 +5,94 @@ struct TermsMapView: View {
     @ObservedObject var viewModel: TermsMapVM
     let terms: [Term]
     let isLoading: Bool
-    @State private var region: MKCoordinateRegion
+    @AppStorage("preferredMapType") private var preferredMapTypeRaw: Int = Int(MKMapType.standard.rawValue)
+
+    private var mapType: Binding<MKMapType> {
+        Binding(
+            get: { MKMapType(rawValue: UInt(preferredMapTypeRaw)) ?? .standard },
+            set: { preferredMapTypeRaw = Int($0.rawValue) }
+        )
+    }
 
     init(viewModel: TermsMapVM, terms: [Term], isLoading: Bool = false) {
         self.viewModel = viewModel
         self.terms = terms
         self.isLoading = isLoading
-        _region = State(initialValue: TermsMapVM.defaultRegion)
     }
 
     var body: some View {
-        let items = viewModel.items(from: terms, base: region.center)
+        let upcomingTerms = viewModel.upcomingTerms(from: terms)
+        let items = viewModel.items(from: terms)
 
-        Map(
-            coordinateRegion: $region,
-            annotationItems: items
-        ) { item in
-            MapAnnotation(coordinate: item.coordinate) {
-                VStack(spacing: 4) {
-                    Image(systemName: "mappin.circle.fill")
-                        .font(.title2)
-                        .foregroundStyle(.red)
-                        .shadow(radius: 2)
+        ZStack(alignment: .topTrailing) {
+            TermsMapViewRepresentable(
+                region: $viewModel.region,
+                items: items,
+                mapType: mapType.wrappedValue
+            )
+            .ignoresSafeArea()
 
-                    Text(item.title)
-                        .font(.caption2)
-                        .foregroundStyle(.primary)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(.ultraThinMaterial, in: Capsule())
+            // Map Control Buttons (Location / Center)
+            VStack(spacing: 8) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        viewModel.centerOnUserOrNearestTerm(for: terms)
+                    }
+                } label: {
+                    Image(systemName: viewModel.userLocation != nil ? "location.fill" : "location")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(viewModel.userLocation != nil ? Color.accentColor : .primary)
+                        .frame(width: 44, height: 44)
+                        .background(.regularMaterial, in: Circle())
+                        .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
+                }
+                .buttonStyle(.plain)
+                
+                MapTypeButton(icon: "map.fill", isSelected: mapType.wrappedValue == .standard) {
+                    mapType.wrappedValue = .standard
+                }
+                MapTypeButton(icon: "globe.americas.fill", isSelected: mapType.wrappedValue == .hybrid) {
+                    mapType.wrappedValue = .hybrid
                 }
             }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea()
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            Group {
-                if isLoading {
-                    EmptyStateCard(
-                        title: "Завантаження термінів",
-                        subtitle: "Мапа оновиться після синхронізації."
-                    )
-                    .redacted(reason: .placeholder)
-                } else if terms.isEmpty {
-                    EmptyStateCard(
-                        title: "Немає термінів",
-                        subtitle: "Створіть перший термін, щоб побачити його на мапі."
-                    )
-                } else if items.isEmpty {
-                    EmptyStateCard(
-                        title: "Немає локацій",
-                        subtitle: "Терміни без місця не відображаються на мапі."
-                    )
-                } else {
-                    HintCard()
+            .padding(.trailing, 16)
+            .padding(.top, 60)
+
+            // Bottom Info Card
+            VStack {
+                Spacer()
+                Group {
+                    if isLoading {
+                        EmptyStateCard(
+                            title: "Завантаження термінів",
+                            subtitle: "Мапа оновиться після синхронізації."
+                        )
+                        .redacted(reason: .placeholder)
+                    } else if upcomingTerms.isEmpty {
+                        EmptyStateCard(
+                            title: "Немає майбутніх термінів",
+                            subtitle: "Заплануйте новий термін, щоб побачити його на мапі."
+                        )
+                    } else if items.isEmpty {
+                        EmptyStateCard(
+                            title: "Немає локацій",
+                            subtitle: "Майбутні терміни без місця не відображаються на мапі."
+                        )
+                    } else {
+                        HintCard()
+                    }
                 }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 14)
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 14)
         }
-    }
-}
-
-private struct HintCard: View {
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: "info.circle")
-                .font(.title3)
-                .foregroundStyle(.blue)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Мапа термінів")
-                    .font(.headline)
-                Text("Показує терміни, для яких задано місце.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-
-            Spacer(minLength: 0)
+        .onAppear {
+            viewModel.requestUserLocation()
+            viewModel.setTerms(terms)
         }
-        .padding(14)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-    }
-}
-
-private struct EmptyStateCard: View {
-    let title: String
-    let subtitle: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.headline)
-            Text(subtitle)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        .onChange(of: terms) { newTerms in
+            viewModel.setTerms(newTerms)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }
 
