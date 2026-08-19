@@ -79,6 +79,9 @@ struct TermFormView<VM: TermFormViewModeling>: View {
                 .transition(.opacity)
             }
         }
+        .task {
+            await viewModel.loadTermIfNeeded()
+        }
     }
 
     private func checkNotificationStatus() {
@@ -311,6 +314,50 @@ private struct ActionButtonsSection: View {
                 .foregroundStyle(.white)
                 .disabled(!isSaveEnabled)
         }
+    }
+}
+
+// MARK: - Screen Wrappers with @StateObject
+
+struct AddTermView: View {
+    @StateObject private var viewModel: AddTermVM
+    let onSave: () -> Void
+    let onCancel: () -> Void
+
+    init(onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: AddTermVM())
+        self.onSave = onSave
+        self.onCancel = onCancel
+    }
+
+    var body: some View {
+        TermFormView(
+            viewModel: viewModel,
+            title: "Новий термін",
+            onSave: onSave,
+            onCancel: onCancel
+        )
+    }
+}
+
+struct EditTermView: View {
+    @StateObject private var viewModel: EditTermVM
+    let onSave: () -> Void
+    let onCancel: () -> Void
+
+    init(termID: UUID, onSave: @escaping () -> Void, onCancel: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: EditTermVM(termID: termID))
+        self.onSave = onSave
+        self.onCancel = onCancel
+    }
+
+    var body: some View {
+        TermFormView(
+            viewModel: viewModel,
+            title: "Редагувати",
+            onSave: onSave,
+            onCancel: onCancel
+        )
     }
 }
 

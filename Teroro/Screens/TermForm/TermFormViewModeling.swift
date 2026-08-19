@@ -18,5 +18,10 @@ protocol TermFormViewModeling: ObservableObject {
     var isLoading: Bool { get }
     var isSaveEnabled: Bool { get }
 
+    func loadTermIfNeeded() async
     func save() async -> Bool
+}
+
+extension TermFormViewModeling {
+    func loadTermIfNeeded() async {}
 }

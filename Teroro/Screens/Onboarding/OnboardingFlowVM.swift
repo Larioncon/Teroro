@@ -43,7 +43,7 @@ final class OnboardingFlowVM: ObservableObject {
         case 1:
             navigateToNextStep()
         case 2:
-            requestAppReview()
+            navigateToNextStep()
         case 3:
             navigateToNextStep()
         case 4:
@@ -80,13 +80,13 @@ final class OnboardingFlowVM: ObservableObject {
         }
     }
 
-    func requestAppReview() {
-        if let scene = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
-        }
-        navigateToNextStep()
-    }
+//    func requestAppReview() {
+//        if let scene = UIApplication.shared.connectedScenes
+//            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+//            SKStoreReviewController.requestReview(in: scene)
+//        }
+//        navigateToNextStep()
+//    }
 
     func makeSeenOnb() {
         UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")

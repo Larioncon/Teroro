@@ -34,5 +34,6 @@ enum AppRoute: Hashable {
     case pastTerms
     case settings
     case appearance
+    case privacyAndSecurity
     case pw
 }

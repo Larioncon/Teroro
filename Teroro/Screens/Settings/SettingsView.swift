@@ -10,6 +10,7 @@ struct SettingsView: View {
     @State private var isPhotoPickerShowing = false
     let onShowPaywall: () -> Void
     let onShowAppearance: () -> Void
+    let onShowPrivacyAndSecurity: () -> Void
 
     var body: some View {
         List {
@@ -60,7 +61,6 @@ struct SettingsView: View {
             if !viewModel.isPremium {
                 Section {
                     Button {
-//                        viewModel.showPaywall()
                         onShowPaywall()
                     } label: {
                         HStack {
@@ -93,6 +93,18 @@ struct SettingsView: View {
                 } label: {
                     HStack {
                         Label("Вид", systemImage: "circle.lefthalf.filled")
+                        Spacer()
+                        Image(systemName: "chevron.forward")
+                            .font(.footnote.bold())
+                            .foregroundColor(.gray)
+                    }
+                }
+
+                Button {
+                    onShowPrivacyAndSecurity()
+                } label: {
+                    HStack {
+                        Label("Приватність та безпека", systemImage: "lock.shield.fill")
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .font(.footnote.bold())
@@ -242,12 +254,3 @@ private struct PremiumStatusPill: View {
             }
     }
 }
-
-//#Preview {
-//    NavigationStack {
-//        SettingsView(
-//            viewModel: SettingsVM(appState: appState),
-//            onShowPaywall: { navigator.push(.pw) }
-//        )
-//    }
-//}

@@ -20,6 +20,7 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
     private let termID: UUID
     private let repository: TermsRepository
     private var loadedTerm: Term?
+    private var isLoaded = false
 
     init(termID: UUID, repository: TermsRepository = .shared) {
         self.termID = termID
@@ -31,10 +32,12 @@ final class EditTermVM: ObservableObject, TermFormViewModeling {
         self.reminderDate = Date()
         self.location = nil
         self.isLoading = true
+    }
 
-        Task {
-            await loadTerm()
-        }
+    func loadTermIfNeeded() async {
+        guard !isLoaded else { return }
+        isLoaded = true
+        await loadTerm()
     }
 
     var isSaveEnabled: Bool {

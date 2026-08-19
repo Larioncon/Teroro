@@ -44,99 +44,178 @@ struct AppRootView: View {
 /// A container for the authenticated session, ensuring all state is purged on logout.
 private struct SessionContainerView: View {
     @EnvironmentObject private var appState: AppState
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var navigator = AppRouter()
     @StateObject private var homeVM = HomeVM()
     @StateObject private var mapVM = TermsMapVM()
     @StateObject private var pomodoroVM = PomodoroVM()
+    @AppStorage("isFaceIDEnabled") private var isFaceIDEnabled = false
+    @AppStorage("isPasscodeEnabled") private var isPasscodeEnabled = false
+    @AppStorage("userPasscode") private var userPasscode = ""
+    @AppStorage("passcodeAutoLockInterval") private var passcodeAutoLockInterval = PasscodeAutoLockOption.oneMinute.rawValue
+    @State private var isLocked = false
+    @State private var lastInactiveDate: Date?
 
     var body: some View {
-        TabView {
-            NavigationStack(path: $navigator.path) {
-                HomeView(
-                    viewModel: homeVM,
-                    onAddTerm: { navigator.push(.addTerm) },
-                    onDeleteTerm: homeVM.deleteTerm
-                )
-                .navigationDestination(for: AppRoute.self) { route in
-                    switch route {
-                    case .onboarding:
-                        EmptyView()
-                    case .addTerm:
-                        TermFormView(
-                            viewModel: AddTermVM(),
-                            title: "Новий термін",
-                            onSave: {
-                                homeVM.fetchTerms()
-                                navigator.pop()
-                            },
-                            onCancel: navigator.pop
-                        )
-                    case .editTerm(let id):
-                        TermFormView(
-                            viewModel: EditTermVM(termID: id),
-                            title: "Редагувати",
-                            onSave: {
-                                homeVM.fetchTerms()
-                                navigator.pop()
-                            },
-                            onCancel: navigator.pop
-                        )
-                    case .pastTerms:
-                        PastTermsView(viewModel: homeVM, onDeleteTerm: homeVM.deleteTerm)
-                    case .settings:
-                        SettingsView(
-                            viewModel: SettingsVM(appState: appState),
-                            onShowPaywall: { navigator.push(.pw) },
-                            onShowAppearance: { navigator.push(.appearance) }
-                        )
-                    case .appearance:
-                        AppearanceView(viewModel: SettingsVM(appState: appState))
-                    case .pw:
-                        PaywallScreen()
-                            .environmentObject(appState)
-                    case .onboardingPaywall:
-                        EmptyView()
+        ZStack {
+            TabView {
+                NavigationStack(path: $navigator.path) {
+                    HomeView(
+                        viewModel: homeVM,
+                        onAddTerm: { navigator.push(.addTerm) },
+                        onDeleteTerm: homeVM.deleteTerm
+                    )
+                    .navigationDestination(for: AppRoute.self) { route in
+                        switch route {
+                        case .onboarding:
+                            EmptyView()
+                        case .addTerm:
+                            AddTermView(
+                                onSave: {
+                                    homeVM.fetchTerms()
+                                    navigator.pop()
+                                },
+                                onCancel: navigator.pop
+                            )
+                        case .editTerm(let id):
+                            EditTermView(
+                                termID: id,
+                                onSave: {
+                                    homeVM.fetchTerms()
+                                    navigator.pop()
+                                },
+                                onCancel: navigator.pop
+                            )
+                        case .pastTerms:
+                            PastTermsView(viewModel: homeVM, onDeleteTerm: homeVM.deleteTerm)
+                        case .settings:
+                            SettingsView(
+                                viewModel: SettingsVM(appState: appState),
+                                onShowPaywall: { navigator.push(.pw) },
+                                onShowAppearance: { navigator.push(.appearance) },
+                                onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) }
+                            )
+                        case .appearance:
+                            AppearanceView(viewModel: SettingsVM(appState: appState))
+                        case .privacyAndSecurity:
+                            PrivacyAndSecurityView(viewModel: SettingsVM(appState: appState))
+                        case .pw:
+                            PaywallScreen()
+                                .environmentObject(appState)
+                        case .onboardingPaywall:
+                            EmptyView()
+                        }
                     }
                 }
-            }
-            .tabItem {
-                Label("Терміни", systemImage: "calendar")
-            }
-
-            TermsMapView(viewModel: mapVM, terms: homeVM.terms, isLoading: homeVM.isLoading)
                 .tabItem {
-                    Label("Мапа", systemImage: "map")
+                    Label("Терміни", systemImage: "calendar")
                 }
 
-            NavigationStack {
-                PomodoroView(viewModel: pomodoroVM)
-            }
-            .tabItem {
-                Label("Таймер", systemImage: "timer")
-            }
+                TermsMapView(viewModel: mapVM, terms: homeVM.terms, isLoading: homeVM.isLoading)
+                    .tabItem {
+                        Label("Мапа", systemImage: "map")
+                    }
 
-            NavigationStack(path: $navigator.path) {
-                SettingsView(
-                    viewModel: SettingsVM(appState: appState),
-                    onShowPaywall: { navigator.push(.pw) },
-                    onShowAppearance: { navigator.push(.appearance) }
-                )
-                .navigationDestination(for: AppRoute.self) { route in
-                    switch route {
-                    case .appearance:
-                        AppearanceView(viewModel: SettingsVM(appState: appState))
-                    case .pw:
-                        PaywallScreen()
-                            .environmentObject(appState)
-                    default:
-                        EmptyView()
+                NavigationStack {
+                    PomodoroView(viewModel: pomodoroVM)
+                }
+                .tabItem {
+                    Label("Таймер", systemImage: "timer")
+                }
+
+                NavigationStack(path: $navigator.path) {
+                    SettingsView(
+                        viewModel: SettingsVM(appState: appState),
+                        onShowPaywall: { navigator.push(.pw) },
+                        onShowAppearance: { navigator.push(.appearance) },
+                        onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) }
+                    )
+                    .navigationDestination(for: AppRoute.self) { route in
+                        switch route {
+                        case .appearance:
+                            AppearanceView(viewModel: SettingsVM(appState: appState))
+                        case .privacyAndSecurity:
+                            PrivacyAndSecurityView(viewModel: SettingsVM(appState: appState))
+                        case .pw:
+                            PaywallScreen()
+                                .environmentObject(appState)
+                        default:
+                            EmptyView()
+                        }
                     }
                 }
+                .tabItem {
+                    Label("Профіль", systemImage: "person.crop.circle")
+                }
             }
-            .tabItem {
-                Label("Профіль", systemImage: "person.crop.circle")
+
+            if isLocked, isPasscodeEnabled, !userPasscode.isEmpty {
+                AppLockScreen(
+                    passcode: userPasscode,
+                    isFaceIDEnabled: isFaceIDEnabled,
+                    onUnlock: unlockSession
+                )
+                .transition(.opacity)
+                .zIndex(1)
             }
         }
+        .animation(.easeInOut(duration: 0.2), value: isLocked)
+        .onAppear(perform: lockOnLaunchIfNeeded)
+        .onChange(of: scenePhase) { phase in
+            handleScenePhaseChange(phase)
+        }
+        .onChange(of: isPasscodeEnabled) { enabled in
+            if !enabled {
+                isLocked = false
+            } else {
+                lockOnLaunchIfNeeded()
+            }
+        }
+    }
+
+    private var autoLockOption: PasscodeAutoLockOption {
+        PasscodeAutoLockOption(rawValue: passcodeAutoLockInterval) ?? .oneMinute
+    }
+
+    private func lockOnLaunchIfNeeded() {
+        guard shouldUsePasscodeLock else { return }
+        isLocked = true
+    }
+
+    private func handleScenePhaseChange(_ phase: ScenePhase) {
+        switch phase {
+        case .active:
+            lockAfterInactivityIfNeeded()
+        case .inactive, .background:
+            lastInactiveDate = Date.now
+        @unknown default:
+            break
+        }
+    }
+
+    private func lockAfterInactivityIfNeeded() {
+        guard shouldUsePasscodeLock else {
+            isLocked = false
+            return
+        }
+        guard let lockInterval = autoLockOption.lockInterval else {
+            isLocked = false
+            return
+        }
+        guard let lastInactiveDate else { return }
+
+        if Date.now.timeIntervalSince(lastInactiveDate) >= lockInterval {
+            isLocked = true
+        }
+    }
+
+    private var shouldUsePasscodeLock: Bool {
+        isPasscodeEnabled && !userPasscode.isEmpty && autoLockOption.lockInterval != nil
+    }
+
+    private func unlockSession() {
+        isLocked = false
+        lastInactiveDate = nil
     }
 }
 

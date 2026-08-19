@@ -38,7 +38,7 @@ struct OnboardingPaywallView: View {
 
                 // Content area
                 VStack(spacing: 10) {
-                    Text("Your Personal AI Assistant")
+                    Text("Manage Terms & Stay Focused")
                         .font(.system(size: 26, weight: .bold))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)

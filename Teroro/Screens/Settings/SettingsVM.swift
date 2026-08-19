@@ -1,4 +1,5 @@
 import Combine
+import LocalAuthentication
 import SwiftUI
 import UserNotifications
 import UIKit
@@ -6,6 +7,10 @@ import UIKit
 @MainActor
 final class SettingsVM: ObservableObject {
     @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
+    @AppStorage("isFaceIDEnabled") var isFaceIDEnabled: Bool = false
+    @AppStorage("isPasscodeEnabled") var isPasscodeEnabled: Bool = false
+    @AppStorage("userPasscode") var userPasscode: String = ""
+    @AppStorage("passcodeAutoLockInterval") var passcodeAutoLockInterval: Double = PasscodeAutoLockOption.oneMinute.rawValue
 
     var appearance: AppAppearance {
         get { AppAppearance(rawValue: appearanceRawValue) ?? .system }
@@ -20,9 +25,18 @@ final class SettingsVM: ObservableObject {
     @Published private(set) var notificationStatus: UNAuthorizationStatus = .notDetermined
     @Published private(set) var statusFlipRotation: Double = 0
     @Published private(set) var currentUser: UserData?
+    @Published private(set) var linkedProviderIDs: [String] = []
     @Published private(set) var isAvatarUpdating = false
     @Published private(set) var isPremium = false
     @Published var signOutErrorMessage: String?
+
+    @Published var isChangePasswordSheetPresented = false
+    @Published var isAddEmailPasswordSheetPresented = false
+    @Published var isChangeEmailSheetPresented = false
+    @Published var isPasscodeSheetPresented = false
+    @Published var securityAlertMessage: String?
+    @Published var securitySuccessMessage: String?
+    @Published var isSecurityProcessing = false
 
     private var cancellables: Set<AnyCancellable> = []
 
@@ -42,6 +56,7 @@ final class SettingsVM: ObservableObject {
         self.avatarCache = avatarCache ?? .shared
         self.appState = appState
         self.currentUser = authService.currentUser
+        self.linkedProviderIDs = authService.linkedProviderIDs
         self.isPremium = SubscriptionService.shared.isPremium
         migrateLegacyThemeIfNeeded()
 
@@ -49,6 +64,7 @@ final class SettingsVM: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in
                 self?.currentUser = user
+                self?.refreshLinkedProviders()
             }
             .store(in: &cancellables)
 
@@ -125,6 +141,9 @@ final class SettingsVM: ObservableObject {
 
     func signOut() {
         signOutErrorMessage = nil
+        isFaceIDEnabled = false
+        isPasscodeEnabled = false
+        userPasscode = ""
         do {
             try authService.signOut()
         } catch {
@@ -170,6 +189,217 @@ final class SettingsVM: ObservableObject {
         }
     }
 
+    // MARK: - Privacy & Security
+
+    var authProvider: AuthProvider {
+        authService.getUserAuthProvider()
+    }
+
+    var hasPassword: Bool {
+        linkedProviderIDs.contains("password")
+    }
+
+    var isAppleLinked: Bool {
+        linkedProviderIDs.contains("apple.com")
+    }
+
+    var isGoogleLinked: Bool {
+        linkedProviderIDs.contains("google.com")
+    }
+
+    var passcodeAutoLockOption: PasscodeAutoLockOption {
+        get { PasscodeAutoLockOption(rawValue: passcodeAutoLockInterval) ?? .oneMinute }
+        set { passcodeAutoLockInterval = newValue.rawValue }
+    }
+
+    func toggleFaceID(enabled: Bool) {
+        let context = LAContext()
+        var error: NSError?
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = enabled ? "Підтвердіть Face ID для увімкнення" : "Підтвердіть Face ID для вимкнення"
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authError in
+                Task { @MainActor in
+                    if success {
+                        self.isFaceIDEnabled = enabled
+                    } else {
+                        self.isFaceIDEnabled = !enabled
+                        if let authError = authError {
+                            self.securityAlertMessage = authError.localizedDescription
+                        }
+                    }
+                }
+            }
+        } else {
+            isFaceIDEnabled = false
+            securityAlertMessage = error?.localizedDescription ?? "Face ID не підтримується на цьому пристрої."
+        }
+    }
+
+    func changePassword(newPassword: String, confirmPassword: String, currentPassword: String? = nil) async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        guard !newPassword.isEmpty else {
+            securityAlertMessage = "Введіть новий пароль."
+            return false
+        }
+        guard newPassword.count >= 6 else {
+            securityAlertMessage = "Пароль має містити щонайменше 6 символів."
+            return false
+        }
+        guard newPassword == confirmPassword else {
+            securityAlertMessage = "Паролі не співпадають."
+            return false
+        }
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            let hadPassword = hasPassword
+            try await authService.changeUserPassword(
+                newPassword: newPassword,
+                currentPassword: currentPassword,
+                emailForLinking: currentUser?.email
+            )
+            refreshLinkedProviders()
+            securitySuccessMessage = hadPassword ? "Пароль успішно змінено." : "Пароль успішно створено."
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func addEmailAndPassword(email: String, password: String, confirmPassword: String) async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedEmail.isEmpty else {
+            securityAlertMessage = "Введіть email."
+            return false
+        }
+        guard !password.isEmpty else {
+            securityAlertMessage = "Введіть пароль."
+            return false
+        }
+        guard password.count >= 6 else {
+            securityAlertMessage = "Пароль має містити щонайменше 6 символів."
+            return false
+        }
+        guard password == confirmPassword else {
+            securityAlertMessage = "Паролі не співпадають."
+            return false
+        }
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.linkEmailPasswordToCurrentUser(email: trimmedEmail, password: password)
+            refreshLinkedProviders()
+            securitySuccessMessage = "Email та пароль успішно підключено."
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func changeEmail(newEmail: String, currentPassword: String? = nil) async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        let trimmed = newEmail.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            securityAlertMessage = "Введіть новий email."
+            return false
+        }
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.changeUserEmail(newEmail: trimmed, currentPassword: currentPassword)
+            securitySuccessMessage = "Код підтвердження надіслано на новий email."
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func confirmEmailChange(actionCode: String, expectedEmail: String) async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        let trimmedCode = actionCode.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedCode.isEmpty else {
+            securityAlertMessage = "Введіть код підтвердження."
+            return false
+        }
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.confirmUserEmailChange(actionCode: trimmedCode, expectedEmail: expectedEmail)
+            securitySuccessMessage = "Email успішно змінено."
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func linkAppleProvider() async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.linkAppleToCurrentUser()
+            refreshLinkedProviders()
+            securitySuccessMessage = "Apple Sign in підключено."
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func linkGoogleProvider() async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.linkGoogleToCurrentUser()
+            refreshLinkedProviders()
+            securitySuccessMessage = "Google Sign in підключено."
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func savePasscode(_ passcode: String) {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        userPasscode = passcode
+        isPasscodeEnabled = !passcode.isEmpty
+        if passcode.isEmpty {
+            isFaceIDEnabled = false
+        }
+        securitySuccessMessage = passcode.isEmpty ? "Код-пароль вимкнено." : "Код-пароль успішно збережено."
+    }
+
     // MARK: - Private
 
     private func migrateLegacyThemeIfNeeded() {
@@ -179,5 +409,9 @@ final class SettingsVM: ObservableObject {
 
         let wasDark = defaults.bool(forKey: "isDarkMode")
         appearanceRawValue = (wasDark ? AppAppearance.dark : AppAppearance.light).rawValue
+    }
+
+    private func refreshLinkedProviders() {
+        linkedProviderIDs = authService.linkedProviderIDs
     }
 }
