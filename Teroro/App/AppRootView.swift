@@ -49,6 +49,7 @@ private struct SessionContainerView: View {
     @StateObject private var homeVM = HomeVM()
     @StateObject private var mapVM = TermsMapVM()
     @StateObject private var pomodoroVM = PomodoroVM()
+    @StateObject private var settingsVM = SettingsVM()
     @AppStorage("isFaceIDEnabled") private var isFaceIDEnabled = false
     @AppStorage("isPasscodeEnabled") private var isPasscodeEnabled = false
     @AppStorage("userPasscode") private var userPasscode = ""
@@ -90,15 +91,15 @@ private struct SessionContainerView: View {
                             PastTermsView(viewModel: homeVM, onDeleteTerm: homeVM.deleteTerm)
                         case .settings:
                             SettingsView(
-                                viewModel: SettingsVM(appState: appState),
+                                viewModel: settingsVM,
                                 onShowPaywall: { navigator.push(.pw) },
                                 onShowAppearance: { navigator.push(.appearance) },
                                 onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) }
                             )
                         case .appearance:
-                            AppearanceView(viewModel: SettingsVM(appState: appState))
+                            AppearanceView(viewModel: settingsVM)
                         case .privacyAndSecurity:
-                            PrivacyAndSecurityView(viewModel: SettingsVM(appState: appState))
+                            PrivacyAndSecurityView(viewModel: settingsVM)
                         case .pw:
                             PaywallScreen()
                                 .environmentObject(appState)
@@ -125,7 +126,7 @@ private struct SessionContainerView: View {
 
                 NavigationStack(path: $navigator.path) {
                     SettingsView(
-                        viewModel: SettingsVM(appState: appState),
+                        viewModel: settingsVM,
                         onShowPaywall: { navigator.push(.pw) },
                         onShowAppearance: { navigator.push(.appearance) },
                         onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) }
@@ -133,9 +134,9 @@ private struct SessionContainerView: View {
                     .navigationDestination(for: AppRoute.self) { route in
                         switch route {
                         case .appearance:
-                            AppearanceView(viewModel: SettingsVM(appState: appState))
+                            AppearanceView(viewModel: settingsVM)
                         case .privacyAndSecurity:
-                            PrivacyAndSecurityView(viewModel: SettingsVM(appState: appState))
+                            PrivacyAndSecurityView(viewModel: settingsVM)
                         case .pw:
                             PaywallScreen()
                                 .environmentObject(appState)

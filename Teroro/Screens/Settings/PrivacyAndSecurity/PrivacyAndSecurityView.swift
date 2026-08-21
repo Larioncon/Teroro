@@ -81,6 +81,7 @@ struct PrivacyAndSecurityView: View {
                 ) {
                     Task { await viewModel.linkAppleProvider() }
                 }
+                .id("signin-apple-\(viewModel.isAppleLinked)")
 
                 SignInProviderRow(
                     title: "Google",
@@ -90,6 +91,7 @@ struct PrivacyAndSecurityView: View {
                 ) {
                     Task { await viewModel.linkGoogleProvider() }
                 }
+                .id("signin-google-\(viewModel.isGoogleLinked)")
 
                 SignInProviderRow(
                     title: "Email / Password",
@@ -99,6 +101,7 @@ struct PrivacyAndSecurityView: View {
                 ) {
                     viewModel.isAddEmailPasswordSheetPresented = true
                 }
+                .id("signin-password-\(viewModel.hasPassword)")
             }
         }
         .toolbar(.hidden, for: .tabBar)

@@ -64,7 +64,13 @@ final class SettingsVM: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in
                 self?.currentUser = user
-                self?.refreshLinkedProviders()
+            }
+            .store(in: &cancellables)
+
+        authService.$linkedProviderIDs
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ids in
+                self?.linkedProviderIDs = ids
             }
             .store(in: &cancellables)
 

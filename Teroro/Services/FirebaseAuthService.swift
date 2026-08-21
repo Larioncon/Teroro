@@ -14,10 +14,12 @@ final class FirebaseAuthService: NSObject, ObservableObject {
     @Published private(set) var currentUser: UserData?
     @Published private(set) var isLoggedIn: Bool = false
     @Published private(set) var isResolvingProfile: Bool = true
+    @Published private(set) var linkedProviderIDs: [String] = []
 
     private var stateListener: AuthStateDidChangeListenerHandle?
     private var profileListener: ListenerRegistration?
     private let profileService: UserProfileService
+    private var currentAuthUID: String?
 
     // MARK: - Apple Sign In Properties
     private var currentNonce: String?
@@ -26,17 +28,26 @@ final class FirebaseAuthService: NSObject, ObservableObject {
     private override init() {
         self.profileService = .shared
         super.init()
+        currentAuthUID = Auth.auth().currentUser?.uid
+        syncLinkedProviderIDs(from: Auth.auth().currentUser)
 
         stateListener = Auth.auth().addStateDidChangeListener { [weak self] _, user in
             guard let self else { return }
             Task { @MainActor in
                 self.isLoggedIn = (user != nil)
                 if let user {
+                    // Link notifies this listener with stale providerData; skip same-uid updates.
+                    if self.currentAuthUID != user.uid {
+                        self.currentAuthUID = user.uid
+                        self.syncLinkedProviderIDs(from: user)
+                    }
                     self.listenProfile(for: user)
                 } else {
                     self.profileListener?.remove()
                     self.profileListener = nil
                     self.currentUser = nil
+                    self.currentAuthUID = nil
+                    self.syncLinkedProviderIDs(from: nil)
                     self.isResolvingProfile = false
                 }
             }
@@ -99,51 +110,43 @@ final class FirebaseAuthService: NSObject, ObservableObject {
     }
 
     func getUserAuthProvider() -> AuthProvider {
-        guard let user = Auth.auth().currentUser else { return .unknown }
-        let providerIDs = user.providerData.map { $0.providerID }
-        if providerIDs.contains("apple.com") {
+        if linkedProviderIDs.contains("apple.com") {
             return .apple
-        } else if providerIDs.contains("google.com") {
+        } else if linkedProviderIDs.contains("google.com") {
             return .google
-        } else if providerIDs.contains("password") {
+        } else if linkedProviderIDs.contains("password") {
             return .email
         }
         return .unknown
     }
 
     func hasLinkedProvider(_ providerID: String) -> Bool {
-        Auth.auth().currentUser?.providerData.contains { $0.providerID == providerID } ?? false
-    }
-
-    var linkedProviderIDs: [String] {
-        Auth.auth().currentUser?.providerData.map(\.providerID) ?? []
+        linkedProviderIDs.contains(providerID)
     }
 
     func linkGoogleToCurrentUser() async throws {
-        guard let user = Auth.auth().currentUser else {
+        guard Auth.auth().currentUser != nil else {
             throw UserFacingAuthError.sessionInvalid
         }
         guard !hasLinkedProvider("google.com") else { return }
         let credential = try await googleCredential()
 
         do {
-            _ = try await user.link(with: credential)
-            try? await user.reload()
+            try await linkCredentialAndSyncProviders(credential)
         } catch {
             throw UserFacingAuthError(from: error)
         }
     }
 
     func linkAppleToCurrentUser() async throws {
-        guard let user = Auth.auth().currentUser else {
+        guard Auth.auth().currentUser != nil else {
             throw UserFacingAuthError.sessionInvalid
         }
         guard !hasLinkedProvider("apple.com") else { return }
         let credential = try await requestAppleCredential()
 
         do {
-            _ = try await user.link(with: credential)
-            try? await user.reload()
+            try await linkCredentialAndSyncProviders(credential)
         } catch {
             throw UserFacingAuthError(from: error)
         }
@@ -211,8 +214,7 @@ final class FirebaseAuthService: NSObject, ObservableObject {
         let credential = EmailAuthProvider.credential(withEmail: email, password: password)
 
         do {
-            _ = try await user.link(with: credential)
-            try? await user.reload()
+            try await linkCredentialAndSyncProviders(credential)
             try? await updateEmailInFirestore(userId: user.uid, newEmail: email)
         } catch {
             let userError = UserFacingAuthError(from: error)
@@ -220,14 +222,12 @@ final class FirebaseAuthService: NSObject, ObservableObject {
                 let provider = getUserAuthProvider()
                 if provider == .apple {
                     try await reauthenticateWithApple(user)
-                    _ = try await user.link(with: credential)
-                    try? await user.reload()
+                    try await linkCredentialAndSyncProviders(credential)
                     try? await updateEmailInFirestore(userId: user.uid, newEmail: email)
                     return
                 } else if provider == .google {
                     try await reauthenticateWithGoogle(user)
-                    _ = try await user.link(with: credential)
-                    try? await user.reload()
+                    try await linkCredentialAndSyncProviders(credential)
                     try? await updateEmailInFirestore(userId: user.uid, newEmail: email)
                     return
                 }
@@ -283,8 +283,7 @@ final class FirebaseAuthService: NSObject, ObservableObject {
             }
 
             let credential = EmailAuthProvider.credential(withEmail: email, password: newPassword)
-            _ = try await user.link(with: credential)
-            try? await user.reload()
+            try await linkCredentialAndSyncProviders(credential)
         } catch {
             let userError = UserFacingAuthError(from: error)
             if userError == .requiresRecentLogin {
@@ -292,20 +291,32 @@ final class FirebaseAuthService: NSObject, ObservableObject {
                     try await reauthenticateWithApple(user)
                     let email = (emailForLinking ?? user.email ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
                     let credential = EmailAuthProvider.credential(withEmail: email, password: newPassword)
-                    _ = try await user.link(with: credential)
-                    try? await user.reload()
+                    try await linkCredentialAndSyncProviders(credential)
                     return
                 } else if provider == .google {
                     try await reauthenticateWithGoogle(user)
                     let email = (emailForLinking ?? user.email ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
                     let credential = EmailAuthProvider.credential(withEmail: email, password: newPassword)
-                    _ = try await user.link(with: credential)
-                    try? await user.reload()
+                    try await linkCredentialAndSyncProviders(credential)
                     return
                 }
             }
             throw userError
         }
+    }
+
+    private func linkCredentialAndSyncProviders(_ credential: AuthCredential) async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw UserFacingAuthError.sessionInvalid
+        }
+        let result = try await user.link(with: credential)
+        try? await result.user.reload()
+        // `Auth.auth().currentUser.providerData` can stay stale after link.
+        syncLinkedProviderIDs(from: result.user)
+    }
+
+    private func syncLinkedProviderIDs(from user: FirebaseAuth.User?) {
+        linkedProviderIDs = user?.providerData.map(\.providerID) ?? []
     }
 
     private func updateEmailInFirestore(userId: String, newEmail: String) async throws {
