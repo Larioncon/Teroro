@@ -54,8 +54,8 @@ private struct SessionContainerView: View {
     @AppStorage("isPasscodeEnabled") private var isPasscodeEnabled = false
     @AppStorage("userPasscode") private var userPasscode = ""
     @AppStorage("passcodeAutoLockInterval") private var passcodeAutoLockInterval = PasscodeAutoLockOption.oneMinute.rawValue
+    @AppStorage("lastInactiveTimestamp") private var lastInactiveTimestamp: Double = 0
     @State private var isLocked = false
-    @State private var lastInactiveDate: Date?
 
     var body: some View {
         ZStack {
@@ -165,62 +165,59 @@ private struct SessionContainerView: View {
             }
         }
         .animation(.easeInOut(duration: 0.2), value: isLocked)
-        .onAppear(perform: lockOnLaunchIfNeeded)
+        .onAppear(perform: checkAutoLock)
         .onChange(of: scenePhase) { phase in
             handleScenePhaseChange(phase)
         }
         .onChange(of: isPasscodeEnabled) { enabled in
             if !enabled {
                 isLocked = false
+                lastInactiveTimestamp = 0
             } else {
-                lockOnLaunchIfNeeded()
+                checkAutoLock()
             }
         }
     }
 
     private var autoLockOption: PasscodeAutoLockOption {
-        PasscodeAutoLockOption(rawValue: passcodeAutoLockInterval) ?? .oneMinute
+        PasscodeAutoLockOption(rawValue: passcodeAutoLockInterval)
     }
 
-    private func lockOnLaunchIfNeeded() {
-        guard shouldUsePasscodeLock else { return }
-        isLocked = true
+    private func checkAutoLock() {
+        guard isPasscodeEnabled, !userPasscode.isEmpty else {
+            isLocked = false
+            return
+        }
+
+        guard !isLocked else { return }
+
+        guard lastInactiveTimestamp > 0 else {
+            isLocked = true
+            return
+        }
+
+        let elapsed = Date.now.timeIntervalSince1970 - lastInactiveTimestamp
+        if elapsed >= autoLockOption.lockInterval {
+            isLocked = true
+        }
     }
 
     private func handleScenePhaseChange(_ phase: ScenePhase) {
         switch phase {
         case .active:
-            lockAfterInactivityIfNeeded()
+            checkAutoLock()
         case .inactive, .background:
-            lastInactiveDate = Date.now
+            if isPasscodeEnabled, !userPasscode.isEmpty {
+                lastInactiveTimestamp = Date.now.timeIntervalSince1970
+            }
         @unknown default:
             break
         }
     }
 
-    private func lockAfterInactivityIfNeeded() {
-        guard shouldUsePasscodeLock else {
-            isLocked = false
-            return
-        }
-        guard let lockInterval = autoLockOption.lockInterval else {
-            isLocked = false
-            return
-        }
-        guard let lastInactiveDate else { return }
-
-        if Date.now.timeIntervalSince(lastInactiveDate) >= lockInterval {
-            isLocked = true
-        }
-    }
-
-    private var shouldUsePasscodeLock: Bool {
-        isPasscodeEnabled && !userPasscode.isEmpty && autoLockOption.lockInterval != nil
-    }
-
     private func unlockSession() {
         isLocked = false
-        lastInactiveDate = nil
+        lastInactiveTimestamp = Date.now.timeIntervalSince1970
     }
 }
 
