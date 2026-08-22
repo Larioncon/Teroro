@@ -59,8 +59,8 @@ private struct SessionContainerView: View {
 
     var body: some View {
         ZStack {
-            TabView {
-                NavigationStack(path: $navigator.path) {
+            TabView(selection: $navigator.selectedTab) {
+                NavigationStack(path: $navigator.termsPath) {
                     HomeView(
                         viewModel: homeVM,
                         onAddTerm: { navigator.push(.addTerm) },
@@ -76,7 +76,7 @@ private struct SessionContainerView: View {
                                     homeVM.fetchTerms()
                                     navigator.pop()
                                 },
-                                onCancel: navigator.pop
+                                onCancel: { navigator.pop() }
                             )
                         case .editTerm(let id):
                             EditTermView(
@@ -85,7 +85,7 @@ private struct SessionContainerView: View {
                                     homeVM.fetchTerms()
                                     navigator.pop()
                                 },
-                                onCancel: navigator.pop
+                                onCancel: { navigator.pop() }
                             )
                         case .pastTerms:
                             PastTermsView(viewModel: homeVM, onDeleteTerm: homeVM.deleteTerm)
@@ -111,11 +111,13 @@ private struct SessionContainerView: View {
                 .tabItem {
                     Label("Терміни", systemImage: "calendar")
                 }
+                .tag(AppRouter.Tab.terms)
 
                 TermsMapView(viewModel: mapVM, terms: homeVM.terms, isLoading: homeVM.isLoading)
                     .tabItem {
                         Label("Мапа", systemImage: "map")
                     }
+                    .tag(AppRouter.Tab.map)
 
                 NavigationStack {
                     PomodoroView(viewModel: pomodoroVM)
@@ -123,8 +125,9 @@ private struct SessionContainerView: View {
                 .tabItem {
                     Label("Таймер", systemImage: "timer")
                 }
+                .tag(AppRouter.Tab.timer)
 
-                NavigationStack(path: $navigator.path) {
+                NavigationStack(path: $navigator.profilePath) {
                     SettingsView(
                         viewModel: settingsVM,
                         onShowPaywall: { navigator.push(.pw) },
@@ -148,6 +151,7 @@ private struct SessionContainerView: View {
                 .tabItem {
                     Label("Профіль", systemImage: "person.crop.circle")
                 }
+                .tag(AppRouter.Tab.profile)
             }
 
             if isLocked, isPasscodeEnabled, !userPasscode.isEmpty {
