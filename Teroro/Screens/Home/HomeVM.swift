@@ -41,6 +41,7 @@ final class HomeVM: ObservableObject {
                     self?.terms = terms
                     self?.errorMessage = nil
                     self?.syncReminders(for: terms)
+                    WidgetDataWriter.sync(terms)
                 case .failure(let error):
                     self?.isLoading = false
                     self?.errorMessage = error.localizedDescription

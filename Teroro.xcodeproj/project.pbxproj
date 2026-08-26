@@ -13,6 +13,9 @@
 		115788632FD7535400A71FB6 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 115788622FD7535400A71FB6 /* RevenueCat */; };
 		115788652FD7535400A71FB6 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 115788642FD7535400A71FB6 /* RevenueCatUI */; };
 		1157886A2FD7538D00A71FB6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 115788692FD7538D00A71FB6 /* StoreKit.framework */; };
+		11919C74303CC08100F389B5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11919C73303CC08000F389B5 /* WidgetKit.framework */; };
+		11919C76303CC08100F389B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11919C75303CC08100F389B5 /* SwiftUI.framework */; };
+		11919C87303CC08300F389B5 /* TimexoWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 11919C72303CC08000F389B5 /* TimexoWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		11A77F152FA7D05F0024D196 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 11A77F142FA7D05F0024D196 /* FirebaseAuth */; };
 		11A77F172FA7D05F0024D196 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 11A77F162FA7D05F0024D196 /* FirebaseCore */; };
 		11A77F192FA7D05F0024D196 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 11A77F182FA7D05F0024D196 /* FirebaseFirestore */; };
@@ -23,8 +26,36 @@
 		11A77F232FA7D05F0024D196 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 11A77F222FA7D05F0024D196 /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		11919C85303CC08300F389B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 119A0EB92F60767000E71F4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11919C71303CC08000F389B5;
+			remoteInfo = TimexoWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11919C88303CC08300F389B5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				11919C87303CC08300F389B5 /* TimexoWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1104FBD0303DF271009A3FF4 /* TimexoWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimexoWidgetExtension.entitlements; sourceTree = "<group>"; };
 		115788692FD7538D00A71FB6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		11919C72303CC08000F389B5 /* TimexoWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TimexoWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		11919C73303CC08000F389B5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		11919C75303CC08100F389B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		119A0EC12F60767000E71F4D /* Teroro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teroro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,6 +66,13 @@
 				Info.plist,
 			);
 			target = 119A0EC02F60767000E71F4D /* Teroro */;
+		};
+		11919C8C303CC08300F389B5 /* Exceptions for "TimexoWidget" folder in "TimexoWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 11919C71303CC08000F389B5 /* TimexoWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -47,9 +85,26 @@
 			path = Teroro;
 			sourceTree = "<group>";
 		};
+		11919C77303CC08100F389B5 /* TimexoWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				11919C8C303CC08300F389B5 /* Exceptions for "TimexoWidget" folder in "TimexoWidgetExtension" target */,
+			);
+			path = TimexoWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		11919C6F303CC08000F389B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11919C76303CC08100F389B5 /* SwiftUI.framework in Frameworks */,
+				11919C74303CC08100F389B5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		119A0EBE2F60767000E71F4D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -78,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				115788692FD7538D00A71FB6 /* StoreKit.framework */,
+				11919C73303CC08000F389B5 /* WidgetKit.framework */,
+				11919C75303CC08100F389B5 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -85,7 +142,9 @@
 		119A0EB82F60767000E71F4D = {
 			isa = PBXGroup;
 			children = (
+				1104FBD0303DF271009A3FF4 /* TimexoWidgetExtension.entitlements */,
 				11525A4B2F8D64DB00A949B1 /* Teroro */,
+				11919C77303CC08100F389B5 /* TimexoWidget */,
 				115788682FD7538D00A71FB6 /* Frameworks */,
 				119A0EC22F60767000E71F4D /* Products */,
 			);
@@ -95,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				119A0EC12F60767000E71F4D /* Teroro.app */,
+				11919C72303CC08000F389B5 /* TimexoWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +162,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		11919C71303CC08000F389B5 /* TimexoWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11919C8B303CC08300F389B5 /* Build configuration list for PBXNativeTarget "TimexoWidgetExtension" */;
+			buildPhases = (
+				11919C6E303CC08000F389B5 /* Sources */,
+				11919C6F303CC08000F389B5 /* Frameworks */,
+				11919C70303CC08000F389B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				11919C77303CC08100F389B5 /* TimexoWidget */,
+			);
+			name = TimexoWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = TimexoWidgetExtension;
+			productReference = 11919C72303CC08000F389B5 /* TimexoWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		119A0EC02F60767000E71F4D /* Teroro */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 119A0ECC2F60767200E71F4D /* Build configuration list for PBXNativeTarget "Teroro" */;
@@ -109,10 +191,12 @@
 				119A0EBD2F60767000E71F4D /* Sources */,
 				119A0EBE2F60767000E71F4D /* Frameworks */,
 				119A0EBF2F60767000E71F4D /* Resources */,
+				11919C88303CC08300F389B5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				11919C86303CC08300F389B5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				11525A4B2F8D64DB00A949B1 /* Teroro */,
@@ -144,9 +228,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1630;
+				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
+					11919C71303CC08000F389B5 = {
+						CreatedOnToolsVersion = 26.4;
+					};
 					119A0EC02F60767000E71F4D = {
 						CreatedOnToolsVersion = 16.3;
 					};
@@ -172,11 +259,19 @@
 			projectRoot = "";
 			targets = (
 				119A0EC02F60767000E71F4D /* Teroro */,
+				11919C71303CC08000F389B5 /* TimexoWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		11919C70303CC08000F389B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		119A0EBF2F60767000E71F4D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -187,6 +282,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		11919C6E303CC08000F389B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		119A0EBD2F60767000E71F4D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,7 +298,79 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		11919C86303CC08300F389B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11919C71303CC08000F389B5 /* TimexoWidgetExtension */;
+			targetProxy = 11919C85303CC08300F389B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		11919C89303CC08300F389B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimexoWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7G7C4P47W6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimexoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TimexoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OleksaChmil.Timora.TimexoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		11919C8A303CC08300F389B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = TimexoWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7G7C4P47W6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TimexoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TimexoWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OleksaChmil.Timora.TimexoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		119A0ECA2F60767200E71F4D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = 11525A4B2F8D64DB00A949B1 /* Teroro */;
@@ -423,6 +597,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		11919C8B303CC08300F389B5 /* Build configuration list for PBXNativeTarget "TimexoWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11919C89303CC08300F389B5 /* Debug */,
+				11919C8A303CC08300F389B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		119A0EBC2F60767000E71F4D /* Build configuration list for PBXProject "Teroro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
