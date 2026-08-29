@@ -72,12 +72,20 @@ enum WidgetDataWriter {
                 defaults.set(data, forKey: key)
             }
 
-            WidgetCenter.shared.reloadTimelines(ofKind: widgetKind)
+            WidgetCenter.shared.reloadAllTimelines()
         }
+    }
+    
+    static func clear() {
+        if let defaults = UserDefaults(suiteName: suite) {
+            defaults.removeObject(forKey: key)
+        }
+        removeMapSnapshots()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     // MARK: - Private Helpers
-
+    
     private static var appGroupContainerURL: URL? {
         FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: suite)
     }
@@ -108,7 +116,7 @@ enum WidgetDataWriter {
                     snapshot.image.draw(at: .zero)
                     let pt = snapshot.point(for: coord)
                     let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .bold)
-                    if let pin = UIImage(systemName: "mappin.circle.fill")?
+                    if let pin = UIImage(systemName: "circle.dashed")?
                         .withConfiguration(config)
                         .withTintColor(.systemRed, renderingMode: .alwaysOriginal) {
                         let rect = CGRect(

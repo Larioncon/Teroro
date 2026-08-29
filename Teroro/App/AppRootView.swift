@@ -165,7 +165,10 @@ private struct SessionContainerView: View {
             }
         }
         .animation(.easeInOut(duration: 0.2), value: isLocked)
-        .onAppear(perform: checkAutoLock)
+        .onAppear {
+            checkAutoLock()
+            processPendingDeepLink()
+        }
         .onChange(of: scenePhase) { phase in
             handleScenePhaseChange(phase)
         }
@@ -176,6 +179,9 @@ private struct SessionContainerView: View {
             } else {
                 checkAutoLock()
             }
+        }
+        .onChange(of: appState.pendingDeepLink) { _ in
+            processPendingDeepLink()
         }
     }
 
@@ -218,6 +224,24 @@ private struct SessionContainerView: View {
     private func unlockSession() {
         isLocked = false
         lastInactiveTimestamp = Date.now.timeIntervalSince1970
+        processPendingDeepLink()
+    }
+
+    private func processPendingDeepLink() {
+        guard let destination = appState.pendingDeepLink else { return }
+        guard !isLocked else { return }
+
+        navigator.selectedTab = .terms
+        navigator.popToRoot(tab: .terms)
+
+        switch destination {
+        case .addTerm:
+            navigator.push(.addTerm, tab: .terms)
+        case .editTerm(let id):
+            navigator.push(.editTerm(id), tab: .terms)
+        }
+
+        appState.pendingDeepLink = nil
     }
 }
 

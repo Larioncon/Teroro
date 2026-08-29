@@ -80,7 +80,7 @@ struct NextTermProvider: TimelineProvider {
                     snapshot.image.draw(at: .zero)
                     let pt = snapshot.point(for: coordinate)
                     let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
-                    if let pin = UIImage(systemName: "mappin.circle.fill")?
+                    if let pin = UIImage(systemName: "circle.dashed")?
                         .withConfiguration(config)
                         .withTintColor(.systemRed, renderingMode: .alwaysOriginal) {
                         let rect = CGRect(
@@ -114,6 +114,20 @@ struct TimexoWidget: Widget {
     }
 }
 
+struct TimexoHorizontalWidget: Widget {
+    let kind: String = "NextTermHorizontalWidget"
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: NextTermProvider()) { entry in
+            NextTermHorizontalWidgetView(entry: entry)
+                .applyWidgetBackground()
+        }
+        .configurationDisplayName("Наступний термін")
+        .description("Показує найближчий термін та мапу поруч у дві колонки.")
+        .supportedFamilies([.systemMedium])
+    }
+}
+
 private extension View {
     @ViewBuilder
     func applyWidgetBackground() -> some View {
@@ -126,19 +140,22 @@ private extension View {
 }
 
 // MARK: - Previews
+#if os(iOS)
+@available(iOS 17.0, *)
+#Preview("Medium", as: .systemMedium) {
+    TimexoWidget()
+} timeline: {
+    NextTermEntry(date: .now, term: .preview, lightMapImage: nil, darkMapImage: nil)
+    NextTermEntry(date: .now, term: .previewNoLocation, lightMapImage: nil, darkMapImage: nil)
+    NextTermEntry(date: .now, term: nil, lightMapImage: nil, darkMapImage: nil)
+}
 
-//#Preview("Medium", as: .systemMedium) {
-//    TimexoWidget()
-//} timeline: {
-//    NextTermEntry(date: .now, term: .preview, lightMapImage: nil, darkMapImage: nil)
-//    NextTermEntry(date: .now, term: .previewNoLocation, lightMapImage: nil, darkMapImage: nil)
-//    NextTermEntry(date: .now, term: nil, lightMapImage: nil, darkMapImage: nil)
-//}
-//
-//#Preview("Small", as: .systemSmall) {
-//    TimexoWidget()
-//} timeline: {
-//    NextTermEntry(date: .now, term: .preview, lightMapImage: nil, darkMapImage: nil)
-//    NextTermEntry(date: .now, term: .previewNoLocation, lightMapImage: nil, darkMapImage: nil)
-//    NextTermEntry(date: .now, term: nil, lightMapImage: nil, darkMapImage: nil)
-//}
+@available(iOS 17.0, *)
+#Preview("Small", as: .systemSmall) {
+    TimexoWidget()
+} timeline: {
+    NextTermEntry(date: .now, term: .preview, lightMapImage: nil, darkMapImage: nil)
+    NextTermEntry(date: .now, term: .previewNoLocation, lightMapImage: nil, darkMapImage: nil)
+    NextTermEntry(date: .now, term: nil, lightMapImage: nil, darkMapImage: nil)
+}
+#endif

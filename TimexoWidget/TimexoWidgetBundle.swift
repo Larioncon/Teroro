@@ -12,6 +12,7 @@ import SwiftUI
 struct TimexoWidgetBundle: WidgetBundle {
     var body: some Widget {
         TimexoWidget()
+        TimexoHorizontalWidget()
         if #available(iOS 16.1, *) {
             TimexoWidgetLiveActivity()
         }

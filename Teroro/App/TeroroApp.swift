@@ -21,6 +21,9 @@ struct TeroroApp: App {
     WindowGroup {
       SplashRootView(persistenceController: persistenceController)
         .environmentObject(appState)
+        .onOpenURL { url in
+            appState.handleDeepLink(url)
+        }
     }
   }
 }
@@ -52,7 +55,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any] = [:]
     ) -> Bool {
-        GIDSignIn.sharedInstance.handle(url)
+        if GIDSignIn.sharedInstance.handle(url) {
+            return true
+        }
+        return true
     }
 
     // MARK: - UNUserNotificationCenterDelegate

@@ -150,6 +150,8 @@ final class SettingsVM: ObservableObject {
         isFaceIDEnabled = false
         isPasscodeEnabled = false
         userPasscode = ""
+        WidgetDataWriter.clear()
+        appState.pendingDeepLink = nil
         do {
             try authService.signOut()
         } catch {

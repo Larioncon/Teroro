@@ -42,6 +42,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>teroro</string>
 				<string>com.googleusercontent.apps.129801524527-d8efnok69b00fdpg6qmtat11l3d73g4t</string>
 			</array>
 		</dict>
