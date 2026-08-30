@@ -105,6 +105,7 @@ private struct MediumTermView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     private var activeMapImage: UIImage? {
+        guard term.hasMapImage ?? (term.coordinate != nil) else { return nil }
         if colorScheme == .dark {
             return darkMapImage ?? lightMapImage
         } else {
@@ -184,6 +185,7 @@ private struct MediumHorizontalTermView: View {
     @Environment(\.colorScheme) private var colorScheme
 
     private var activeMapImage: UIImage? {
+        guard term.hasMapImage ?? (term.coordinate != nil) else { return nil }
         if colorScheme == .dark {
             return darkMapImage ?? lightMapImage
         } else {
@@ -228,7 +230,7 @@ private struct MediumHorizontalTermView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
-        .padding(16)
+        .padding(11)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }

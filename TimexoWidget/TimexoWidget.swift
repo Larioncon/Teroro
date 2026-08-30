@@ -22,16 +22,18 @@ struct NextTermProvider: TimelineProvider {
 
     func getSnapshot(in context: Context, completion: @escaping (NextTermEntry) -> Void) {
         let term: WidgetTermDTO? = context.isPreview ? .preview : WidgetTermDTO.next()
-        let light = WidgetTermDTO.loadMapImage(isDark: false)
-        let dark  = WidgetTermDTO.loadMapImage(isDark: true)
+        let hasMap = term?.hasMapImage ?? (term?.coordinate != nil)
+        let light = hasMap ? WidgetTermDTO.loadMapImage(isDark: false) : nil
+        let dark  = hasMap ? WidgetTermDTO.loadMapImage(isDark: true) : nil
         completion(NextTermEntry(date: .now, term: term, lightMapImage: light, darkMapImage: dark))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<NextTermEntry>) -> Void) {
         let now = Date()
         let term = WidgetTermDTO.next(referenceDate: now)
-        var light = WidgetTermDTO.loadMapImage(isDark: false)
-        var dark  = WidgetTermDTO.loadMapImage(isDark: true)
+        let hasMap = term?.hasMapImage ?? (term?.coordinate != nil)
+        var light = hasMap ? WidgetTermDTO.loadMapImage(isDark: false) : nil
+        var dark  = hasMap ? WidgetTermDTO.loadMapImage(isDark: true) : nil
 
         let policy: TimelineReloadPolicy
         if let termDate = term?.date, termDate > now {
