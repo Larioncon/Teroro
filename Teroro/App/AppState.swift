@@ -37,6 +37,10 @@ extension AppState {
     }
 
     func handleDeepLink(_ url: URL) {
+        guard FirebaseAuthService.shared.isLoggedIn else {
+            pendingDeepLink = nil
+            return
+        }
         guard url.scheme == "teroro" else { return }
 
         // teroro://add, teroro://addTerm, teroro://new, teroro://term/add

@@ -28,6 +28,7 @@ final class FirebaseAuthService: NSObject, ObservableObject {
     private override init() {
         self.profileService = .shared
         super.init()
+        self.isLoggedIn = (Auth.auth().currentUser != nil)
         currentAuthUID = Auth.auth().currentUser?.uid
         syncLinkedProviderIDs(from: Auth.auth().currentUser)
 

@@ -38,6 +38,11 @@ struct AppRootView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .onChange(of: authVM.isLoggedIn) { isLoggedIn in
+            if !isLoggedIn {
+                appState.pendingDeepLink = nil
+            }
+        }
     }
 }
 
