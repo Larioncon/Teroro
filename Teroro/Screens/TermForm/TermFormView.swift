@@ -6,6 +6,10 @@ enum TermFormField: Hashable {
     case details
 }
 
+enum TermFormRoute: Hashable {
+    case locationPicker
+}
+
 struct TermFormView<VM: TermFormViewModeling>: View {
     @ObservedObject var viewModel: VM
     let title: String
@@ -17,8 +21,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
 
     var body: some View {
         ScrollView {
-            // Використовуємо LazyVStack для кращої продуктивності розмітки
-            LazyVStack(spacing: 16) {
+            VStack(spacing: 16) {
                 TitleDetailsSection(viewModel: viewModel, focusedField: $focusedField)
                     .redacted(reason: viewModel.isLoading ? .placeholder : [])
                     .allowsHitTesting(!viewModel.isLoading)
@@ -63,7 +66,14 @@ struct TermFormView<VM: TermFormViewModeling>: View {
         .scrollDismissesKeyboard(.interactively)
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
-        .onTapGesture { hideKeyboard() }
+        .navigationDestination(for: TermFormRoute.self) { route in
+            switch route {
+            case .locationPicker:
+                LocationPickerView { selectedLoc in
+                    viewModel.location = selectedLoc
+                }
+            }
+        }
         .safeAreaInset(edge: .bottom) {
             if focusedField != nil {
                 HStack {
@@ -125,11 +135,7 @@ private struct LocationSection: View {
                 }
                 Spacer()
                 
-                NavigationLink {
-                    LocationPickerView { selectedLoc in
-                        location = selectedLoc
-                    }
-                } label: {
+                NavigationLink(value: TermFormRoute.locationPicker) {
                     HStack(spacing: 6) {
                         Image(systemName: "map")
                         Text(location == nil ? "Додати" : "Змінити")

@@ -24,12 +24,18 @@ final class LocationPickerVM: ObservableObject {
         completer.resultTypes = [.address, .pointOfInterest, .query]
 
         $searchText
+            .dropFirst()
             .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .removeDuplicates()
             .sink { [weak self] text in
                 guard let self = self else { return }
                 if text.isEmpty {
-                    self.suggestions = []
-                    self.finalLocation = nil
+                    if !self.suggestions.isEmpty {
+                        self.suggestions = []
+                    }
+                    if self.finalLocation != nil {
+                        self.finalLocation = nil
+                    }
                 } else if text != self.finalLocation?.title {
                     self.completer.queryFragment = text
                 }

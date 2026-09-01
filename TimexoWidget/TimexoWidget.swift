@@ -1,6 +1,5 @@
 import WidgetKit
 import SwiftUI
-import MapKit
 import UIKit
 
 // MARK: - Timeline Entry
@@ -32,8 +31,8 @@ struct NextTermProvider: TimelineProvider {
         let now = Date()
         let term = WidgetTermDTO.next(referenceDate: now)
         let hasMap = term?.hasMapImage ?? (term?.coordinate != nil)
-        var light = hasMap ? WidgetTermDTO.loadMapImage(isDark: false) : nil
-        var dark  = hasMap ? WidgetTermDTO.loadMapImage(isDark: true) : nil
+        let light = hasMap ? WidgetTermDTO.loadMapImage(isDark: false) : nil
+        let dark  = hasMap ? WidgetTermDTO.loadMapImage(isDark: true) : nil
 
         let policy: TimelineReloadPolicy
         if let termDate = term?.date, termDate > now {
@@ -43,60 +42,8 @@ struct NextTermProvider: TimelineProvider {
             policy = .after(fallback)
         }
 
-        // If pre-rendered map images exist from main app, finish immediately (0ms, 0MB RAM)
-        if light != nil || dark != nil || term?.coordinate == nil {
-            let entry = NextTermEntry(date: now, term: term, lightMapImage: light, darkMapImage: dark)
-            completion(Timeline(entries: [entry], policy: policy))
-            return
-        }
-
-        // Fallback: generate low-res snapshots if main app hasn't synced yet
-        Task {
-            if let coord = term?.coordinate {
-                light = await makeLightweightMapSnapshot(for: coord, isDark: false)
-                dark  = await makeLightweightMapSnapshot(for: coord, isDark: true)
-            }
-            let entry = NextTermEntry(date: now, term: term, lightMapImage: light, darkMapImage: dark)
-            completion(Timeline(entries: [entry], policy: policy))
-        }
-    }
-
-    private func makeLightweightMapSnapshot(for coordinate: CLLocationCoordinate2D, isDark: Bool) async -> UIImage? {
-        let options = MKMapSnapshotter.Options()
-        options.region = MKCoordinateRegion(
-            center: coordinate,
-            span: MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008)
-        )
-        options.size = CGSize(width: 300, height: 100)
-        options.scale = 1.0
-        options.traitCollection = UITraitCollection(userInterfaceStyle: isDark ? .dark : .light)
-
-        return await withCheckedContinuation { continuation in
-            MKMapSnapshotter(options: options).start { snapshot, error in
-                guard let snapshot = snapshot, error == nil else {
-                    continuation.resume(returning: nil)
-                    return
-                }
-
-                let rendered = UIGraphicsImageRenderer(size: options.size).image { _ in
-                    snapshot.image.draw(at: .zero)
-                    let pt = snapshot.point(for: coordinate)
-                    let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .bold)
-                    if let pin = UIImage(systemName: "circle.dashed")?
-                        .withConfiguration(config)
-                        .withTintColor(.systemRed, renderingMode: .alwaysOriginal) {
-                        let rect = CGRect(
-                            x: pt.x - pin.size.width / 2,
-                            y: pt.y - pin.size.height,
-                            width: pin.size.width,
-                            height: pin.size.height
-                        )
-                        pin.draw(in: rect)
-                    }
-                }
-                continuation.resume(returning: rendered)
-            }
-        }
+        let entry = NextTermEntry(date: now, term: term, lightMapImage: light, darkMapImage: dark)
+        completion(Timeline(entries: [entry], policy: policy))
     }
 }
 

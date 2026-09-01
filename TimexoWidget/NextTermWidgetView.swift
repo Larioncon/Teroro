@@ -158,7 +158,8 @@ private struct MediumTermView: View {
                  alignment: .topLeading
              )
          }
-         .padding(.horizontal, 11)
+//         .padding(.horizontal, 11)
+         .legacyPadding(11)
 
      }
 
@@ -230,27 +231,116 @@ private struct MediumHorizontalTermView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
-        .padding(11)
+//        .padding(11)
+        .legacyPadding(11)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 
-// MARK: - No upcoming terms
+// MARK: - No upcoming terms (CTA style)
 
 private struct NoTermView: View {
     let family: WidgetFamily
 
+    private var isCompact: Bool { family == .systemSmall }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            TermHeader(compact: family == .systemSmall)
-//            Spacer()
-            Text("Немає запланованих термінів")
-                .font(family == .systemSmall ? .caption : .subheadline)
+        VStack(alignment: .leading, spacing: isCompact ? 8 : 12) {
+
+            // Иконка + заголовок
+            HStack(spacing: 8) {
+                IconBadge(compact: isCompact)
+
+                Text("Додати термін")
+                    .font(.headline.bold())
+                    .foregroundStyle(.primary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.55)
+            }
+
+            // Визуальная "кнопка"
+            CreateButton(compact: isCompact)
+
+            // Подсказка
+            Text("Натисніть для переходу в застосунок.")
+                .font(.caption2)
                 .foregroundStyle(.secondary)
-                .multilineTextAlignment(.leading)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .minimumScaleFactor(0.65)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .center)
+
         }
-        .padding(11)
+        .legacyPadding(11)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+}
+
+// MARK: - Icon badge (calendar + plus)
+
+private struct IconBadge: View {
+    let compact: Bool
+    @Environment(\.widgetRenderingMode) private var renderingMode
+
+    var body: some View {
+        let size: CGFloat = compact ? 26 : 32
+
+        if renderingMode == .accented {
+            RoundedRectangle(cornerRadius: size * 0.3, style: .continuous)
+                .fill(Color.primary.opacity(0.12))
+                .frame(width: size, height: size)
+                .overlay(
+                    Image(systemName: "calendar.badge.plus")
+                        .font(.system(size: size * 0.52, weight: .semibold))
+                        .foregroundStyle(.primary)
+                        .widgetAccentable()
+                )
+        } else {
+            RoundedRectangle(cornerRadius: size * 0.3, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(red: 0.42, green: 0.38, blue: 0.98),
+                            Color(red: 0.27, green: 0.24, blue: 0.92)
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: size, height: size)
+                .overlay(
+                    Image(systemName: "calendar.badge.plus")
+                        .font(.system(size: size * 0.52, weight: .semibold))
+                        .foregroundStyle(.white)
+                )
+        }
+    }
+}
+
+// MARK: - Visual "Create" button
+
+private struct CreateButton: View {
+    let compact: Bool
+
+    var body: some View {
+        HStack {
+            Spacer(minLength: 0)
+            Image(systemName: "plus")
+                .font(.system(size: compact ? 13 : 15, weight: .semibold))
+                .foregroundStyle(.primary)
+            Text("Створити")
+                .font(compact
+                       ? .caption2.weight(.semibold)
+                       : .caption.weight(.semibold))
+                .foregroundStyle(.primary)
+            Spacer(minLength: 0)
+        }
+        .padding(.vertical, compact ? 8 : 10)
+        .background(
+            Capsule(style: .continuous)
+                .fill(Color.accentColor.opacity(0.14))
+        )
     }
 }
 
