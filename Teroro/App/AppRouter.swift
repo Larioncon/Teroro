@@ -15,6 +15,10 @@ final class AppRouter: ObservableObject {
     @Published var path = NavigationPath()
 
     func push(_ route: AppRoute, tab: Tab? = nil) {
+        if route == .onboarding || route == .onboardingPaywall {
+            path.append(route)
+            return
+        }
         let activeTab = tab ?? selectedTab
         switch activeTab {
         case .terms:
@@ -54,6 +58,9 @@ final class AppRouter: ObservableObject {
     }
 
     func popToRoot(tab: Tab? = nil) {
+        if path.count > 0 {
+            path.removeLast(path.count)
+        }
         let activeTab = tab ?? selectedTab
         switch activeTab {
         case .terms:
@@ -63,8 +70,7 @@ final class AppRouter: ObservableObject {
             guard profilePath.count > 0 else { return }
             profilePath.removeLast(profilePath.count)
         default:
-            guard path.count > 0 else { return }
-            path.removeLast(path.count)
+            break
         }
     }
 }
