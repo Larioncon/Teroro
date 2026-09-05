@@ -61,6 +61,7 @@ private struct SessionContainerView: View {
     @AppStorage("passcodeAutoLockInterval") private var passcodeAutoLockInterval = PasscodeAutoLockOption.oneMinute.rawValue
     @AppStorage("lastInactiveTimestamp") private var lastInactiveTimestamp: Double = 0
     @State private var isLocked = false
+    @AppStorage("needsPasscodeOnResume") private var needsPasscodeOnResume = true
 
     var body: some View {
         ZStack {
@@ -181,7 +182,9 @@ private struct SessionContainerView: View {
             if !enabled {
                 isLocked = false
                 lastInactiveTimestamp = 0
+                needsPasscodeOnResume = false
             } else {
+                needsPasscodeOnResume = true
                 checkAutoLock()
             }
         }
@@ -202,6 +205,14 @@ private struct SessionContainerView: View {
 
         guard !isLocked else { return }
 
+        if autoLockOption == .always {
+            if needsPasscodeOnResume {
+                needsPasscodeOnResume = false
+                isLocked = true
+            }
+            return
+        }
+
         guard lastInactiveTimestamp > 0 else {
             isLocked = true
             return
@@ -219,7 +230,13 @@ private struct SessionContainerView: View {
             checkAutoLock()
         case .inactive, .background:
             if isPasscodeEnabled, !userPasscode.isEmpty {
-                lastInactiveTimestamp = Date.now.timeIntervalSince1970
+                if autoLockOption == .always {
+                    if !isLocked {
+                        needsPasscodeOnResume = true
+                    }
+                } else {
+                    lastInactiveTimestamp = Date.now.timeIntervalSince1970
+                }
             }
         @unknown default:
             break
@@ -228,6 +245,7 @@ private struct SessionContainerView: View {
 
     private func unlockSession() {
         isLocked = false
+        needsPasscodeOnResume = false
         lastInactiveTimestamp = Date.now.timeIntervalSince1970
         processPendingDeepLink()
     }
