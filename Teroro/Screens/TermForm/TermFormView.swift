@@ -112,23 +112,35 @@ struct TermFormView<VM: TermFormViewModeling>: View {
 
 private struct LocationSection: View {
     @Binding var location: TermLocation?
+    @ObservedObject private var network = NetworkMonitor.shared
+
+    private var isOnline: Bool {
+        network.isConnected
+    }
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Місце")
-                        .font(.headline)
+                    HStack(spacing: 6) {
+                        Text("Місце")
+                            .font(.headline)
+                        if !isOnline {
+                            Text("(офлайн)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                     if let location = location {
                         HStack(spacing: 4) {
                             Image(systemName: "mappin.and.ellipse")
-                                .foregroundStyle(.red)
+                                .foregroundStyle(isOnline ? .red : .secondary)
                             Text(location.title ?? location.address ?? "Локація обрана")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     } else {
-                        Text("Додайте адресу для зустрічі")
+                        Text(isOnline ? "Додайте адресу для зустрічі" : "Вибір локації недоступний без інтернету")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -143,9 +155,11 @@ private struct LocationSection: View {
                     .font(.subheadline.weight(.semibold))
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
-                    .background(Color.accentColor.opacity(0.1))
+                    .background(isOnline ? Color.accentColor.opacity(0.1) : Color.secondary.opacity(0.1))
+                    .foregroundStyle(isOnline ? Color.accentColor : Color.secondary)
                     .clipShape(Capsule())
                 }
+                .disabled(!isOnline)
             }
             .padding(16)
         }
@@ -157,6 +171,8 @@ private struct LocationSection: View {
                         .strokeBorder(Color.secondary.opacity(0.15))
                 }
         }
+        .opacity(isOnline ? 1.0 : 0.6)
+        .allowsHitTesting(isOnline)
     }
 }
 

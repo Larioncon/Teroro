@@ -34,14 +34,10 @@ final class TermsRepository {
                 }
 
                 Task {
-                    do {
-                        let terms = try await documents.asyncCompactMap { document in
-                            try await self.term(from: document, currentUserID: userID)
-                        }
-                        onChange(.success(terms.sorted { $0.date < $1.date }))
-                    } catch {
-                        onChange(.failure(error))
+                    let terms = await documents.asyncCompactMap { document in
+                        await self.term(from: document, currentUserID: userID)
                     }
+                    onChange(.success(terms.sorted { $0.date < $1.date }))
                 }
             }
     }
@@ -53,7 +49,7 @@ final class TermsRepository {
 
         let document = try await getDocument(db.collection("terms").document(id.uuidString))
         guard document.exists else { return nil }
-        return try await term(from: document, currentUserID: userID)
+        return await term(from: document, currentUserID: userID)
     }
 
     func createTerm(title: String, details: String, date: Date, reminderDate: Date?, location: TermLocation?) async throws -> UUID {
@@ -162,15 +158,15 @@ final class TermsRepository {
         ], forDocument: termRef)
     }
 
-    private func term(from document: QueryDocumentSnapshot, currentUserID: String) async throws -> Term? {
-        try await term(from: document as DocumentSnapshot, currentUserID: currentUserID)
+    private func term(from document: QueryDocumentSnapshot, currentUserID: String) async -> Term? {
+        await term(from: document as DocumentSnapshot, currentUserID: currentUserID)
     }
 
-    private func term(from document: DocumentSnapshot, currentUserID: String) async throws -> Term? {
+    private func term(from document: DocumentSnapshot, currentUserID: String) async -> Term? {
         guard let data = document.data() else { return nil }
         guard let id = UUID(uuidString: data["id"] as? String ?? document.documentID) else { return nil }
 
-        let member = try await getDocument(document.reference.collection("members").document(currentUserID)).data()
+        let member = try? await getDocument(document.reference.collection("members").document(currentUserID)).data()
         let reminderEnabled = member?["reminderEnabled"] as? Bool ?? false
         let reminderDate = reminderEnabled ? (member?["reminderDate"] as? Timestamp)?.dateValue() : nil
         let location = location(from: data["location"] as? [String: Any])
@@ -200,8 +196,31 @@ final class TermsRepository {
     }
 
     private func getDocument(_ reference: DocumentReference) async throws -> DocumentSnapshot {
+        let isOnline = await NetworkMonitor.shared.isConnected
+        if !isOnline {
+            return try await getDocumentFromCache(reference)
+        }
+
+        do {
+            return try await withCheckedThrowingContinuation { continuation in
+                reference.getDocument { snapshot, error in
+                    if let error {
+                        continuation.resume(throwing: error)
+                    } else if let snapshot {
+                        continuation.resume(returning: snapshot)
+                    } else {
+                        continuation.resume(throwing: TermsRepositoryError.emptySnapshot)
+                    }
+                }
+            }
+        } catch {
+            return try await getDocumentFromCache(reference)
+        }
+    }
+
+    private func getDocumentFromCache(_ reference: DocumentReference) async throws -> DocumentSnapshot {
         try await withCheckedThrowingContinuation { continuation in
-            reference.getDocument { snapshot, error in
+            reference.getDocument(source: .cache) { snapshot, error in
                 if let error {
                     continuation.resume(throwing: error)
                 } else if let snapshot {
@@ -214,26 +233,64 @@ final class TermsRepository {
     }
 
     private func updateData(_ data: [AnyHashable: Any], forDocument reference: DocumentReference) async throws {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+        let isOnline = await NetworkMonitor.shared.isConnected
+        if !isOnline {
             reference.updateData(data) { error in
                 if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: ())
+                    print("[TermsRepository] Offline updateData error: \(error)")
                 }
             }
+            return
+        }
+
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask {
+                try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+                    reference.updateData(data) { error in
+                        if let error {
+                            continuation.resume(throwing: error)
+                        } else {
+                            continuation.resume(returning: ())
+                        }
+                    }
+                }
+            }
+            group.addTask {
+                try await Task.sleep(nanoseconds: 3_000_000_000)
+            }
+            try await group.next()
+            group.cancelAll()
         }
     }
 
     private func commit(_ batch: WriteBatch) async throws {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+        let isOnline = await NetworkMonitor.shared.isConnected
+        if !isOnline {
             batch.commit { error in
                 if let error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: ())
+                    print("[TermsRepository] Offline batch sync error: \(error)")
                 }
             }
+            return
+        }
+
+        try await withThrowingTaskGroup(of: Void.self) { group in
+            group.addTask {
+                try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+                    batch.commit { error in
+                        if let error {
+                            continuation.resume(throwing: error)
+                        } else {
+                            continuation.resume(returning: ())
+                        }
+                    }
+                }
+            }
+            group.addTask {
+                try await Task.sleep(nanoseconds: 3_000_000_000)
+            }
+            try await group.next()
+            group.cancelAll()
         }
     }
 }
@@ -259,7 +316,7 @@ enum TermMemberRole: String {
 }
 
 private extension Sequence {
-    func asyncCompactMap<T>(_ transform: (Element) async throws -> T?) async throws -> [T] {
+    func asyncCompactMap<T>(_ transform: (Element) async throws -> T?) async rethrows -> [T] {
         var values: [T] = []
 
         for element in self {
