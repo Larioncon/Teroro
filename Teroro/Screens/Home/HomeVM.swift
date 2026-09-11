@@ -45,7 +45,14 @@ final class HomeVM: ObservableObject {
                 case .failure(let error):
                     self?.isLoading = false
                     self?.errorMessage = error.localizedDescription
-                    AppState.shared.showErrorAlert(error.localizedDescription)
+
+                    let nsError = error as NSError
+                    let isPermissionDenied = nsError.domain == FirestoreErrorDomain && nsError.code == FirestoreErrorCode.permissionDenied.rawValue
+                    let isLoggedOut = !FirebaseAuthService.shared.isLoggedIn
+
+                    if !(isPermissionDenied && isLoggedOut) {
+                        AppState.shared.showErrorAlert(error.localizedDescription)
+                    }
                 }
             }
         }

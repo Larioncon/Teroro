@@ -58,7 +58,7 @@ struct SplashRootView: View {
                 withTransaction(tx) {
                     onboardingRouter.push(.onboarding)
                 }
-            } else if !subscriptionService.isPremium {
+            } else if !subscriptionService.isPremium, NetworkMonitor.shared.isConnected {
                 appState.isShowPwTrial = true
             }
 

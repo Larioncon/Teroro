@@ -94,7 +94,7 @@ final class OnboardingFlowVM: ObservableObject {
     
     func finishOnboarding(appState: AppState) {
         makeSeenOnb()
-        if !SubscriptionService.shared.isPremium {
+        if !SubscriptionService.shared.isPremium, NetworkMonitor.shared.isConnected {
             navigationRouter?.push(.onboardingPaywall)
         } else {
             navigationRouter?.popToRoot()

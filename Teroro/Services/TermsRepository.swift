@@ -24,6 +24,12 @@ final class TermsRepository {
             .whereField("status", isEqualTo: TermStatus.active.rawValue)
             .addSnapshotListener { [weak self] snapshot, error in
                 if let error {
+                    let nsError = error as NSError
+                    if nsError.domain == FirestoreErrorDomain,
+                       nsError.code == FirestoreErrorCode.permissionDenied.rawValue,
+                       self?.auth.currentUser == nil {
+                        return
+                    }
                     onChange(.failure(error))
                     return
                 }

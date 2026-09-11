@@ -38,6 +38,11 @@ final class SubscriptionService: ObservableObject {
     }
 
     func purchase(productID: String) async -> Bool {
+        guard NetworkMonitor.shared.isConnected else {
+            errorMessage = "Немає підключення до інтернету. Будь ласка, перевірте мережу та спробуйте ще раз."
+            return false
+        }
+
         isPurchasing = true
         defer { isPurchasing = false }
 
@@ -62,6 +67,11 @@ final class SubscriptionService: ObservableObject {
     }
 
     func restore() async -> Bool {
+        guard NetworkMonitor.shared.isConnected else {
+            errorMessage = "Немає підключення до інтернету. Будь ласка, перевірте мережу та спробуйте ще раз."
+            return false
+        }
+
         isPurchasing = true
         defer { isPurchasing = false }
 

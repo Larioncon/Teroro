@@ -95,6 +95,8 @@ final class FirebaseAuthService: NSObject, ObservableObject {
     }
 
     func signOut() throws {
+        profileListener?.remove()
+        profileListener = nil
         do {
             try Auth.auth().signOut()
         } catch {
@@ -496,7 +498,14 @@ final class FirebaseAuthService: NSObject, ObservableObject {
                     if let error {
                         self.currentUser = self.profileService.userData(for: authUser, profileData: nil)
                         self.isResolvingProfile = false
-                        AppState.shared.showErrorAlert(error.localizedDescription)
+
+                        let nsError = error as NSError
+                        let isPermissionDenied = nsError.domain == FirestoreErrorDomain && nsError.code == FirestoreErrorCode.permissionDenied.rawValue
+                        let isLoggedOut = Auth.auth().currentUser == nil
+
+                        if !(isPermissionDenied && isLoggedOut) {
+                            AppState.shared.showErrorAlert(error.localizedDescription)
+                        }
                         return
                     }
 
