@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112965E63056FEAA0056D3C4 /* EFAutoScrollLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 112965E53056FEAA0056D3C4 /* EFAutoScrollLabel */; };
 		11315AE62FAD338200813CEC /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 11315AE52FAD338200813CEC /* GoogleSignIn */; };
 		11315AE82FAD338200813CEC /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 11315AE72FAD338200813CEC /* GoogleSignInSwift */; };
 		115788612FD7535400A71FB6 /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = 115788602FD7535400A71FB6 /* ReceiptParser */; };
@@ -115,6 +116,7 @@
 				11A77F152FA7D05F0024D196 /* FirebaseAuth in Frameworks */,
 				11A77F212FA7D05F0024D196 /* FirebaseRemoteConfig in Frameworks */,
 				115788612FD7535400A71FB6 /* ReceiptParser in Frameworks */,
+				112965E63056FEAA0056D3C4 /* EFAutoScrollLabel in Frameworks */,
 				11A77F192FA7D05F0024D196 /* FirebaseFirestore in Frameworks */,
 				11315AE82FAD338200813CEC /* GoogleSignInSwift in Frameworks */,
 				11A77F232FA7D05F0024D196 /* FirebaseStorage in Frameworks */,
@@ -216,6 +218,7 @@
 				115788602FD7535400A71FB6 /* ReceiptParser */,
 				115788622FD7535400A71FB6 /* RevenueCat */,
 				115788642FD7535400A71FB6 /* RevenueCatUI */,
+				112965E53056FEAA0056D3C4 /* EFAutoScrollLabel */,
 			);
 			productName = Teroro;
 			productReference = 119A0EC12F60767000E71F4D /* Teroro.app */;
@@ -252,6 +255,7 @@
 				11A77F132FA7D05F0024D196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				11315AE42FAD338200813CEC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				1157885F2FD7535400A71FB6 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+				112965E43056FEAA0056D3C4 /* XCRemoteSwiftPackageReference "EFAutoScrollLabel" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 119A0EC22F60767000E71F4D /* Products */;
@@ -627,6 +631,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		112965E43056FEAA0056D3C4 /* XCRemoteSwiftPackageReference "EFAutoScrollLabel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EFPrefix/EFAutoScrollLabel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.3;
+			};
+		};
 		11315AE42FAD338200813CEC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -654,6 +666,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		112965E53056FEAA0056D3C4 /* EFAutoScrollLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 112965E43056FEAA0056D3C4 /* XCRemoteSwiftPackageReference "EFAutoScrollLabel" */;
+			productName = EFAutoScrollLabel;
+		};
 		11315AE52FAD338200813CEC /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11315AE42FAD338200813CEC /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

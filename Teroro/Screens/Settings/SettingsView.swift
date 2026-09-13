@@ -43,14 +43,19 @@ struct SettingsView: View {
                     .buttonStyle(.plain)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(viewModel.currentUser?.name ?? "Профіль")
-                            .font(.headline)
-                            .lineLimit(1)
+                        AutoScrollText(
+                            text: viewModel.currentUser?.name ?? "Профіль",
+                            font: .preferredFont(forTextStyle: .headline),
+                            textColor: .label
+                        )
 
-                        Text(viewModel.currentUser?.email ?? "")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
+                        if let email = viewModel.currentUser?.email, !email.isEmpty {
+                            AutoScrollText(
+                                text: email,
+                                font: .preferredFont(forTextStyle: .subheadline),
+                                textColor: .secondaryLabel
+                            )
+                        }
 
                         PremiumStatusPill(isPremium: viewModel.isPremium)
                     }
