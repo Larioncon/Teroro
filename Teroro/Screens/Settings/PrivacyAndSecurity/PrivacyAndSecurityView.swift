@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PrivacyAndSecurityView: View {
     @ObservedObject var viewModel: SettingsVM
+    @State private var toasts: [Toast] = []
 
     var body: some View {
         List {
@@ -146,11 +147,29 @@ struct PrivacyAndSecurityView: View {
         .sheet(isPresented: $viewModel.isDeleteAccountSheetPresented) {
             DeleteAccountSheetView(viewModel: viewModel)
         }
-        .alert("Вимкніть код-пароль", isPresented: $viewModel.isPasscodeDisableRequiredAlertPresented) {
-            Button("Зрозуміло", role: .cancel) { }
-        } message: {
-            Text("Для видалення акаунту спочатку необхідно вимкнути код-пароль та Face ID у налаштуваннях безпеки.")
+//        .alert("Вимкніть код-пароль", isPresented: $viewModel.isPasscodeDisableRequiredAlertPresented) {
+//            Button("Зрозуміло", role: .cancel) { }
+//        } message: {
+//            Text("Для видалення акаунту спочатку необхідно вимкнути код-пароль та Face ID у налаштуваннях безпеки.")
+//        }
+        .onChange(of: viewModel.isPasscodeDisableRequiredAlertPresented) { isPresented in
+            if isPresented {
+                withAnimation {
+                    toasts.insert(
+                        Toast(
+                            title: "Вимкніть код-пароль",
+                            message: "Для видалення акаунту спочатку необхідно вимкнути код-пароль та Face ID у налаштуваннях безпеки.",
+                            symbol: "exclamationmark.shield.fill",
+                            tint: .orange,
+                            timing: .long
+                        ),
+                        at: 0
+                    )
+                }
+                viewModel.isPasscodeDisableRequiredAlertPresented = false
+            }
         }
+        .toasts($toasts)
         .alert("Помилка", isPresented: Binding(get: {
             viewModel.securityAlertMessage != nil
         }, set: { newValue in
