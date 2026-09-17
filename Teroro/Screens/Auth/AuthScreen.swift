@@ -5,6 +5,7 @@ struct AuthScreen: View {
     @ObservedObject var viewModel: AuthVM
     @FocusState private var focusedField: Field?
     @State private var presentingViewController: UIViewController?
+    @State private var toasts: [Toast] = []
 
     enum Field: Hashable {
         case email
@@ -101,15 +102,6 @@ struct AuthScreen: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }
-            .alert("Помилка", isPresented: Binding(get: {
-                viewModel.alertMessage != nil
-            }, set: { newValue in
-                if !newValue { viewModel.alertMessage = nil }
-            }), actions: {
-                Button("OK") { viewModel.alertMessage = nil }
-            }, message: {
-                Text(viewModel.alertMessage ?? "")
-            })
 
             if viewModel.isLoading {
                 Color.black.opacity(0.3)
@@ -120,6 +112,24 @@ struct AuthScreen: View {
                     .scaleEffect(1.5)
             }
         }
+        .onChange(of: viewModel.alertMessage) { message in
+            guard let message, !message.isEmpty else { return }
+            let isSuccess = message == "Лист для відновлення паролю надіслано."
+            withAnimation {
+                toasts.insert(
+                    Toast(
+                        title: isSuccess ? "Успішно" : "Помилка",
+                        message: message,
+                        symbol: isSuccess ? "checkmark.circle.fill" : "exclamationmark.triangle.fill",
+                        tint: isSuccess ? .green : .red,
+                        timing: isSuccess ? .medium : .long
+                    ),
+                    at: 0
+                )
+            }
+            viewModel.alertMessage = nil
+        }
+        .toasts($toasts)
     }
 
     private var header: some View {
