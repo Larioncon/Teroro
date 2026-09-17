@@ -103,6 +103,30 @@ struct PrivacyAndSecurityView: View {
                 }
                 .id("signin-password-\(viewModel.hasPassword)")
             }
+
+            Section {
+                HStack {
+                    Spacer(minLength: 0)
+                    Button {
+                        viewModel.initiateDeleteAccount()
+                    } label: {
+                        Text("Видалити акаунт")
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.red)
+                            .padding(.horizontal, 18)
+                            .padding(.vertical, 10)
+                            .background(.thinMaterial, in: Capsule(style: .continuous))
+                            .overlay(
+                                Capsule(style: .continuous)
+                                    .strokeBorder(Color.red.opacity(0.35), lineWidth: 1)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                    Spacer(minLength: 0)
+                }
+                .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
+                .listRowBackground(Color.clear)
+            }
         }
         .toolbar(.hidden, for: .tabBar)
         .navigationTitle("Приватність та безпека")
@@ -118,6 +142,14 @@ struct PrivacyAndSecurityView: View {
         }
         .sheet(isPresented: $viewModel.isPasscodeSheetPresented) {
             PasscodeSheetView(viewModel: viewModel)
+        }
+        .sheet(isPresented: $viewModel.isDeleteAccountSheetPresented) {
+            DeleteAccountSheetView(viewModel: viewModel)
+        }
+        .alert("Вимкніть код-пароль", isPresented: $viewModel.isPasscodeDisableRequiredAlertPresented) {
+            Button("Зрозуміло", role: .cancel) { }
+        } message: {
+            Text("Для видалення акаунту спочатку необхідно вимкнути код-пароль та Face ID у налаштуваннях безпеки.")
         }
         .alert("Помилка", isPresented: Binding(get: {
             viewModel.securityAlertMessage != nil

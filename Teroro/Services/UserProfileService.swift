@@ -142,6 +142,31 @@ final class UserProfileService {
         }
     }
 
+    func deleteUserProfile(userID: String, avatarURL: String? = nil) async throws {
+        // 1. Delete avatar from Storage if exists
+        await deleteAvatar(userID: userID)
+
+        // 2. Delete user profile document from Firestore
+        try await userDocumentReference(userID: userID).delete()
+
+        // 3. Clear local profile cache
+        UserProfileLocalCache.clear(for: userID)
+    }
+
+    private func deleteAvatar(userID: String) async {
+        let reference = storage.reference()
+            .child("avatars")
+            .child(userID)
+            .child("profile.jpg")
+
+        do {
+            try await reference.delete()
+        } catch {
+            // Ignore error if avatar does not exist in storage (e.g. user used default avatar)
+            print("[UserProfileService] Avatar delete ignored/failed: \(error.localizedDescription)")
+        }
+    }
+
     private func downloadURL(for reference: StorageReference) async throws -> URL {
         try await withCheckedThrowingContinuation { continuation in
             reference.downloadURL { url, error in

@@ -21,6 +21,11 @@ struct UserProfileLocalCache {
         }
     }
 
+    static func clear(for userID: String) {
+        defaults.removeObject(forKey: key("name", userID: userID))
+        defaults.removeObject(forKey: key("avatarURL", userID: userID))
+    }
+
     private static func key(_ field: String, userID: String) -> String {
         "userProfile.\(userID).\(field)"
     }

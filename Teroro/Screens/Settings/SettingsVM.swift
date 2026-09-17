@@ -34,6 +34,8 @@ final class SettingsVM: ObservableObject {
     @Published var isAddEmailPasswordSheetPresented = false
     @Published var isChangeEmailSheetPresented = false
     @Published var isPasscodeSheetPresented = false
+    @Published var isDeleteAccountSheetPresented = false
+    @Published var isPasscodeDisableRequiredAlertPresented = false
     @Published var securityAlertMessage: String?
     @Published var securitySuccessMessage: String?
     @Published var isSecurityProcessing = false
@@ -406,6 +408,81 @@ final class SettingsVM: ObservableObject {
             isFaceIDEnabled = false
         }
         securitySuccessMessage = passcode.isEmpty ? "Код-пароль вимкнено." : "Код-пароль успішно збережено."
+    }
+
+    // MARK: - Account Deletion
+
+    func initiateDeleteAccount() {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        if isPasscodeEnabled || isFaceIDEnabled || !userPasscode.isEmpty {
+            isPasscodeDisableRequiredAlertPresented = true
+        } else {
+            isDeleteAccountSheetPresented = true
+        }
+    }
+
+    func deleteAccountWithPassword(password: String) async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        guard !password.isEmpty else {
+            securityAlertMessage = "Введіть пароль для підтвердження видалення."
+            return false
+        }
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.deleteAccountWithPassword(password: password)
+            isFaceIDEnabled = false
+            isPasscodeEnabled = false
+            userPasscode = ""
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func deleteAccountWithGoogle() async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.deleteAccountWithGoogle()
+            isFaceIDEnabled = false
+            isPasscodeEnabled = false
+            userPasscode = ""
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
+    }
+
+    func deleteAccountWithApple() async -> Bool {
+        securityAlertMessage = nil
+        securitySuccessMessage = nil
+
+        isSecurityProcessing = true
+        defer { isSecurityProcessing = false }
+
+        do {
+            try await authService.deleteAccountWithApple()
+            isFaceIDEnabled = false
+            isPasscodeEnabled = false
+            userPasscode = ""
+            return true
+        } catch {
+            securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
+            return false
+        }
     }
 
     // MARK: - Private

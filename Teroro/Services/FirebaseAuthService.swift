@@ -308,6 +308,68 @@ final class FirebaseAuthService: NSObject, ObservableObject {
         }
     }
 
+    func deleteAccountWithPassword(password: String) async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw UserFacingAuthError.sessionInvalid
+        }
+        guard let email = user.email, !email.isEmpty else {
+            throw UserFacingAuthError.invalidEmail
+        }
+
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        do {
+            _ = try await user.reauthenticate(with: credential)
+        } catch {
+            throw UserFacingAuthError(from: error)
+        }
+
+        try await purgeUserDataAndDeleteAuthUser(user: user)
+    }
+
+    func deleteAccountWithGoogle() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw UserFacingAuthError.sessionInvalid
+        }
+
+        try await reauthenticateWithGoogle(user)
+        try await purgeUserDataAndDeleteAuthUser(user: user)
+    }
+
+    func deleteAccountWithApple() async throws {
+        guard let user = Auth.auth().currentUser else {
+            throw UserFacingAuthError.sessionInvalid
+        }
+
+        try await reauthenticateWithApple(user)
+        try await purgeUserDataAndDeleteAuthUser(user: user)
+    }
+
+    private func purgeUserDataAndDeleteAuthUser(user: FirebaseAuth.User) async throws {
+        let userID = user.uid
+
+        // 1. Delete user profile & avatar from Firestore and Storage
+        try await profileService.deleteUserProfile(userID: userID, avatarURL: currentUser?.avatarURL)
+
+        // 2. Delete terms and memberships from Firestore
+        try await TermsRepository.shared.deleteAllUserData(for: userID)
+
+        // 3. Delete Firebase Auth User
+        do {
+            try await user.delete()
+        } catch {
+            throw UserFacingAuthError(from: error)
+        }
+
+        // 4. Teardown listeners and local cache
+        profileListener?.remove()
+        profileListener = nil
+        currentUser = nil
+        currentAuthUID = nil
+        syncLinkedProviderIDs(from: nil)
+        isLoggedIn = false
+        WidgetDataWriter.clear()
+    }
+
     private func linkCredentialAndSyncProviders(_ credential: AuthCredential) async throws {
         guard let user = Auth.auth().currentUser else {
             throw UserFacingAuthError.sessionInvalid

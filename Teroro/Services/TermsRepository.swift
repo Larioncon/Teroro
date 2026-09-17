@@ -299,6 +299,38 @@ final class TermsRepository {
             group.cancelAll()
         }
     }
+
+    func deleteAllUserData(for userID: String) async throws {
+        // 1. Delete all terms created by the user (and their subcollections)
+        let createdTermsSnapshot = try await db.collection("terms")
+            .whereField("createdBy", isEqualTo: userID)
+            .getDocuments()
+
+        for document in createdTermsSnapshot.documents {
+            // Delete members subcollection documents
+            let membersSnapshot = try? await document.reference.collection("members").getDocuments()
+            if let memberDocs = membersSnapshot?.documents {
+                for memberDoc in memberDocs {
+                    try? await memberDoc.reference.delete()
+                }
+            }
+            try? await document.reference.delete()
+        }
+
+        // 2. Remove user from terms where they are a participant (but not creator)
+        let participantTermsSnapshot = try await db.collection("terms")
+            .whereField("participantIds", arrayContains: userID)
+            .getDocuments()
+
+        for document in participantTermsSnapshot.documents {
+            if document.data()["createdBy"] as? String != userID {
+                try? await document.reference.collection("members").document(userID).delete()
+                try? await document.reference.updateData([
+                    "participantIds": FieldValue.arrayRemove([userID])
+                ])
+            }
+        }
+    }
 }
 
 enum TermsRepositoryError: LocalizedError {
