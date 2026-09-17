@@ -5,7 +5,6 @@ struct AuthScreen: View {
     @ObservedObject var viewModel: AuthVM
     @FocusState private var focusedField: Field?
     @State private var presentingViewController: UIViewController?
-    @State private var isShowingAppleStubAlert: Bool = false
 
     enum Field: Hashable {
         case email
@@ -110,11 +109,6 @@ struct AuthScreen: View {
                 Button("OK") { viewModel.alertMessage = nil }
             }, message: {
                 Text(viewModel.alertMessage ?? "")
-            })
-            .alert("Незабаром", isPresented: $isShowingAppleStubAlert, actions: {
-                Button("OK", role: .cancel) {}
-            }, message: {
-                Text("Опція входу через Apple зʼявиться пізніше.")
             })
 
             if viewModel.isLoading {
