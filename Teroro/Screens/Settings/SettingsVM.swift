@@ -250,17 +250,19 @@ final class SettingsVM: ObservableObject {
         securityAlertMessage = nil
         securitySuccessMessage = nil
 
-        guard !newPassword.isEmpty else {
-            securityAlertMessage = "Введіть новий пароль."
+        let validation = AuthValidator.validatePasswordChange(
+            currentPassword: currentPassword,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword,
+            requiresCurrentPassword: hasPassword
+        )
+
+        switch validation {
+        case .failure(let error):
+            securityAlertMessage = error.errorDescription
             return false
-        }
-        guard newPassword.count >= 6 else {
-            securityAlertMessage = "Пароль має містити щонайменше 6 символів."
-            return false
-        }
-        guard newPassword == confirmPassword else {
-            securityAlertMessage = "Паролі не співпадають."
-            return false
+        case .success:
+            break
         }
 
         isSecurityProcessing = true
@@ -286,29 +288,29 @@ final class SettingsVM: ObservableObject {
         securityAlertMessage = nil
         securitySuccessMessage = nil
 
-        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedEmail.isEmpty else {
-            securityAlertMessage = "Введіть email."
+        let validation = AuthValidator.validateSignUp(
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword
+        )
+
+        let validEmail: String
+        let validPassword: String
+
+        switch validation {
+        case .failure(let error):
+            securityAlertMessage = error.errorDescription
             return false
-        }
-        guard !password.isEmpty else {
-            securityAlertMessage = "Введіть пароль."
-            return false
-        }
-        guard password.count >= 6 else {
-            securityAlertMessage = "Пароль має містити щонайменше 6 символів."
-            return false
-        }
-        guard password == confirmPassword else {
-            securityAlertMessage = "Паролі не співпадають."
-            return false
+        case .success(let valid):
+            validEmail = valid.email
+            validPassword = valid.password
         }
 
         isSecurityProcessing = true
         defer { isSecurityProcessing = false }
 
         do {
-            try await authService.linkEmailPasswordToCurrentUser(email: trimmedEmail, password: password)
+            try await authService.linkEmailPasswordToCurrentUser(email: validEmail, password: validPassword)
             refreshLinkedProviders()
             securitySuccessMessage = "Email та пароль успішно підключено."
             return true
@@ -322,17 +324,22 @@ final class SettingsVM: ObservableObject {
         securityAlertMessage = nil
         securitySuccessMessage = nil
 
-        let trimmed = newEmail.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            securityAlertMessage = "Введіть новий email."
+        let validation = AuthValidator.validateEmail(newEmail)
+        let validEmail: String
+
+        switch validation {
+        case .failure(let error):
+            securityAlertMessage = error.errorDescription
             return false
+        case .success(let email):
+            validEmail = email
         }
 
         isSecurityProcessing = true
         defer { isSecurityProcessing = false }
 
         do {
-            try await authService.changeUserEmail(newEmail: trimmed, currentPassword: currentPassword)
+            try await authService.changeUserEmail(newEmail: validEmail, currentPassword: currentPassword)
             securitySuccessMessage = "Код підтвердження надіслано на новий email."
             return true
         } catch {

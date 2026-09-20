@@ -112,22 +112,12 @@ struct AuthScreen: View {
                     .scaleEffect(1.5)
             }
         }
-        .onChange(of: viewModel.alertMessage) { message in
-            guard let message, !message.isEmpty else { return }
-            let isSuccess = message == "Лист для відновлення паролю надіслано."
+        .onChange(of: viewModel.toast) { newToast in
+            guard let newToast else { return }
             withAnimation {
-                toasts.insert(
-                    Toast(
-                        title: isSuccess ? "Успішно" : "Помилка",
-                        message: message,
-                        symbol: isSuccess ? "checkmark.circle.fill" : "exclamationmark.triangle.fill",
-                        tint: isSuccess ? .green : .red,
-                        timing: isSuccess ? .medium : .long
-                    ),
-                    at: 0
-                )
+                toasts.insert(newToast, at: 0)
             }
-            viewModel.alertMessage = nil
+            viewModel.toast = nil
         }
         .toasts($toasts)
     }

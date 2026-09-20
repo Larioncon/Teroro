@@ -15,7 +15,7 @@ struct ChangePasswordSheetView: View {
                     SecureField("Новий пароль", text: $newPassword)
                     SecureField("Підтвердіть новий пароль", text: $confirmPassword)
                 } footer: {
-                    Text("Пароль повинен містити щонайменше 6 символів.")
+                    Text("Пароль повинен містити щонайменше 8 символів, велику та малу літери, а також цифру.")
                 }
             }
             .navigationTitle("Зміна паролю")

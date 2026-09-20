@@ -15,6 +15,62 @@ struct Toast: Identifiable, Equatable {
         case medium = 4.0
         case long = 6.0
     }
+
+    static func error(
+        title: String = "Помилка",
+        message: String,
+        timing: ToastFrame = .long
+    ) -> Toast {
+        Toast(
+            title: title,
+            message: message,
+            symbol: "exclamationmark.triangle.fill",
+            tint: .red,
+            timing: timing
+        )
+    }
+
+    static func warning(
+        title: String = "Увага",
+        message: String,
+        timing: ToastFrame = .medium
+    ) -> Toast {
+        Toast(
+            title: title,
+            message: message,
+            symbol: "exclamationmark.circle.fill",
+            tint: .orange,
+            timing: timing
+        )
+    }
+
+    static func success(
+        title: String = "Успішно",
+        message: String,
+        timing: ToastFrame = .medium
+    ) -> Toast {
+        Toast(
+            title: title,
+            message: message,
+            symbol: "checkmark.circle.fill",
+            tint: .green,
+            timing: timing
+        )
+    }
+
+    static func info(
+        title: String,
+        message: String? = nil,
+        timing: ToastFrame = .medium
+    ) -> Toast {
+        Toast(
+            title: title,
+            message: message,
+            symbol: "info.circle.fill",
+            tint: .blue,
+            timing: timing
+        )
+    }
 }
 
 // MARK: - Toast Item View

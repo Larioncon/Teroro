@@ -15,6 +15,7 @@ final class AuthVM: ObservableObject {
     @Published var confirmPassword: String = ""
     @Published var isLoading: Bool = false
     @Published var alertMessage: String?
+    @Published var toast: Toast?
     @Published private(set) var isLoggedIn: Bool = false
     @Published private(set) var isResolvingProfile: Bool = true
     @Published private(set) var currentUser: UserData?
@@ -82,71 +83,100 @@ final class AuthVM: ObservableObject {
         alertMessage = nil
     }
 
+    func showToast(_ newToast: Toast, haptic: UINotificationFeedbackGenerator.FeedbackType? = nil) {
+        if let haptic {
+            UINotificationFeedbackGenerator().notificationOccurred(haptic)
+        }
+        self.toast = newToast
+    }
+
     func submit() {
         alertMessage = nil
-        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedEmail.isEmpty else {
-            alertMessage = "Введіть email."
-            return
-        }
-        guard password.count >= 6 else {
-            alertMessage = "Пароль має містити щонайменше 6 символів."
-            return
-        }
-        if mode == .signUp, password != confirmPassword {
-            alertMessage = "Паролі не співпадають."
-            return
-        }
 
-        isLoading = true
-        Task {
-            do {
-                switch mode {
-                case .signUp:
-                    _ = try await auth.createNewUser(email: trimmedEmail, password: password)
-                case .signIn:
-                    _ = try await auth.signIn(email: trimmedEmail, password: password)
+        switch mode {
+        case .signIn:
+            let validationResult = AuthValidator.validateSignIn(email: email, password: password)
+            switch validationResult {
+            case .failure(let error):
+                showToast(.error(title: "Помилка", message: error.errorDescription ?? "Некоректні дані"), haptic: .error)
+                return
+            case .success(let valid):
+                isLoading = true
+                Task {
+                    do {
+                        _ = try await auth.signIn(email: valid.email, password: valid.password)
+                    } catch {
+                        let message = UserFacingAuthError(from: error).errorDescription
+                            ?? UserFacingAuthError.generic.errorDescription
+                        showToast(.error(message: message ?? "Помилка авторизації"), haptic: .error)
+                    }
+                    isLoading = false
                 }
-            } catch {
-                alertMessage = UserFacingAuthError(from: error).errorDescription
-                    ?? UserFacingAuthError.generic.errorDescription
             }
-            isLoading = false
+
+        case .signUp:
+            let validationResult = AuthValidator.validateSignUp(
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
+            )
+            switch validationResult {
+            case .failure(let error):
+                showToast(.error(title: "Помилка", message: error.errorDescription ?? "Некоректні дані"), haptic: .error)
+                return
+            case .success(let valid):
+                isLoading = true
+                Task {
+                    do {
+                        _ = try await auth.createNewUser(email: valid.email, password: valid.password)
+                    } catch {
+                        let message = UserFacingAuthError(from: error).errorDescription
+                            ?? UserFacingAuthError.generic.errorDescription
+                        showToast(.error(message: message ?? "Помилка реєстрації"), haptic: .error)
+                    }
+                    isLoading = false
+                }
+            }
         }
     }
 
     func resetPassword() {
-        let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedEmail.isEmpty else {
-            alertMessage = "Введіть email для відновлення паролю."
+        let validationResult = AuthValidator.validateResetPassword(email: email)
+        switch validationResult {
+        case .failure(let error):
+            showToast(.error(title: "Помилка", message: error.errorDescription ?? "Некоректний email"), haptic: .error)
             return
-        }
-        isLoading = true
-        Task {
-            do {
-                try await auth.resetPassword(email: trimmedEmail)
-                alertMessage = "Лист для відновлення паролю надіслано."
-            } catch {
-                alertMessage = UserFacingAuthError(from: error).errorDescription
-                    ?? UserFacingAuthError.generic.errorDescription
+        case .success(let validEmail):
+            isLoading = true
+            Task {
+                do {
+                    try await auth.resetPassword(email: validEmail)
+                    showToast(.success(title: "Успішно", message: "Лист для відновлення паролю надіслано."), haptic: .success)
+                } catch {
+                    let message = UserFacingAuthError(from: error).errorDescription
+                        ?? UserFacingAuthError.generic.errorDescription
+                    showToast(.error(message: message ?? "Не вдалося скинути пароль"), haptic: .error)
+                }
+                isLoading = false
             }
-            isLoading = false
         }
     }
+
 
     func signOut() {
         do {
             try auth.signOut()
         } catch {
-            alertMessage = UserFacingAuthError(from: error).errorDescription
+            let message = UserFacingAuthError(from: error).errorDescription
                 ?? UserFacingAuthError.generic.errorDescription
+            showToast(.error(message: message ?? "Помилка виходу"), haptic: .error)
         }
     }
 
     func signInWithGoogle(presenting: UIViewController?) {
         alertMessage = nil
         guard let presenting else {
-            alertMessage = "Не вдалося відкрити Google Sign-In."
+            showToast(.error(message: "Не вдалося відкрити Google Sign-In."), haptic: .error)
             return
         }
         isLoading = true
@@ -154,8 +184,9 @@ final class AuthVM: ObservableObject {
             do {
                 _ = try await auth.signInWithGoogle(presenting: presenting)
             } catch {
-                alertMessage = UserFacingAuthError(from: error).errorDescription
+                let message = UserFacingAuthError(from: error).errorDescription
                     ?? UserFacingAuthError.generic.errorDescription
+                showToast(.error(message: message ?? "Помилка Google Sign-In"), haptic: .error)
             }
             isLoading = false
         }
@@ -171,7 +202,8 @@ final class AuthVM: ObservableObject {
                 // Ignore cancellation error to avoid showing an alert when the user just closes the sheet.
                 let authError = UserFacingAuthError(from: error)
                 if authError != .cancelled {
-                    alertMessage = authError.errorDescription ?? UserFacingAuthError.generic.errorDescription
+                    let message = authError.errorDescription ?? UserFacingAuthError.generic.errorDescription
+                    showToast(.error(message: message ?? "Помилка Apple Sign-In"), haptic: .error)
                 }
             }
             isLoading = false
