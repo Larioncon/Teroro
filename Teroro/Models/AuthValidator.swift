@@ -51,21 +51,33 @@ enum AuthValidator {
     /// Повертає очищений від зайвих пробілів email або помилку валідації.
     static func validateEmail(_ email: String) -> Result<String, ValidationError> {
         let trimmed = email.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            return .failure(.emptyEmail)
-        }
+        guard !trimmed.isEmpty else { return .failure(.emptyEmail) }
+        guard trimmed.count <= 254 else { return .failure(.invalidEmailFormat) }
 
-        guard trimmed.count <= 254 else {
+        let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}$"
+        guard NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: trimmed) else {
             return .failure(.invalidEmailFormat)
         }
 
-        let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}$"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        // Розбиваємо на localPart і domainPart для детальної перевірки
+        let parts = trimmed.components(separatedBy: "@")
+        guard parts.count == 2 else { return .failure(.invalidEmailFormat) }
+        let localPart = parts[0]
+        let domainPart = parts[1]
 
-        guard emailPredicate.evaluate(with: trimmed),
-              !trimmed.contains(".."),
-              !trimmed.hasPrefix("."),
-              !trimmed.hasSuffix(".") else {
+        // localPart: не може починатись або закінчуватись крапкою, не може містити ".."
+        guard !localPart.hasPrefix("."),
+              !localPart.hasSuffix("."),
+              !localPart.contains("..") else {
+            return .failure(.invalidEmailFormat)
+        }
+
+        // domainPart: не може починатись або закінчуватись крапкою чи дефісом, не може містити ".."
+        guard !domainPart.hasPrefix("."),
+              !domainPart.hasPrefix("-"),
+              !domainPart.hasSuffix("."),
+              !domainPart.hasSuffix("-"),
+              !domainPart.contains("..") else {
             return .failure(.invalidEmailFormat)
         }
 

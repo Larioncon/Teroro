@@ -302,7 +302,9 @@ enum UserFacingAuthError: LocalizedError, Equatable {
         case 17012: return .accountExistsWithDifferentCredential
         case 17025: return .credentialAlreadyInUse
         case 17015: return .providerAlreadyLinked
-        case 17021, 17017: return .sessionInvalid // userTokenExpired / invalidUserToken (seen across versions)
+        case 17021, 17017: return .sessionInvalid
+        case 17043, 17044: return .verificationCodeInvalidOrMissing
+        case 17051: return .verificationExpired
         default:
             return nil
         }

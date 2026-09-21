@@ -35,6 +35,13 @@
 			remoteGlobalIDString = 11919C71303CC08000F389B5;
 			remoteInfo = TimexoWidgetExtension;
 		};
+		11B967883061B86F00F0A302 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 119A0EB92F60767000E71F4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 119A0EC02F60767000E71F4D;
+			remoteInfo = Teroro;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +65,7 @@
 		11919C73303CC08000F389B5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		11919C75303CC08100F389B5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		119A0EC12F60767000E71F4D /* Teroro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teroro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11B967843061B86F00F0A302 /* TeroroUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeroroUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -94,6 +102,11 @@
 			path = TimexoWidget;
 			sourceTree = "<group>";
 		};
+		11B967853061B86F00F0A302 /* TeroroUnitTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TeroroUnitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +141,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		11B967813061B86F00F0A302 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -147,6 +167,7 @@
 				1104FBD0303DF271009A3FF4 /* TimexoWidgetExtension.entitlements */,
 				11525A4B2F8D64DB00A949B1 /* Teroro */,
 				11919C77303CC08100F389B5 /* TimexoWidget */,
+				11B967853061B86F00F0A302 /* TeroroUnitTests */,
 				115788682FD7538D00A71FB6 /* Frameworks */,
 				119A0EC22F60767000E71F4D /* Products */,
 			);
@@ -157,6 +178,7 @@
 			children = (
 				119A0EC12F60767000E71F4D /* Teroro.app */,
 				11919C72303CC08000F389B5 /* TimexoWidgetExtension.appex */,
+				11B967843061B86F00F0A302 /* TeroroUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -224,6 +246,29 @@
 			productReference = 119A0EC12F60767000E71F4D /* Teroro.app */;
 			productType = "com.apple.product-type.application";
 		};
+		11B967833061B86F00F0A302 /* TeroroUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11B9678A3061B86F00F0A302 /* Build configuration list for PBXNativeTarget "TeroroUnitTests" */;
+			buildPhases = (
+				11B967803061B86F00F0A302 /* Sources */,
+				11B967813061B86F00F0A302 /* Frameworks */,
+				11B967823061B86F00F0A302 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				11B967893061B86F00F0A302 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				11B967853061B86F00F0A302 /* TeroroUnitTests */,
+			);
+			name = TeroroUnitTests;
+			packageProductDependencies = (
+			);
+			productName = TeroroUnitTests;
+			productReference = 11B967843061B86F00F0A302 /* TeroroUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -239,6 +284,10 @@
 					};
 					119A0EC02F60767000E71F4D = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					11B967833061B86F00F0A302 = {
+						CreatedOnToolsVersion = 26.4;
+						TestTargetID = 119A0EC02F60767000E71F4D;
 					};
 				};
 			};
@@ -264,6 +313,7 @@
 			targets = (
 				119A0EC02F60767000E71F4D /* Teroro */,
 				11919C71303CC08000F389B5 /* TimexoWidgetExtension */,
+				11B967833061B86F00F0A302 /* TeroroUnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -277,6 +327,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		119A0EBF2F60767000E71F4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11B967823061B86F00F0A302 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,6 +357,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		11B967803061B86F00F0A302 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -307,6 +371,11 @@
 			isa = PBXTargetDependency;
 			target = 11919C71303CC08000F389B5 /* TimexoWidgetExtension */;
 			targetProxy = 11919C85303CC08300F389B5 /* PBXContainerItemProxy */;
+		};
+		11B967893061B86F00F0A302 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 119A0EC02F60767000E71F4D /* Teroro */;
+			targetProxy = 11B967883061B86F00F0A302 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -598,6 +667,50 @@
 			};
 			name = Release;
 		};
+		11B9678B3061B86F00F0A302 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7G7C4P47W6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OleksaChmil.TeroroUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Teroro.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Teroro";
+			};
+			name = Debug;
+		};
+		11B9678C3061B86F00F0A302 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7G7C4P47W6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.OleksaChmil.TeroroUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Teroro.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Teroro";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -624,6 +737,15 @@
 			buildConfigurations = (
 				119A0ECD2F60767200E71F4D /* Debug */,
 				119A0ECE2F60767200E71F4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11B9678A3061B86F00F0A302 /* Build configuration list for PBXNativeTarget "TeroroUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11B9678B3061B86F00F0A302 /* Debug */,
+				11B9678C3061B86F00F0A302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

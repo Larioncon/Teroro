@@ -130,7 +130,7 @@ struct AuthScreen: View {
                 .transition(.opacity.combined(with: .move(edge: .trailing)))
 
             Text(viewModel.mode == .signUp
-                 ? "Create an account to start using Timora."
+                 ? "Create an account to start using Timexo."
                  : "Sign in to continue.")
             .font(.subheadline)
             .foregroundStyle(.secondary)
