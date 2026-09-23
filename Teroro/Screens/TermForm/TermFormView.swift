@@ -17,6 +17,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
     let onCancel: () -> Void
     @AppStorage("showNotificationPermissionOverlay") private var showPermissionOverlay = false
     @State private var isSaving = false
+    @State private var toasts: [Toast] = []
     @FocusState private var focusedField: TermFormField?
 
     var body: some View {
@@ -38,9 +39,15 @@ struct TermFormView<VM: TermFormViewModeling>: View {
                 .redacted(reason: viewModel.isLoading ? .placeholder : [])
                 .allowsHitTesting(!viewModel.isLoading)
 
-                LocationSection(location: $viewModel.location)
-                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
-                    .allowsHitTesting(!viewModel.isLoading)
+                LocationSection(location: $viewModel.location) { address in
+                    UIPasteboard.general.string = address
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    withAnimation {
+                        toasts.insert(.copied(message: address), at: 0)
+                    }
+                }
+                .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                .allowsHitTesting(!viewModel.isLoading)
 
                 ActionButtonsSection(
                     isSaveEnabled: viewModel.isSaveEnabled && !viewModel.isLoading && !isSaving,
@@ -89,6 +96,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
                 .transition(.opacity)
             }
         }
+        .toasts($toasts)
         .task {
             await viewModel.loadTermIfNeeded()
         }
@@ -112,6 +120,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
 
 private struct LocationSection: View {
     @Binding var location: TermLocation?
+    var onCopyAddress: ((String) -> Void)? = nil
     @ObservedObject private var network = NetworkMonitor.shared
 
     private var isOnline: Bool {
@@ -143,6 +152,15 @@ private struct LocationSection: View {
                         Text(isOnline ? "Додайте адресу для зустрічі" : "Вибір локації недоступний без інтернету")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onLongPressGesture(minimumDuration: 0.4) {
+                    if let location = location {
+                        let text = location.address ?? location.title ?? ""
+                        if !text.isEmpty {
+                            onCopyAddress?(text)
+                        }
                     }
                 }
                 Spacer()

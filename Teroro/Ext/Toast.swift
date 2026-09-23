@@ -71,6 +71,21 @@ struct Toast: Identifiable, Equatable {
             timing: timing
         )
     }
+
+    static func copied(
+        title: String = "Скопійовано в буфер",
+        message: String? = nil,
+        symbol: String = "docOnDoc",
+        timing: ToastFrame = .short
+    ) -> Toast {
+        Toast(
+            title: title,
+            message: message,
+            symbol: symbol,
+            tint: .primary,
+            timing: timing
+        )
+    }
 }
 
 // MARK: - Toast Item View
@@ -80,10 +95,20 @@ struct ToastItemView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: toast.symbol)
-                .font(.title3)
-                .foregroundStyle(toast.tint)
-                .frame(width: 30, height: 30)
+            Group {
+                if UIImage(named: toast.symbol) != nil {
+                    Image(toast.symbol)
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                } else {
+                    Image(systemName: toast.symbol)
+                        .font(.title3)
+                        .frame(width: 30, height: 30)
+                }
+            }
+            .foregroundStyle(toast.tint)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(toast.title)
