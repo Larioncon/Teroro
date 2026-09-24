@@ -1,5 +1,6 @@
 import Combine
 import LocalAuthentication
+import PhotosUI
 import SwiftUI
 import UserNotifications
 import UIKit
@@ -27,6 +28,9 @@ final class SettingsVM: ObservableObject {
     @Published private(set) var currentUser: UserData?
     @Published private(set) var linkedProviderIDs: [String] = []
     @Published private(set) var isAvatarUpdating = false
+    @Published private(set) var isNameUpdating = false
+    @Published var isEditingName = false
+    @Published var editedName = ""
     @Published private(set) var isPremium = false
     @Published var signOutErrorMessage: String?
 
@@ -178,6 +182,65 @@ final class SettingsVM: ObservableObject {
                 signOutErrorMessage = error.localizedDescription
             }
             isAvatarUpdating = false
+        }
+    }
+
+    func loadSelectedPhoto(_ item: PhotosPickerItem?) {
+        guard let item else { return }
+
+        Task {
+            do {
+                guard
+                    let data = try await item.loadTransferable(type: Data.self),
+                    let image = UIImage(data: data)
+                else {
+                    signOutErrorMessage = "Не вдалося прочитати фото."
+                    return
+                }
+                updateAvatar(with: image)
+            } catch {
+                signOutErrorMessage = error.localizedDescription
+            }
+        }
+    }
+
+    func startEditingName() {
+        editedName = currentUser?.name ?? ""
+        isEditingName = true
+    }
+
+    func cancelEditingName() {
+        isEditingName = false
+        editedName = ""
+    }
+
+    func saveEditedName() {
+        let trimmed = editedName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+        Task {
+            let success = await updateName(trimmed)
+            if success {
+                isEditingName = false
+                editedName = ""
+            }
+        }
+    }
+
+    @discardableResult
+    func updateName(_ newName: String) async -> Bool {
+        let trimmed = newName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return false }
+        signOutErrorMessage = nil
+        isNameUpdating = true
+        defer { isNameUpdating = false }
+
+        do {
+            let user = try await profileService.updateName(trimmed)
+            currentUser = user
+            return true
+        } catch {
+            signOutErrorMessage = error.localizedDescription
+            return false
         }
     }
 

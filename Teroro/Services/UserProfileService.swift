@@ -99,6 +99,30 @@ final class UserProfileService {
         return user
     }
 
+    func updateName(_ name: String) async throws -> UserData {
+        guard let authUser = Auth.auth().currentUser else {
+            throw UserProfileError.missingUser
+        }
+
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        let data: [String: Any] = [
+            "name": trimmedName,
+            "updatedAt": FieldValue.serverTimestamp()
+        ]
+
+        try await setData(data, for: userDocumentReference(userID: authUser.uid), merge: true)
+
+        let user = UserData(
+            id: authUser.uid,
+            email: authUser.email ?? "",
+            name: trimmedName,
+            avatarURL: UserProfileLocalCache.cachedAvatarURL(for: authUser.uid),
+            createdAt: authUser.metadata.creationDate
+        )
+        UserProfileLocalCache.store(user: user)
+        return user
+    }
+
     private func uploadAvatar(_ image: UIImage, userID: String) async throws -> String {
         guard let data = image.jpegData(compressionQuality: 0.82) else {
             throw UserProfileError.invalidImage

@@ -8,6 +8,7 @@ struct SettingsView: View {
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var isCameraShowing = false
     @State private var isPhotoPickerShowing = false
+    @FocusState private var isNameFieldFocused: Bool
     let onShowPaywall: () -> Void
     let onShowAppearance: () -> Void
     let onShowPrivacyAndSecurity: () -> Void
@@ -43,11 +44,72 @@ struct SettingsView: View {
                     .buttonStyle(.plain)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        AutoScrollText(
-                            text: viewModel.currentUser?.name ?? "Профіль",
-                            font: .preferredFont(forTextStyle: .headline),
-                            textColor: .label
-                        )
+                        if viewModel.isEditingName {
+                            HStack(spacing: 6) {
+                                TextField("Ім'я", text: $viewModel.editedName)
+                                    .font(.headline)
+                                    .textFieldStyle(.plain)
+                                    .frame(height: 22)
+                                    .padding(.horizontal, 6)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 6)
+                                            .fill(Color(uiColor: .tertiarySystemFill))
+                                    )
+                                    .focused($isNameFieldFocused)
+                                    .submitLabel(.done)
+                                    .onSubmit {
+                                        viewModel.saveEditedName()
+                                    }
+                                    .disabled(viewModel.isNameUpdating)
+
+                                if viewModel.isNameUpdating {
+                                    ProgressView()
+                                        .controlSize(.small)
+                                } else {
+                                    Button {
+                                        viewModel.saveEditedName()
+                                    } label: {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundColor(.accentColor)
+                                            .font(.subheadline)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .disabled(viewModel.editedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+
+                                    Button {
+                                        viewModel.cancelEditingName()
+                                    } label: {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .foregroundColor(.secondary)
+                                            .font(.subheadline)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+                            }
+                            .frame(height: 22)
+                        } else {
+                            Menu {
+                                Button {
+                                    viewModel.startEditingName()
+                                } label: {
+                                    Label("Редагувати", systemImage: "pencil")
+                                }
+                            } label: {
+                                AutoScrollText(
+                                    text: viewModel.currentUser?.name ?? "Профіль",
+                                    font: .preferredFont(forTextStyle: .headline),
+                                    textColor: .label
+                                )
+                            }
+                            .buttonStyle(.plain)
+                            .contextMenu {
+                                Button {
+                                    viewModel.startEditingName()
+                                } label: {
+                                    Label("Редагувати", systemImage: "pencil")
+                                }
+                            }
+                        }
 
                         if let email = viewModel.currentUser?.email, !email.isEmpty {
                             AutoScrollText(
@@ -181,7 +243,10 @@ struct SettingsView: View {
             viewModel.onScenePhaseChanged(newPhase)
         }
         .onChange(of: selectedPhotoItem) { item in
-            loadSelectedPhoto(item)
+            viewModel.loadSelectedPhoto(item)
+        }
+        .onChange(of: viewModel.isEditingName) { isEditing in
+            isNameFieldFocused = isEditing
         }
         .photosPicker(isPresented: $isPhotoPickerShowing, selection: $selectedPhotoItem, matching: .images)
         .sheet(isPresented: $isCameraShowing) {
@@ -199,25 +264,6 @@ struct SettingsView: View {
         }, message: {
             Text(viewModel.signOutErrorMessage ?? "")
         })
-    }
-
-    private func loadSelectedPhoto(_ item: PhotosPickerItem?) {
-        guard let item else { return }
-
-        Task {
-            do {
-                guard
-                    let data = try await item.loadTransferable(type: Data.self),
-                    let image = UIImage(data: data)
-                else {
-                    viewModel.signOutErrorMessage = "Не вдалося прочитати фото."
-                    return
-                }
-                viewModel.updateAvatar(with: image)
-            } catch {
-                viewModel.signOutErrorMessage = error.localizedDescription
-            }
-        }
     }
 }
 
