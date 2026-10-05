@@ -28,6 +28,7 @@ struct HomeView: View {
         let displayedUpcoming = viewModel.isLoading ? viewModel.placeholderTerms : upcoming
         let displayedPast = viewModel.isLoading ? viewModel.placeholderPastTerms : past
         let isPastToggleDisabled = !viewModel.isLoading && !isShowingPastTerms && past.isEmpty
+        let isOverlayVisible = showPermissionOverlay && !dismissedPermissionOverlay
 
         ZStack {
             ZStack {
@@ -41,8 +42,8 @@ struct HomeView: View {
                 .opacity(isShowingPastTerms ? 0 : 1)
                 .scaleEffect(isShowingPastTerms ? 0.985 : 1)
                 .blur(radius: isShowingPastTerms ? 1.4 : 0)
-                .allowsHitTesting(!isShowingPastTerms)
-                .accessibilityHidden(isShowingPastTerms)
+                .allowsHitTesting(!isShowingPastTerms && !isOverlayVisible)
+                .accessibilityHidden(isShowingPastTerms || isOverlayVisible)
 
                 TermsList(
                     viewModel: viewModel,
@@ -54,15 +55,18 @@ struct HomeView: View {
                 .opacity(isShowingPastTerms ? 1 : 0)
                 .scaleEffect(isShowingPastTerms ? 1 : 0.985)
                 .blur(radius: isShowingPastTerms ? 0 : 1.4)
-                .allowsHitTesting(isShowingPastTerms)
-                .accessibilityHidden(!isShowingPastTerms)
+                .allowsHitTesting(isShowingPastTerms && !isOverlayVisible)
+                .accessibilityHidden(!isShowingPastTerms || isOverlayVisible)
             }
+            .allowsHitTesting(!isOverlayVisible)
 
-            if showPermissionOverlay && !dismissedPermissionOverlay {
+            if isOverlayVisible {
                 NotificationPermissionView(
                     onClose: {
-                        dismissedPermissionOverlay = true
-                        showPermissionOverlay = false
+                        withAnimation {
+                            dismissedPermissionOverlay = true
+                            showPermissionOverlay = false
+                        }
                     },
                     onOpenSettings: {
                         if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -70,8 +74,11 @@ struct HomeView: View {
                         }
                     }
                 )
+                .transition(.opacity)
+                .zIndex(1)
             }
         }
+        .toolbar(isOverlayVisible ? .hidden : .visible, for: .tabBar)
         .background(Color(uiColor: .systemGroupedBackground))
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.clear, for: .navigationBar)
@@ -89,15 +96,16 @@ struct HomeView: View {
                 } label: {
                     PastToggleIcon(
                         rotation: pastToggleRotation,
-                        isDisabled: isPastToggleDisabled
+                        isDisabled: isPastToggleDisabled || isOverlayVisible
                     )
                 }
-                .disabled(isPastToggleDisabled)
+                .disabled(isPastToggleDisabled || isOverlayVisible)
                 .accessibilityLabel(isShowingPastTerms ? "Актуальні терміни" : "Минулі терміни")
 
                 Button(action: onAddTerm) {
                     Image(systemName: "plus")
                 }
+                .disabled(isOverlayVisible)
                 .accessibilityLabel("Додати термін")
             }
         }

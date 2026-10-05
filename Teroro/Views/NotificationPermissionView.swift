@@ -15,6 +15,10 @@ struct NotificationPermissionView: View {
         ZStack {
             Color.black.opacity(0.45)
                 .ignoresSafeArea()
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    // Block tap gestures from passing through to background views
+                }
 
             VStack(spacing: 16) {
                 ZStack {
@@ -59,6 +63,10 @@ struct NotificationPermissionView: View {
                     .strokeBorder(Color.secondary.opacity(0.12))
             )
             .padding(24)
+            .contentShape(RoundedRectangle(cornerRadius: 20))
+            .onTapGesture {
+                // Consume taps on the modal card content so they don't trigger the background gesture
+            }
         }
     }
 }
