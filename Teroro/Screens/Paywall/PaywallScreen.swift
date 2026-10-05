@@ -27,85 +27,83 @@ struct PaywallScreen: View {
             )
             .ignoresSafeArea()
 
-            VStack(spacing: 18) {
-                topBar
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 18) {
+                    topBar
 
-                Spacer(minLength: 4)
+                    Image(systemName: "calendar.badge.clock")
+                        .font(.system(size: 54, weight: .semibold))
+                        .foregroundStyle(Color.primaryColor)
+                        .frame(width: 116, height: 116)
+                        .background(.ultraThinMaterial, in: Circle())
+                        .overlay(Circle().strokeBorder(Color.primaryColor.opacity(0.25), lineWidth: 1))
 
-                Image(systemName: "calendar.badge.clock")
-                    .font(.system(size: 54, weight: .semibold))
-                    .foregroundStyle(Color.primaryColor)
-                    .frame(width: 116, height: 116)
-                    .background(.ultraThinMaterial, in: Circle())
-                    .overlay(Circle().strokeBorder(Color.primaryColor.opacity(0.25), lineWidth: 1))
+                    VStack(spacing: 8) {
+                        Text("Unlock Pro")
+                            .font(.system(size: 32, weight: .bold))
 
-                VStack(spacing: 8) {
-                    Text("Unlock Pro")
-                        .font(.system(size: 32, weight: .bold))
+                        Text("Keep terms, reminders and focus tools fully available.")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 18)
+                    }
 
-                    Text("Keep terms, reminders and focus tools fully available.")
-                        .font(.subheadline.weight(.medium))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 18)
-                }
-
-                VStack(spacing: 10) {
-                    ForEach(SubscriptionPlanPeriod.allCases) { period in
-                        PlanOptionView(
-                            period: period,
-                            price: subscriptionService.localizedPrice(for: period.productID(isTrialEnabled: isTrialEnabled)),
-                            isTrialEnabled: isTrialEnabled,
-                            isSelected: selectedPeriod == period
-                        ) {
-                            withAnimation(.spring(response: 0.28, dampingFraction: 0.82)) {
-                                selectedPeriod = period
+                    VStack(spacing: 10) {
+                        ForEach(SubscriptionPlanPeriod.allCases) { period in
+                            PlanOptionView(
+                                period: period,
+                                price: subscriptionService.localizedPrice(for: period.productID(isTrialEnabled: isTrialEnabled)),
+                                isTrialEnabled: isTrialEnabled,
+                                isSelected: selectedPeriod == period
+                            ) {
+                                withAnimation(.spring(response: 0.28, dampingFraction: 0.82)) {
+                                    selectedPeriod = period
+                                }
                             }
                         }
                     }
-                }
-                .padding(.top, 4)
+                    .padding(.top, 4)
 
-                TrialToggleView(isTrialEnabled: $isTrialEnabled)
+                    TrialToggleView(isTrialEnabled: $isTrialEnabled)
 
-                Spacer(minLength: 0)
-
-                VStack(spacing: 12) {
-                    Button {
-                        Task {
-                            let didPurchase = await subscriptionService.purchase(productID: selectedProductID)
-                            if didPurchase {
-                                close()
+                    VStack(spacing: 12) {
+                        Button {
+                            Task {
+                                let didPurchase = await subscriptionService.purchase(productID: selectedProductID)
+                                if didPurchase {
+                                    close()
+                                }
                             }
-                        }
-                    } label: {
-                        HStack(spacing: 10) {
-                            if subscriptionService.isPurchasing {
-                                ProgressView()
-                                    .tint(.white)
-                            }
+                        } label: {
+                            HStack(spacing: 10) {
+                                if subscriptionService.isPurchasing {
+                                    ProgressView()
+                                        .tint(.white)
+                                }
 
-                            Text(subscriptionService.isPurchasing ? "Processing..." : "Continue")
-                                .font(.headline)
+                                Text(subscriptionService.isPurchasing ? "Processing..." : "Continue")
+                                    .font(.headline)
+                            }
+                            .foregroundStyle(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 54)
+                            .background(subscriptionService.isPurchasing ? Color.secondary.opacity(0.35) : Color.primaryColor, in: Capsule())
                         }
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 54)
-                        .background(subscriptionService.isPurchasing ? Color.secondary.opacity(0.35) : Color.primaryColor, in: Capsule())
+                        .buttonStyle(.plain)
+                        .disabled(subscriptionService.isPurchasing)
+
+                        footerLinks
                     }
-                    .buttonStyle(.plain)
-                    .disabled(subscriptionService.isPurchasing)
-
-                    footerLinks
+                    .padding(.top, 8)
                 }
+                .padding(.horizontal, 20)
+                .padding(.top, adaptivePaddingTop)
+                .padding(.bottom, 24)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 18)
-            .padding(.bottom, 4)
         }
-        .navigationBarBackButtonHidden(true)
+        .applyLegacyNavigation()
         .toolbar(.hidden, for: .tabBar)
-        .swipeBackGestureEnabled()
         .task {
             await subscriptionService.bootstrap()
         }
@@ -124,21 +122,24 @@ struct PaywallScreen: View {
         })
     }
 
+    @ViewBuilder
     private var topBar: some View {
-        HStack {
-            Button {
-                close()
-            } label: {
-                Image(systemName: "chevron.backward")
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundStyle(.primary)
-                    .frame(width: 36, height: 36)
-                    .background(.ultraThinMaterial, in: Circle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel("Close")
+        if #unavailable(iOS 26.0) {
+            HStack {
+                Button {
+                    close()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(.primary)
+                        .frame(width: 36, height: 36)
+                        .background(.ultraThinMaterial, in: Circle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Close")
 
-            Spacer()
+                Spacer()
+            }
         }
     }
 
@@ -182,6 +183,19 @@ struct PaywallScreen: View {
     private func close() {
 //        appState.isShowPaywall = false
         dismiss()
+    }
+}
+
+private extension View {
+    @ViewBuilder
+    func applyLegacyNavigation() -> some View {
+        if #unavailable(iOS 26.0) {
+            self
+                .navigationBarBackButtonHidden(true)
+                .swipeBackGestureEnabled()
+        } else {
+            self
+        }
     }
 }
 

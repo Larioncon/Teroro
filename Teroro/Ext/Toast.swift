@@ -138,18 +138,7 @@ struct ToastItemView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .toastBackground()
-        .overlay(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(
-                    LinearGradient(
-                        colors: [.white.opacity(0.6), .white.opacity(0.1)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: 1
-                )
-        )
+        .glassBackground()
         .padding(.horizontal, 16)
         .allowsHitTesting(toast.isUserInteractionEnabled)
     }
@@ -241,27 +230,46 @@ struct ToastModifier: ViewModifier {
 }
 extension View {
     @ViewBuilder
-    func toastBackground(cornerRadius: CGFloat = 20) -> some View {
+    func glassBackground<S: InsettableShape, F: ShapeStyle>(
+        _ shape: S,
+        fill: F = .ultraThinMaterial,
+        withGradient: Bool = true
+    ) -> some View {
         if #available(iOS 26.0, *) {
-            glassEffect(.regular, in: .rect(cornerRadius: cornerRadius, style: .continuous))
+            glassEffect(.regular, in: shape)
         } else {
             background(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .fill(.ultraThinMaterial)
+                shape
+                    .fill(fill)
                     .shadow(color: .black.opacity(0.08), radius: 15, y: 10)
             )
-            .overlay(
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .strokeBorder(
-                        LinearGradient(
-                            colors: [.white.opacity(0.6), .white.opacity(0.1)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
-                    )
-            )
+            .overlay {
+                if withGradient {
+                    shape
+                        .strokeBorder(
+                            LinearGradient(
+                                colors: [.white.opacity(0.6), .white.opacity(0.1)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                }
+            }
         }
+    }
+
+    @ViewBuilder
+    func glassBackground<F: ShapeStyle>(
+        cornerRadius: CGFloat = 20,
+        fill: F = .ultraThinMaterial,
+        withGradient: Bool = true
+    ) -> some View {
+        glassBackground(
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous),
+            fill: fill,
+            withGradient: withGradient
+        )
     }
 }
 

@@ -36,6 +36,6 @@ struct EmptyStateCard: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(14)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .glassBackground(cornerRadius: 18, withGradient: false)
     }
 }

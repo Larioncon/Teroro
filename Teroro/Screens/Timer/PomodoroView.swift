@@ -156,7 +156,7 @@ struct PomodoroView: View {
                     }
                 }
                 .padding(.vertical, 40)
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30))
+                .glassBackground(cornerRadius: 30, withGradient: false)
                 .padding(.horizontal, 20)
                 .transition(.opacity.combined(with: .scale(scale: 0.9, anchor: .center)))
                 .zIndex(2)

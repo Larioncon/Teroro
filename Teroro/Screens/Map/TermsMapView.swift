@@ -43,7 +43,7 @@ struct TermsMapView: View {
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(viewModel.userLocation != nil ? Color.accentColor : .primary)
                         .frame(width: 44, height: 44)
-                        .background(.regularMaterial, in: Circle())
+                        .glassBackground(Circle(), fill: .regularMaterial, withGradient: false)
                         .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
                 }
                 .buttonStyle(.plain)

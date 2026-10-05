@@ -12,12 +12,11 @@ struct MapTypeButton: View {
                 .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(isSelected ? Color.accentColor : .primary)
                 .frame(width: 44, height: 44)
-                .background(.regularMaterial, in: Circle())
+                .glassBackground(Circle(), fill: .regularMaterial, withGradient: false)
                 .overlay(
                     Circle()
                         .strokeBorder(isSelected ? Color.accentColor : Color.clear, lineWidth: 2)
                 )
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
         }
         .buttonStyle(.plain)
     }
