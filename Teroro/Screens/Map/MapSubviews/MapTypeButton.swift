@@ -17,7 +17,9 @@ struct MapTypeButton: View {
                     Circle()
                         .strokeBorder(isSelected ? Color.accentColor : Color.clear, lineWidth: 2)
                 )
+                .contentShape(Circle())
         }
         .buttonStyle(.plain)
+        .contentShape(Circle())
     }
 }

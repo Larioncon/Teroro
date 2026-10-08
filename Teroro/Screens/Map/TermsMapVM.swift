@@ -1,25 +1,139 @@
-import Foundation
+import SwiftUI
 import MapKit
 import CoreLocation
 
 @MainActor
 final class TermsMapVM: NSObject, ObservableObject, CLLocationManagerDelegate {
+    enum MapHintStep: Int, CaseIterable {
+        case hybrid = 0
+        case standard = 1
+        case location = 2
+        case completed = 3
+    }
+
+    enum CardState: Equatable {
+        case loading
+        case emptyUpcomingTerms
+        case emptyLocations
+        case hint
+    }
+
     static let defaultRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 50.4501, longitude: 30.5234),
         span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12)
     )
 
+    private let preferredMapTypeKey = "preferredMapType"
+    private let hintStepKey = "termsMapHintStep"
+
     @Published var region: MKCoordinateRegion = defaultRegion
     @Published private(set) var userLocation: CLLocationCoordinate2D?
     @Published var hasCenteredOnInitialPosition: Bool = false
 
+    @Published var mapType: MKMapType {
+        didSet {
+            UserDefaults.standard.set(Int(mapType.rawValue), forKey: preferredMapTypeKey)
+        }
+    }
+
+    @Published private(set) var currentHintStep: MapHintStep {
+        didSet {
+            UserDefaults.standard.set(currentHintStep.rawValue, forKey: hintStepKey)
+        }
+    }
+
+    @Published private(set) var isHintRevealed: Bool = false
+
+    private var hintRevealTask: Task<Void, Never>?
     private let locationManager = CLLocationManager()
     private var currentTerms: [Term] = []
 
     override init() {
+        let savedMapRaw = UserDefaults.standard.integer(forKey: preferredMapTypeKey)
+        self.mapType = MKMapType(rawValue: UInt(savedMapRaw)) ?? .standard
+
+        let savedHintRaw = UserDefaults.standard.integer(forKey: hintStepKey)
+        self.currentHintStep = MapHintStep(rawValue: savedHintRaw) ?? .hybrid
+
         super.init()
         locationManager.delegate = self
     }
+
+    // MARK: - Lifecycle
+
+    func onAppear(terms: [Term]) {
+        requestUserLocation()
+        setTerms(terms)
+        scheduleHintRevealIfNeeded()
+    }
+
+    func onDisappear() {
+        hintRevealTask?.cancel()
+        hintRevealTask = nil
+        isHintRevealed = false
+    }
+
+    func scheduleHintRevealIfNeeded() {
+        guard currentHintStep != .completed else { return }
+        hintRevealTask?.cancel()
+        hintRevealTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 600_000_000)
+            guard !Task.isCancelled else { return }
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                self.isHintRevealed = true
+            }
+        }
+    }
+
+    // MARK: - Hint Management
+
+    func isHintVisible(for step: MapHintStep) -> Bool {
+        isHintRevealed && currentHintStep == step
+    }
+
+    func advanceHint(ifCurrent step: MapHintStep? = nil) {
+        guard currentHintStep != .completed else { return }
+        if let step = step, currentHintStep != step { return }
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+            currentHintStep = MapHintStep(rawValue: currentHintStep.rawValue + 1) ?? .completed
+        }
+    }
+
+    // MARK: - User Actions
+
+    func selectStandardMap() {
+        advanceHint(ifCurrent: .standard)
+        mapType = .standard
+    }
+
+    func selectHybridMap() {
+        advanceHint(ifCurrent: .hybrid)
+        mapType = .hybrid
+    }
+
+    func centerOnUserOrTerms(terms: [Term]) {
+        advanceHint(ifCurrent: .location)
+        withAnimation(.easeInOut(duration: 0.5)) {
+            centerOnUserOrNearestTerm(for: terms)
+        }
+    }
+
+    // MARK: - Bottom Card State
+
+    func cardState(for terms: [Term], isLoading: Bool) -> CardState {
+        if isLoading {
+            return .loading
+        }
+        if upcomingTerms(from: terms).isEmpty {
+            return .emptyUpcomingTerms
+        }
+        if items(from: terms).isEmpty {
+            return .emptyLocations
+        }
+        return .hint
+    }
+
+    // MARK: - Location & Region
 
     func requestUserLocation() {
         locationManager.requestWhenInUseAuthorization()
@@ -125,5 +239,3 @@ struct TermMapItem: Identifiable, Equatable {
         lhs.title == rhs.title
     }
 }
-
-
