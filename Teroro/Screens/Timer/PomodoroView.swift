@@ -3,6 +3,7 @@ import SwiftUI
 struct PomodoroView: View {
     @ObservedObject var viewModel: PomodoroVM
     @State private var isShowingPicker = false
+    @State private var isHintRevealed = false
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -13,6 +14,7 @@ struct PomodoroView: View {
                 VStack(spacing: 4) {
                     Button(action: {
                         if !viewModel.isRunning {
+                            viewModel.dismissHint()
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                                 isShowingPicker = true
                             }
@@ -22,7 +24,7 @@ struct PomodoroView: View {
                     }
                     .buttonStyle(.plain)
                     .disabled(viewModel.isRunning)
-                    
+
                     Text(viewModel.mode == .focus ? "FOCUS TIME" : "RELAX")
                         .font(.system(size: 14, weight: .black))
                         .kerning(2)
@@ -161,6 +163,34 @@ struct PomodoroView: View {
                 .transition(.opacity.combined(with: .scale(scale: 0.9, anchor: .center)))
                 .zIndex(2)
             }
+           
+            // Hint Bubble — floats above everything
+            if viewModel.showHint && isHintRevealed {
+                VStack {
+                    SpeechBubbleView(
+                        "Нажмите чтоб изменить длительность периода.",
+                        icon: "lightbulb.fill",
+                        direction: .top,
+                        backgroundColor: .cyan,
+                        foregroundColor: .primary,
+                        font: .system(size: 13, weight: .regular),
+                        shadowColor: .black.opacity(0.12),
+                        shadowRadius: 10,
+                        shadowY: 5,
+                        closeButtonPosition: .topTrailing,
+                        onClose: {
+                            viewModel.dismissHint()
+                        }
+                    )
+                    .frame(maxWidth: 240)
+                    .fixedSize()
+                    .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .top)))
+                    Spacer()
+                }
+                .padding(.top, 108)
+                .zIndex(3)
+                .allowsHitTesting(true)
+            }
         }
         .toolbar(.hidden, for: .navigationBar)
         .animation(.spring(), value: viewModel.isRunning)
@@ -171,6 +201,17 @@ struct PomodoroView: View {
                 viewModel.refreshNotificationStatus()
                 viewModel.sync()
             }
+        }
+        .onAppear {
+            guard viewModel.showHint else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                    isHintRevealed = true
+                }
+            }
+        }
+        .onDisappear {
+            isHintRevealed = false
         }
     }
 

@@ -14,7 +14,9 @@ final class PomodoroVM: ObservableObject {
             applySelectedDuration()
         }
     }
-    
+
+    @AppStorage("pomodoroHintDismissed") private var isHintDismissed: Bool = false
+    @Published private(set) var showHint: Bool = false
 
     @AppStorage("pomodoroIsRunning") private var persistedIsRunning: Bool = false
     @AppStorage("pomodoroMode") private var persistedMode: String = PomodoroMode.focus.rawValue
@@ -41,6 +43,7 @@ final class PomodoroVM: ObservableObject {
         // Restore state
         let mode = PomodoroMode(rawValue: persistedMode) ?? .focus
         self.mode = mode
+        self.showHint = !isHintDismissed
         
         if persistedIsRunning {
             let endDate = Date(timeIntervalSince1970: persistedEndDate)
@@ -98,8 +101,17 @@ final class PomodoroVM: ObservableObject {
         persistedRemainingSeconds = remainingSeconds
     }
 
+    func dismissHint() {
+        guard showHint else { return }
+        withAnimation(.easeOut(duration: 0.2)) {
+            showHint = false
+        }
+        isHintDismissed = true
+    }
+
     private func start() {
         guard !isRunning else { return }
+        dismissHint()
         isRunning = true
         endDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
         

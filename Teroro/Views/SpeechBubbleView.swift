@@ -310,7 +310,9 @@ public struct SpeechBubbleView<Content: View>: View {
             .buttonStyle(.plain)
             .offset(
                 x: closeButtonPosition == .topLeading ? -4 : 4,
-                y: -4
+                y: (direction == .top || direction == .topLeading || direction == .topTrailing)
+                    ? arrowLength - 4
+                    : -4
             )
         }
     }
@@ -474,7 +476,7 @@ extension SpeechBubbleView where Content == AnyView {
             SpeechBubbleView(
                 "Крестик зверху-справа: closeButtonPosition = .topTrailing",
                 icon: "lightbulb.fill",
-                direction: .bottom,
+                direction: .top,
                 backgroundColor: .mint,
                 closeButtonPosition: .topTrailing,
                 onClose: {
