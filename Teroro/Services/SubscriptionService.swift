@@ -33,13 +33,13 @@ final class SubscriptionService: ObservableObject {
             let customerInfo = try await Purchases.shared.customerInfo()
             updateSubscriptionStatus(from: customerInfo)
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = localized("subscription.error.request.failed")
         }
     }
 
     func purchase(productID: String) async -> Bool {
         guard NetworkMonitor.shared.isConnected else {
-            errorMessage = "Немає підключення до інтернету. Будь ласка, перевірте мережу та спробуйте ще раз."
+            errorMessage = localized("subscription.error.no.internet")
             return false
         }
 
@@ -53,7 +53,7 @@ final class SubscriptionService: ObservableObject {
             }
 
             guard let package = package(for: productID) else {
-                errorMessage = "Product not found. Please try again later."
+                errorMessage = localized("subscription.error.product.not.found")
                 return false
             }
 
@@ -61,14 +61,14 @@ final class SubscriptionService: ObservableObject {
             updateSubscriptionStatus(from: result.customerInfo)
             return !result.userCancelled && isPremium
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = localized("subscription.error.request.failed")
             return false
         }
     }
 
     func restore() async -> Bool {
         guard NetworkMonitor.shared.isConnected else {
-            errorMessage = "Немає підключення до інтернету. Будь ласка, перевірте мережу та спробуйте ще раз."
+            errorMessage = localized("subscription.error.no.internet")
             return false
         }
 
@@ -80,7 +80,7 @@ final class SubscriptionService: ObservableObject {
             updateSubscriptionStatus(from: customerInfo)
             return isPremium
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = localized("subscription.error.request.failed")
             return false
         }
     }
@@ -90,12 +90,16 @@ final class SubscriptionService: ObservableObject {
             let customerInfo = try await Purchases.shared.customerInfo()
             updateSubscriptionStatus(from: customerInfo)
         } catch {
-            errorMessage = error.localizedDescription
+            errorMessage = localized("subscription.error.request.failed")
         }
     }
 
     func clearError() {
         errorMessage = nil
+    }
+
+    private func localized(_ key: String) -> String {
+        LanguageManager.resolveString(forKey: key, languageCode: LanguageManager.storedLanguageCode)
     }
 
     func updateSubscriptionStatus(from customerInfo: CustomerInfo) {

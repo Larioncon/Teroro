@@ -76,6 +76,20 @@
 			);
 			target = 119A0EC02F60767000E71F4D /* Teroro */;
 		};
+		1185E44D30896F0600875B9B /* Exceptions for "Teroro" folder in "TimexoWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				TeroroStrKt.storekit,
+			);
+			target = 11919C71303CC08000F389B5 /* TimexoWidgetExtension */;
+		};
+		1185E44E30896F0600875B9B /* Exceptions for "Teroro" folder in "TeroroUnitTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				TeroroStrKt.storekit,
+			);
+			target = 11B967833061B86F00F0A302 /* TeroroUnitTests */;
+		};
 		11919C8C303CC08300F389B5 /* Exceptions for "TimexoWidget" folder in "TimexoWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -90,6 +104,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				116207842FA100BA00E66A41 /* Exceptions for "Teroro" folder in "Teroro" target */,
+				1185E44D30896F0600875B9B /* Exceptions for "Teroro" folder in "TimexoWidgetExtension" target */,
+				1185E44E30896F0600875B9B /* Exceptions for "Teroro" folder in "TeroroUnitTests" target */,
 			);
 			path = Teroro;
 			sourceTree = "<group>";

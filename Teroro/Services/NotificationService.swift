@@ -62,8 +62,8 @@ actor NotificationService {
         let center = UNUserNotificationCenter.current()
 
         let content = UNMutableNotificationContent()
-        content.title = "Таймер завершено!"
-        content.body = "Вітаємо! Ви успішно завершили сесію фокусу. Час трохи відпочити!"
+        content.title = Self.localized("notification.pomodoro.title")
+        content.body = Self.localized("notification.pomodoro.body")
         content.sound = .default
 
         // Use absolute date for more reliability
@@ -94,8 +94,8 @@ actor NotificationService {
         let center = UNUserNotificationCenter.current()
 
         let content = UNMutableNotificationContent()
-        content.title = "Відпочинок завершено! 🎉"
-        content.body = "Чудовий відпочинок! Ви набралися сил і готові до нових звершень. Почнемо нову сесію?"
+        content.title = Self.localized("notification.rest.title")
+        content.body = Self.localized("notification.rest.body")
         content.sound = .default
 
         let fireDate = Date().addingTimeInterval(TimeInterval(seconds))
@@ -124,10 +124,20 @@ actor NotificationService {
     }
 
     private static func reminderBody(for termDate: Date) -> String {
+        let languageCode = LanguageManager.storedLanguageCode
         let formatter = DateFormatter()
-        formatter.locale = .current
+        formatter.locale = Locale(identifier: languageCode)
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
-        return "Термін: \(formatter.string(from: termDate))"
+        let template = localized("notification.reminder.body")
+        return String(
+            format: template,
+            locale: Locale(identifier: languageCode),
+            arguments: [formatter.string(from: termDate)]
+        )
+    }
+
+    private static func localized(_ key: String) -> String {
+        LanguageManager.resolveString(forKey: key, languageCode: LanguageManager.storedLanguageCode)
     }
 }
