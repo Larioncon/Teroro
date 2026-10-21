@@ -7,23 +7,7 @@
     "%lld" : {
 
     },
-    "%lld з %lld цифр введено" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld з %2$lld цифр введено"
-          }
-        }
-      }
-    },
-    "•" : {
-
-    },
-    "3 Days Free, then %@/week" : {
-
-    },
-    "appearance_alternate_icons_not_supported" : {
+    "appearance.alternate.icons.not.supported" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -52,7 +36,7 @@
         }
       }
     },
-    "appearance_app_icon" : {
+    "appearance.app.icon" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -81,7 +65,7 @@
         }
       }
     },
-    "appearance_dark" : {
+    "appearance.dark" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -110,7 +94,7 @@
         }
       }
     },
-    "appearance_icon_change_failed" : {
+    "appearance.icon.change.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -139,7 +123,7 @@
         }
       }
     },
-    "appearance_icon_not_supported" : {
+    "appearance.icon.not.supported" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -168,7 +152,36 @@
         }
       }
     },
-    "appearance_light" : {
+    "appearance.icon.unsupported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Ändern des App-Symbols ist auf diesem Gerät nicht verfügbar."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changing the app icon is not available on this device."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изменение иконки недоступно на этом устройстве."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зміна іконки недоступна на цьому пристрої."
+          }
+        }
+      }
+    },
+    "appearance.light" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -197,7 +210,36 @@
         }
       }
     },
-    "appearance_system" : {
+    "appearance.mode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modus"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Режим"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Режим"
+          }
+        }
+      }
+    },
+    "appearance.system" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -226,7 +268,65 @@
         }
       }
     },
-    "auth.apple.sign_in_failed" : {
+    "auth.account.create.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen Sie ein Konto, um Timexo zu verwenden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an account to start using Timexo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создайте аккаунт, чтобы начать пользоваться Timexo."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створіть акаунт, щоб почати користуватися Timexo."
+          }
+        }
+      }
+    },
+    "auth.account.create.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto erstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create account"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать аккаунт"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створити акаунт"
+          }
+        }
+      }
+    },
+    "auth.apple.sign.in.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -255,7 +355,7 @@
         }
       }
     },
-    "auth.error.account_exists_different_credential" : {
+    "auth.error.account.exists.different.credential" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -313,7 +413,7 @@
         }
       }
     },
-    "auth.error.credential_already_in_use" : {
+    "auth.error.credential.already.in.use" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -342,7 +442,7 @@
         }
       }
     },
-    "auth.error.email_in_use" : {
+    "auth.error.email.in.use" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -400,7 +500,7 @@
         }
       }
     },
-    "auth.error.invalid_credentials" : {
+    "auth.error.invalid.credentials" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -429,7 +529,7 @@
         }
       }
     },
-    "auth.error.invalid_email" : {
+    "auth.error.invalid.email" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -487,7 +587,7 @@
         }
       }
     },
-    "auth.error.operation_not_allowed" : {
+    "auth.error.operation.not.allowed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -516,7 +616,7 @@
         }
       }
     },
-    "auth.error.provider_already_linked" : {
+    "auth.error.provider.already.linked" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -545,7 +645,7 @@
         }
       }
     },
-    "auth.error.requires_recent_login" : {
+    "auth.error.requires.recent.login" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -574,7 +674,7 @@
         }
       }
     },
-    "auth.error.session_invalid" : {
+    "auth.error.session.invalid" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -603,7 +703,7 @@
         }
       }
     },
-    "auth.error.sign_in_failed" : {
+    "auth.error.sign.in.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -632,7 +732,7 @@
         }
       }
     },
-    "auth.error.sign_up_failed" : {
+    "auth.error.sign.up.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -661,7 +761,7 @@
         }
       }
     },
-    "auth.error.too_many_requests" : {
+    "auth.error.too.many.requests" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -690,7 +790,7 @@
         }
       }
     },
-    "auth.error.user_disabled" : {
+    "auth.error.user.disabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -719,7 +819,7 @@
         }
       }
     },
-    "auth.error.user_not_found" : {
+    "auth.error.user.not.found" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -748,7 +848,7 @@
         }
       }
     },
-    "auth.error.verification_code_invalid" : {
+    "auth.error.verification.code.invalid" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -777,7 +877,7 @@
         }
       }
     },
-    "auth.error.verification_expired" : {
+    "auth.error.verification.expired" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -806,7 +906,7 @@
         }
       }
     },
-    "auth.error.weak_password" : {
+    "auth.error.weak.password" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -835,7 +935,7 @@
         }
       }
     },
-    "auth.error.wrong_password" : {
+    "auth.error.wrong.password" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -864,7 +964,7 @@
         }
       }
     },
-    "auth.google.open_failed" : {
+    "auth.google.open.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -893,7 +993,7 @@
         }
       }
     },
-    "auth.google.sign_in_failed" : {
+    "auth.google.sign.in.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -922,648 +1022,7 @@
         }
       }
     },
-    "auth.password_reset.failed" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort konnte nicht zurückgesetzt werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Couldn't reset the password."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось сбросить пароль."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не вдалося скинути пароль."
-          }
-        }
-      }
-    },
-    "auth.password_reset.sent" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "E-Mail zum Zurücksetzen des Passworts wurde gesendet."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password reset email sent."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Письмо для сброса пароля отправлено."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Лист для відновлення паролю надіслано."
-          }
-        }
-      }
-    },
-    "auth.primary.create_account" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konto erstellen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create Account"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Создать аккаунт"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Створити акаунт"
-          }
-        }
-      }
-    },
-    "auth.primary.sign_in" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Anmelden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign In"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Войти"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Увійти"
-          }
-        }
-      }
-    },
-    "auth.sign_out.failed" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abmeldung fehlgeschlagen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign out failed."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось выйти."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не вдалося вийти."
-          }
-        }
-      }
-    },
-    "auth.toggle.have_account" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bereits ein Konto?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Have an account?"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Уже есть аккаунт?"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вже є акаунт?"
-          }
-        }
-      }
-    },
-    "auth.toggle.log_in" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einloggen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Log In"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Войти"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Увійти"
-          }
-        }
-      }
-    },
-    "auth.toggle.new_here" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Neu hier?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New here?"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вы новенький?"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вперше тут?"
-          }
-        }
-      }
-    },
-    "auth.toggle.sign_up" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Registrieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign Up"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зарегистрироваться"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зареєструватися"
-          }
-        }
-      }
-    },
-    "Auto-Lock" : {
-
-    },
-    "common_add" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hinzufügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Додати"
-          }
-        }
-      }
-    },
-    "common_back" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zurück"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Back"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Назад"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Назад"
-          }
-        }
-      }
-    },
-    "common_cancel" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abbrechen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отмена"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Скасувати"
-          }
-        }
-      }
-    },
-    "common_change" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ändern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изменить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Змінити"
-          }
-        }
-      }
-    },
-    "common_confirm" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Підтвердити"
-          }
-        }
-      }
-    },
-    "common_delete" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Удалить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Видалити"
-          }
-        }
-      }
-    },
-    "common_edit" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bearbeiten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Редактировать"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Редагувати"
-          }
-        }
-      }
-    },
-    "common_error" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fehler"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ошибка"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Помилка"
-          }
-        }
-      }
-    },
-    "common_hide" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ausblenden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hide"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Скрыть"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сховати"
-          }
-        }
-      }
-    },
-    "common_ok" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        }
-      }
-    },
-    "common_save" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Speichern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сохранить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зберегти"
-          }
-        }
-      }
-    },
-    "common_saving" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Speichern..."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Saving..."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сохранение..."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Збереження..."
-          }
-        }
-      }
-    },
-    "common_success" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erfolg"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Success"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Успешно"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Успішно"
-          }
-        }
-      }
-    },
-    "Confirm password" : {
+    "auth.password.confirm.label" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1592,59 +1051,106 @@
         }
       }
     },
-    "Continue with Apple" : {
+    "auth.password.reset.action" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mit Apple fortfahren"
+            "value" : "Passwort vergessen?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forgot password?"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Продолжить с Apple"
+            "value" : "Забыли пароль?"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Продовжити з Apple"
+            "value" : "Забули пароль?"
           }
         }
       }
     },
-    "Continue with Google" : {
+    "auth.password.reset.failed" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mit Google fortfahren"
+            "value" : "Passwort konnte nicht zurückgesetzt werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't reset the password."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Продолжить с Google"
+            "value" : "Не удалось сбросить пароль."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Продовжити з Google"
+            "value" : "Не вдалося скинути пароль."
           }
         }
       }
     },
-    "Create account" : {
+    "auth.password.reset.sent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail zum Zurücksetzen des Passworts wurde gesendet."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password reset email sent."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Письмо для сброса пароля отправлено."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Лист для відновлення паролю надіслано."
+          }
+        }
+      }
+    },
+    "auth.primary.create.account" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Konto erstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
           }
         },
         "ru" : {
@@ -1661,30 +1167,703 @@
         }
       }
     },
-    "Create an account to start using Timexo." : {
+    "auth.primary.sign.in" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erstellen Sie ein Konto, um Timexo zu verwenden."
+            "value" : "Anmelden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Создайте аккаунт, чтобы начать пользоваться Timexo."
+            "value" : "Войти"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Створіть акаунт, щоб почати користуватися Timexo."
+            "value" : "Увійти"
           }
         }
       }
     },
-    "Delete" : {
+    "auth.setup.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geben Sie einen Namen ein und wählen Sie ein Profilfoto."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a name and choose a profile photo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите имя и выберите фото профиля."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть ім'я та оберіть фото профілю."
+          }
+        }
+      }
+    },
+    "auth.setup.finish" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fertigstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завершить"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завершити"
+          }
+        }
+      }
+    },
+    "auth.setup.finish.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lass uns die Kontoeinrichtung abschließen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's finish setting up your account"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Давай завершим настройку аккаунта"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Давай завершимо сетап акаунта"
+          }
+        }
+      }
+    },
+    "auth.setup.name.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ihr Name"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your name"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваше имя"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ваше ім'я"
+          }
+        }
+      }
+    },
+    "auth.setup.photo.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profilfoto einrichten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Up Profile Photo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настроить фото профиля"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Налаштувати фото профіля"
+          }
+        }
+      }
+    },
+    "auth.setup.photo.section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profilbild einstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set profile photo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настроить фото профиля"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Налаштувати фото профіля"
+          }
+        }
+      }
+    },
+    "auth.setup.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geben Sie bitte Ihren Namen ein und wählen Sie ein Profilbild."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your name and choose a profile photo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите имя и выберите фото профиля."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть ім'я та оберіть фото профілю."
+          }
+        }
+      }
+    },
+    "auth.setup.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lassen Sie uns Ihr Konto fertig einrichten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's finish setting up your account"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Давай завершим настройку аккаунта"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Давай завершимо сетап акаунта"
+          }
+        }
+      }
+    },
+    "auth.sign.out.failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abmeldung fehlgeschlagen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign out failed."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось выйти."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося вийти."
+          }
+        }
+      }
+    },
+    "auth.signin.apple.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit Apple fortfahren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue with Apple"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжить с Apple"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продовжити з Apple"
+          }
+        }
+      }
+    },
+    "auth.signin.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Melden Sie sich an, um fortzufahren."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in to continue."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войдите, чтобы продолжить."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увійдіть, щоб продовжити."
+          }
+        }
+      }
+    },
+    "auth.signin.divider.or" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oder"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "or"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "или"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "або"
+          }
+        }
+      }
+    },
+    "auth.signin.google.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit Google fortfahren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue with Google"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжить с Google"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продовжити з Google"
+          }
+        }
+      }
+    },
+    "auth.toggle.have.account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bereits ein Konto?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Have an account?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Уже есть аккаунт?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вже є акаунт?"
+          }
+        }
+      }
+    },
+    "auth.toggle.log.in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einloggen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log In"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войти"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увійти"
+          }
+        }
+      }
+    },
+    "auth.toggle.new.here" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu hier?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New here?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы новенький?"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вперше тут?"
+          }
+        }
+      }
+    },
+    "auth.toggle.sign.up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зарегистрироваться"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зареєструватися"
+          }
+        }
+      }
+    },
+    "auth.welcome.back.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willkommen zurück"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome back"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "С возвращением"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "З поверненням"
+          }
+        }
+      }
+    },
+    "common.add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Додати"
+          }
+        }
+      }
+    },
+    "common.back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zurück"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назад"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назад"
+          }
+        }
+      }
+    },
+    "common.cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbrechen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скасувати"
+          }
+        }
+      }
+    },
+    "common.change" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изменить"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Змінити"
+          }
+        }
+      }
+    },
+    "common.confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтвердить"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підтвердити"
+          }
+        }
+      }
+    },
+    "common.delete" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1713,33 +1892,65 @@
         }
       }
     },
-    "Email" : {
-
-    },
-    "Enter your Timexo Passcode" : {
+    "common.done" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Timexo-Passcode eingeben"
+            "value" : "Fertig"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введите пароль Timexo"
+            "value" : "Готово"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введіть код-пароль Timexo"
+            "value" : "Готово"
           }
         }
       }
     },
-    "Error" : {
+    "common.edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bearbeiten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редактировать"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Редагувати"
+          }
+        }
+      }
+    },
+    "common.error" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1768,56 +1979,180 @@
         }
       }
     },
-    "Face ID" : {
-
-    },
-    "Forgot password?" : {
+    "common.hide" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Passwort vergessen?"
+            "value" : "Ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Забыли пароль?"
+            "value" : "Скрыть"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Забули пароль?"
+            "value" : "Сховати"
           }
         }
       }
     },
-    "Get Started" : {
+    "common.ok" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Loslegen"
+            "value" : "OK"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Начать"
+            "value" : "OK"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Почати"
+            "value" : "OK"
           }
         }
       }
     },
-    "home_add_term" : {
+    "common.save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зберегти"
+          }
+        }
+      }
+    },
+    "common.saving" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saving..."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранение..."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Збереження..."
+          }
+        }
+      }
+    },
+    "common.success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erfolg"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Success"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Успешно"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Успішно"
+          }
+        }
+      }
+    },
+    "form.email.placeholder" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "home.add.term" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1846,7 +2181,7 @@
         }
       }
     },
-    "home_current_terms_accessibility" : {
+    "home.current.terms.accessibility" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1875,7 +2210,7 @@
         }
       }
     },
-    "home_no_past_terms" : {
+    "home.no.past.terms" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1904,7 +2239,7 @@
         }
       }
     },
-    "home_no_upcoming_terms" : {
+    "home.no.upcoming.terms" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1933,7 +2268,7 @@
         }
       }
     },
-    "home_past_terms" : {
+    "home.past.terms" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -1962,36 +2297,7 @@
         }
       }
     },
-    "home_terms" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Termine"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terms"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Термины"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Терміни"
-          }
-        }
-      }
-    },
-    "language_header_description" : {
+    "language.header.description" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2020,7 +2326,7 @@
         }
       }
     },
-    "language_section_interface" : {
+    "language.section.interface" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2049,7 +2355,7 @@
         }
       }
     },
-    "language_title" : {
+    "language.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2078,30 +2384,7 @@
         }
       }
     },
-    "Manage Terms & Stay Focused" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Termine verwalten & fokussiert bleiben"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Управляй терминами и оставайся сосредоточен"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Керуй термінами та залишайся зосередженим"
-          }
-        }
-      }
-    },
-    "map_determining_address" : {
+    "map.determining.address" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2130,7 +2413,7 @@
         }
       }
     },
-    "map_empty_locations_subtitle" : {
+    "map.empty.locations.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2159,7 +2442,7 @@
         }
       }
     },
-    "map_empty_locations_title" : {
+    "map.empty.locations.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2188,7 +2471,7 @@
         }
       }
     },
-    "map_empty_terms_subtitle" : {
+    "map.empty.terms.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2217,7 +2500,7 @@
         }
       }
     },
-    "map_empty_terms_title" : {
+    "map.empty.terms.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2246,7 +2529,7 @@
         }
       }
     },
-    "map_hint_hybrid" : {
+    "map.hint.hybrid" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2275,7 +2558,7 @@
         }
       }
     },
-    "map_hint_location" : {
+    "map.hint.location" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2304,7 +2587,7 @@
         }
       }
     },
-    "map_hint_standard" : {
+    "map.hint.standard" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2333,7 +2616,7 @@
         }
       }
     },
-    "map_loading_terms_subtitle" : {
+    "map.loading.terms.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2362,7 +2645,7 @@
         }
       }
     },
-    "map_loading_terms_title" : {
+    "map.loading.terms.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2391,7 +2674,7 @@
         }
       }
     },
-    "map_location_on_map" : {
+    "map.location.on.map" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2420,7 +2703,7 @@
         }
       }
     },
-    "map_nothing_found" : {
+    "map.nothing.found" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2449,7 +2732,7 @@
         }
       }
     },
-    "map_pin_on_map" : {
+    "map.pin.on.map" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2478,7 +2761,7 @@
         }
       }
     },
-    "map_search_placeholder" : {
+    "map.search.placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2507,7 +2790,7 @@
         }
       }
     },
-    "map_search_title" : {
+    "map.search.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2536,7 +2819,7 @@
         }
       }
     },
-    "map_select_this_location" : {
+    "map.select.this.location" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2565,7 +2848,7 @@
         }
       }
     },
-    "map_terms_map_card_subtitle" : {
+    "map.terms.map.card.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2594,7 +2877,7 @@
         }
       }
     },
-    "map_terms_map_card_title" : {
+    "map.terms.map.card.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2623,10 +2906,7 @@
         }
       }
     },
-    "Non Pro" : {
-
-    },
-    "notification_permission_message" : {
+    "notification.permission.message" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2646,10 +2926,16 @@
             "state" : "translated",
             "value" : "Без разрешения на уведомления вы не получите напоминания о сроках."
           }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Без дозволу на сповіщення ви не отримаєте нагадування про термін."
+          }
         }
       }
     },
-    "notification_permission_open_settings" : {
+    "notification.permission.open.settings" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2678,7 +2964,7 @@
         }
       }
     },
-    "notification_permission_title" : {
+    "notification.permission.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -2703,35 +2989,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Потрібен дозвіл"
-          }
-        }
-      }
-    },
-    "OK" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
           }
         }
       }
@@ -2790,6 +3047,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Далі"
+          }
+        }
+      }
+    },
+    "onboarding.get.started.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loslegen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начать"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Почати"
           }
         }
       }
@@ -3084,7 +3370,36 @@
         }
       }
     },
-    "passcode_error_mismatch" : {
+    "passcode.digits.entered" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld з %2$lld цифр введено"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld von %2$lld Ziffern eingegeben"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld из %2$lld цифр введено"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld з %lld цифр введено"
+          }
+        }
+      }
+    },
+    "passcode.error.mismatch" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3113,36 +3428,7 @@
         }
       }
     },
-    "Password" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль"
-          }
-        }
-      }
-    },
-    "paywall_close" : {
+    "paywall.close" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3171,7 +3457,7 @@
         }
       }
     },
-    "paywall_continue" : {
+    "paywall.continue" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3200,7 +3486,35 @@
         }
       }
     },
-    "paywall_free_trial_disabled" : {
+    "paywall.feature.bullet" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "•"
+          }
+        }
+      }
+    },
+    "paywall.free.trial.disabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3229,7 +3543,7 @@
         }
       }
     },
-    "paywall_free_trial_enabled" : {
+    "paywall.free.trial.enabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3258,7 +3572,7 @@
         }
       }
     },
-    "paywall_get_free_trial" : {
+    "paywall.get.free.trial" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3287,7 +3601,121 @@
         }
       }
     },
-    "paywall_processing" : {
+    "paywall.hero.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termine verwalten & fokussiert bleiben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Terms & Stay Focused"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Управляй терминами и оставайся сосредоточен"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Керуй термінами та залишайся зосередженим"
+          }
+        }
+      }
+    },
+    "paywall.legal.privacy.policy" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy policy"
+          }
+        }
+      }
+    },
+    "paywall.legal.terms" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and conditions"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and conditions"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and conditions"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms and conditions"
+          }
+        }
+      }
+    },
+    "paywall.premium.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schalte Timexo Premium frei, um Termine, Erinnerungen und Fokus-Tools vollständig verfügbar zu halten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock Timexo Premium to keep terms, reminders, and focus tools fully available."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разблокируй Timexo Premium, чтобы термины, напоминания и инструменты фокуса были полностью доступны."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Розблокуй Timexo Premium, щоб терміни, нагадування та інструменти фокусу були повністю доступні."
+          }
+        }
+      }
+    },
+    "paywall.processing" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3316,7 +3744,35 @@
         }
       }
     },
-    "paywall_subtitle" : {
+    "paywall.restore.button" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        }
+      }
+    },
+    "paywall.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3345,7 +3801,7 @@
         }
       }
     },
-    "paywall_trial_includes_desc" : {
+    "paywall.trial.includes.desc" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3374,7 +3830,35 @@
         }
       }
     },
-    "paywall_trial_starts_without_desc" : {
+    "paywall.trial.price %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 Tage kostenlos, danach %@/Woche"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 Days Free, then %@/week"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 дня бесплатно, затем %@/неделю"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3 дні безкоштовно, потім %@/тиждень"
+          }
+        }
+      }
+    },
+    "paywall.trial.starts.without.desc" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3403,7 +3887,7 @@
         }
       }
     },
-    "paywall_unlock_pro" : {
+    "paywall.unlock.pro" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3432,7 +3916,7 @@
         }
       }
     },
-    "photo_change_profile_photo" : {
+    "photo.change.profile.photo" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3461,7 +3945,7 @@
         }
       }
     },
-    "photo_choose_from_gallery" : {
+    "photo.choose.from.gallery" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3490,7 +3974,7 @@
         }
       }
     },
-    "photo_read_error" : {
+    "photo.read.error" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3519,7 +4003,7 @@
         }
       }
     },
-    "photo_take_photo" : {
+    "photo.take.photo" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3548,7 +4032,7 @@
         }
       }
     },
-    "plan_get_annual" : {
+    "plan.get.annual" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3577,7 +4061,7 @@
         }
       }
     },
-    "plan_get_monthly" : {
+    "plan.get.monthly" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3606,7 +4090,7 @@
         }
       }
     },
-    "plan_get_weekly" : {
+    "plan.get.weekly" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3635,7 +4119,7 @@
         }
       }
     },
-    "plan_period_month" : {
+    "plan.period.month" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3664,7 +4148,7 @@
         }
       }
     },
-    "plan_period_week" : {
+    "plan.period.week" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3693,7 +4177,7 @@
         }
       }
     },
-    "plan_period_year" : {
+    "plan.period.year" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3722,45 +4206,210 @@
         }
       }
     },
-    "Privacy policy" : {
-
-    },
-    "Pro Mode" : {
-
-    },
-    "Processing..." : {
+    "profile.name.label" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wird verarbeitet..."
+            "value" : "Name"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Processing..."
+            "value" : "Name"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обработка..."
+            "value" : "Имя"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Обробка..."
+            "value" : "Ім'я"
           }
         }
       }
     },
-    "Restore" : {
-
+    "profile.photo.change.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profilfoto ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Profile Photo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изменить фото профиля"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Змінити фото профілю"
+          }
+        }
+      }
     },
-    "security_add_email" : {
+    "profile.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profil"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Профиль"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Профіль"
+          }
+        }
+      }
+    },
+    "security.account.delete.confirm.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigen und Konto löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm and Delete Account"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтвердить и удалить аккаунт"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підтвердити та видалити акаунт"
+          }
+        }
+      }
+    },
+    "security.account.delete.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konto löschen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Account"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удаление аккаунта"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видалення акаунту"
+          }
+        }
+      }
+    },
+    "security.account.delete.warning.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Löschen des Kontos führt zur vollständigen und unwiderruflichen Vernichtung aller Ihrer Daten, einschließlich gespeicherter Termine, Profil und Einstellungen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleting your account will permanently and irreversibly destroy all your data, including saved terms, profile, and settings."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удаление аккаунта приведёт к полному и безвозвратному уничтожению всех ваших данных, включая сохранённые термины, профиль и настройки."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видалення акаунту призведе до повного та безповоротного знищення всіх ваших даних, включаючи збережені терміни, профіль та налаштування."
+          }
+        }
+      }
+    },
+    "security.account.delete.warning.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achtung! Diese Aktion ist unwiderruflich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning! This action is irreversible"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Внимание! Действие необратимо"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увага! Дія незворотна"
+          }
+        }
+      }
+    },
+    "security.add.email" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3789,7 +4438,7 @@
         }
       }
     },
-    "security_add_email_title" : {
+    "security.add.email.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3818,7 +4467,7 @@
         }
       }
     },
-    "security_app_lock_prompt" : {
+    "security.app.lock.prompt" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3847,36 +4496,7 @@
         }
       }
     },
-    "security_auto_lock_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn der Code aktiviert ist, fordert Timexo ihn beim Start oder bei der Rückkehr in die App gemäß Auto-Lock an."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "When passcode is on, Timexo will require it upon launch or returning to the app according to Auto-Lock."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Когда код-пароль включен, Timexo будет запрашивать его при запуске или после возврата в приложение согласно Auto-Lock."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Коли код-пароль увімкнено, Timexo буде запитувати його при запуску або після повернення у застосунок згідно з Auto-Lock."
-          }
-        }
-      }
-    },
-    "security_autolock_1hour" : {
+    "security.autolock.1hour" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3905,7 +4525,7 @@
         }
       }
     },
-    "security_autolock_1min" : {
+    "security.autolock.1min" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3934,7 +4554,7 @@
         }
       }
     },
-    "security_autolock_5hours" : {
+    "security.autolock.5hours" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3963,7 +4583,7 @@
         }
       }
     },
-    "security_autolock_5min" : {
+    "security.autolock.5min" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -3992,7 +4612,7 @@
         }
       }
     },
-    "security_autolock_always" : {
+    "security.autolock.always" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4021,7 +4641,64 @@
         }
       }
     },
-    "security_change_email" : {
+    "security.autolock.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn der Code aktiviert ist, fordert Timexo ihn beim Start oder bei der Rückkehr in die App gemäß Auto-Lock an."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When passcode is on, Timexo will require it upon launch or returning to the app according to Auto-Lock."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Когда код-пароль включен, Timexo будет запрашивать его при запуске или после возврата в приложение согласно Auto-Lock."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Коли код-пароль увімкнено, Timexo буде запитувати його при запуску або після повернення у застосунок згідно з Auto-Lock."
+          }
+        }
+      }
+    },
+    "security.autolock.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto-Lock"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto-Lock"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto-Lock"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto-Lock"
+          }
+        }
+      }
+    },
+    "security.change.email" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4050,7 +4727,7 @@
         }
       }
     },
-    "security_change_email_code_sent_footer" : {
+    "security.change.email.code.sent.footer" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4079,7 +4756,7 @@
         }
       }
     },
-    "security_change_email_prompt_footer" : {
+    "security.change.email.prompt.footer" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4108,7 +4785,7 @@
         }
       }
     },
-    "security_change_email_title" : {
+    "security.change.email.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4137,7 +4814,7 @@
         }
       }
     },
-    "security_change_passcode" : {
+    "security.change.passcode" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4166,7 +4843,7 @@
         }
       }
     },
-    "security_change_password" : {
+    "security.change.password" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4195,7 +4872,7 @@
         }
       }
     },
-    "security_change_pwd_title" : {
+    "security.change.pwd.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4224,7 +4901,7 @@
         }
       }
     },
-    "security_confirm_and_delete_account" : {
+    "security.confirm.and.delete.account" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4253,7 +4930,7 @@
         }
       }
     },
-    "security_confirm_apple_delete" : {
+    "security.confirm.apple.delete" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4282,7 +4959,7 @@
         }
       }
     },
-    "security_confirm_apple_section" : {
+    "security.confirm.apple.section" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4311,7 +4988,7 @@
         }
       }
     },
-    "security_confirm_google_delete" : {
+    "security.confirm.google.delete" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4340,7 +5017,7 @@
         }
       }
     },
-    "security_confirm_google_section" : {
+    "security.confirm.google.section" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4369,7 +5046,7 @@
         }
       }
     },
-    "security_confirm_new_pwd" : {
+    "security.confirm.new.pwd" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4398,7 +5075,7 @@
         }
       }
     },
-    "security_confirm_passcode" : {
+    "security.confirm.passcode" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4427,7 +5104,7 @@
         }
       }
     },
-    "security_confirm_pwd_placeholder" : {
+    "security.confirm.pwd.placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4456,7 +5133,7 @@
         }
       }
     },
-    "security_confirm_pwd_section" : {
+    "security.confirm.pwd.section" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4485,7 +5162,94 @@
         }
       }
     },
-    "security_confirmation_section" : {
+    "security.confirmation.apple.section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigung über Apple"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm with Apple"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтверждение через Apple"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підтвердження через Apple"
+          }
+        }
+      }
+    },
+    "security.confirmation.email.password.section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigung über E-Mail / Passwort"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm with Email / Password"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтверждение через Email / Пароль"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підтвердження через Email / Пароль"
+          }
+        }
+      }
+    },
+    "security.confirmation.google.section" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigung über Google"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm with Google"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтверждение через Google"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підтвердження через Google"
+          }
+        }
+      }
+    },
+    "security.confirmation.section" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4514,7 +5278,7 @@
         }
       }
     },
-    "security_connect" : {
+    "security.connect" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4543,7 +5307,7 @@
         }
       }
     },
-    "security_connected" : {
+    "security.connected" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4572,7 +5336,7 @@
         }
       }
     },
-    "security_current_pwd" : {
+    "security.current.pwd" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4601,7 +5365,7 @@
         }
       }
     },
-    "security_delete_account" : {
+    "security.delete.account" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4630,7 +5394,7 @@
         }
       }
     },
-    "security_delete_account_title" : {
+    "security.delete.account.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4659,7 +5423,7 @@
         }
       }
     },
-    "security_delete_warning_desc" : {
+    "security.delete.warning.desc" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4688,7 +5452,7 @@
         }
       }
     },
-    "security_delete_warning_title" : {
+    "security.delete.warning.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4717,7 +5481,7 @@
         }
       }
     },
-    "security_disable_passcode_toast_message" : {
+    "security.disable.passcode.toast.message" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4746,7 +5510,7 @@
         }
       }
     },
-    "security_disable_passcode_toast_title" : {
+    "security.disable.passcode.toast.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4775,7 +5539,7 @@
         }
       }
     },
-    "security_disabled" : {
+    "security.disabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4804,7 +5568,94 @@
         }
       }
     },
-    "security_enabled" : {
+    "security.email.add.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail hinzufügen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add email"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить email"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Додати email"
+          }
+        }
+      }
+    },
+    "security.email.new.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neue E-Mail"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New email"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новый email"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Новий email"
+          }
+        }
+      }
+    },
+    "security.email.verification.code.field" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bestätigungscode"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmation Code"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Код подтверждения"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Код підтвердження"
+          }
+        }
+      }
+    },
+    "security.enabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4833,7 +5684,7 @@
         }
       }
     },
-    "security_enter_passcode" : {
+    "security.enter.passcode" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4862,7 +5713,7 @@
         }
       }
     },
-    "security_enter_your_pwd" : {
+    "security.enter.your.pwd" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4891,7 +5742,35 @@
         }
       }
     },
-    "security_new_email_field" : {
+    "security.faceid.button" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID"
+          }
+        }
+      }
+    },
+    "security.new.email.field" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4920,7 +5799,7 @@
         }
       }
     },
-    "security_new_pwd" : {
+    "security.new.pwd" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4949,7 +5828,7 @@
         }
       }
     },
-    "security_passcode" : {
+    "security.passcode" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -4978,7 +5857,181 @@
         }
       }
     },
-    "security_passcode_lock_title" : {
+    "security.passcode.change.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passcode ändern"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Passcode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изменить пароль"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Змінити код-пароль"
+          }
+        }
+      }
+    },
+    "security.passcode.confirm.prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo-Passcode bestätigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Timexo Passcode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подтвердите пароль Timexo"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підтвердіть код-пароль Timexo"
+          }
+        }
+      }
+    },
+    "security.passcode.disable.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passcode deaktivieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn Off Passcode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отключить пароль"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вимкнути код-пароль"
+          }
+        }
+      }
+    },
+    "security.passcode.enable.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passcode aktivieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn On Passcode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Включить пароль"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Увімкнути код-пароль"
+          }
+        }
+      }
+    },
+    "security.passcode.enter.lock.screen" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo-Passcode eingeben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your Timexo Passcode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите пароль Timexo"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть код-пароль Timexo"
+          }
+        }
+      }
+    },
+    "security.passcode.enter.prompt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo-Passcode eingeben"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter Timexo Passcode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите пароль Timexo"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введіть код-пароль Timexo"
+          }
+        }
+      }
+    },
+    "security.passcode.lock.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5007,7 +6060,7 @@
         }
       }
     },
-    "security_passcodes_do_not_match" : {
+    "security.passcodes.do.not.match" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5036,7 +6089,7 @@
         }
       }
     },
-    "security_password_placeholder" : {
+    "security.password.placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5065,7 +6118,36 @@
         }
       }
     },
-    "security_pwd_rules" : {
+    "security.password.requirements" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Das Passwort muss mindestens 8 Zeichen enthalten, darunter Groß-, Kleinbuchstaben und eine Ziffer."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password must contain at least 8 characters, including uppercase, lowercase, and a number."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль должен содержать не менее 8 символов, заглавную и строчную буквы, а также цифру."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль повинен містити щонайменше 8 символів, велику та малу літери, а також цифру."
+          }
+        }
+      }
+    },
+    "security.pwd.rules" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5094,7 +6176,7 @@
         }
       }
     },
-    "security_send" : {
+    "security.send" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5123,7 +6205,7 @@
         }
       }
     },
-    "security_signin_methods" : {
+    "security.signin.methods" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5152,7 +6234,7 @@
         }
       }
     },
-    "security_turn_off_passcode" : {
+    "security.turn.off.passcode" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5181,7 +6263,7 @@
         }
       }
     },
-    "security_turn_on_passcode" : {
+    "security.turn.on.passcode" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5210,7 +6292,7 @@
         }
       }
     },
-    "security_unlock_face_id" : {
+    "security.unlock.face.id" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5239,7 +6321,7 @@
         }
       }
     },
-    "security_verification_code_field" : {
+    "security.verification.code.field" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5268,7 +6350,7 @@
         }
       }
     },
-    "settings_appearance" : {
+    "settings.appearance" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5297,7 +6379,7 @@
         }
       }
     },
-    "settings_apple_linked_success" : {
+    "settings.apple.linked.success" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5326,7 +6408,7 @@
         }
       }
     },
-    "settings_choose_gallery" : {
+    "settings.choose.gallery" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5355,36 +6437,7 @@
         }
       }
     },
-    "settings_edit" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bearbeiten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Редактировать"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Редагувати"
-          }
-        }
-      }
-    },
-    "settings_email_changed_success" : {
+    "settings.email.changed.success" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5413,7 +6466,7 @@
         }
       }
     },
-    "settings_email_code_sent_success" : {
+    "settings.email.code.sent.success" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5442,7 +6495,7 @@
         }
       }
     },
-    "settings_email_pwd_linked_success" : {
+    "settings.email.pwd.linked.success" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5471,7 +6524,7 @@
         }
       }
     },
-    "settings_enter_confirm_code" : {
+    "settings.enter.confirm.code" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5500,7 +6553,7 @@
         }
       }
     },
-    "settings_enter_pwd_to_delete" : {
+    "settings.enter.pwd.to.delete" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -5529,529 +6582,7 @@
         }
       }
     },
-    "settings_feedback" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Feedback senden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Send Feedback"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Написать отзыв"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Написати фідбек"
-          }
-        }
-      }
-    },
-    "settings_google_linked_success" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Google Sign-in verbunden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Google Sign in connected."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Google Sign in подключён."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Google Sign in підключено."
-          }
-        }
-      }
-    },
-    "settings_language" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sprache"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Language"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Язык"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Мова"
-          }
-        }
-      }
-    },
-    "settings_name_placeholder" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Name"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Name"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Имя"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ім'я"
-          }
-        }
-      }
-    },
-    "settings_notifications" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mitteilungen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifications"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Уведомления"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сповіщення"
-          }
-        }
-      }
-    },
-    "settings_passcode_disabled" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Code deaktiviert."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passcode disabled."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Код-пароль отключён."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Код-пароль вимкнено."
-          }
-        }
-      }
-    },
-    "settings_passcode_saved_success" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Code erfolgreich gespeichert."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passcode successfully saved."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Код-пароль успешно сохранён."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Код-пароль успішно збережено."
-          }
-        }
-      }
-    },
-    "settings_photo_read_error" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Foto konnte nicht gelesen werden."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to read the photo."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось прочитать фото."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не вдалося прочитати фото."
-          }
-        }
-      }
-    },
-    "settings_privacy_and_security" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Datenschutz & Sicherheit"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Privacy and Security"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Конфиденциальность и безопасность"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Приватність та безпека"
-          }
-        }
-      }
-    },
-    "settings_privacy_policy" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Datenschutzrichtlinie"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Privacy Policy"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Политика конфиденциальности"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Політика конфіденційності"
-          }
-        }
-      }
-    },
-    "settings_profile" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profil"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profile"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Профиль"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Профіль"
-          }
-        }
-      }
-    },
-    "settings_pwd_changed_success" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort erfolgreich geändert."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password successfully changed."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль успешно изменён."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль успішно змінено."
-          }
-        }
-      }
-    },
-    "settings_pwd_created_success" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort erfolgreich erstellt."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password successfully created."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль успешно создан."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль успішно створено."
-          }
-        }
-      }
-    },
-    "settings_share" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "App teilen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Share App"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Поделиться приложением"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Поділитися застосунком"
-          }
-        }
-      }
-    },
-    "settings_sign_out" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abmelden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Log Out"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выйти"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вийти"
-          }
-        }
-      }
-    },
-    "settings_take_photo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Foto aufnehmen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Take Photo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сфотографировать"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сфотографувати"
-          }
-        }
-      }
-    },
-    "settings_terms_of_use" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nutzungsbedingungen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terms of Use"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Условия использования"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Умови використання"
-          }
-        }
-      }
-    },
-    "settings_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einstellungen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настройки"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Налаштування"
-          }
-        }
-      }
-    },
-    "settings.faceid.not_supported" : {
+    "settings.faceid.not.supported" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6080,7 +6611,7 @@
         }
       }
     },
-    "settings.faceid.reason_disable" : {
+    "settings.faceid.reason.disable" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6109,7 +6640,7 @@
         }
       }
     },
-    "settings.faceid.reason_enable" : {
+    "settings.faceid.reason.enable" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6138,204 +6669,526 @@
         }
       }
     },
-    "setup_auth_finish" : {
+    "settings.feedback" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fertigstellen"
+            "value" : "Feedback senden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finish"
+            "value" : "Send Feedback"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Завершить"
+            "value" : "Написать отзыв"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Завершити"
+            "value" : "Написати фідбек"
           }
         }
       }
     },
-    "setup_auth_name_label" : {
+    "settings.google.linked.success" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name"
+            "value" : "Google Sign-in verbunden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Name"
+            "value" : "Google Sign in connected."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Имя"
+            "value" : "Google Sign in подключён."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ім'я"
+            "value" : "Google Sign in підключено."
           }
         }
       }
     },
-    "setup_auth_name_placeholder" : {
+    "settings.notifications" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ihr Name"
+            "value" : "Mitteilungen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Your name"
+            "value" : "Notifications"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ваше имя"
+            "value" : "Уведомления"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ваше ім'я"
+            "value" : "Сповіщення"
           }
         }
       }
     },
-    "setup_auth_photo_section" : {
+    "settings.passcode.disabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Profilbild einstellen"
+            "value" : "Code deaktiviert."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Set profile photo"
+            "value" : "Passcode disabled."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Настроить фото профиля"
+            "value" : "Код-пароль отключён."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Налаштувати фото профіля"
+            "value" : "Код-пароль вимкнено."
           }
         }
       }
     },
-    "setup_auth_subtitle" : {
+    "settings.passcode.saved.success" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geben Sie bitte Ihren Namen ein und wählen Sie ein Profilbild."
+            "value" : "Code erfolgreich gespeichert."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter your name and choose a profile photo."
+            "value" : "Passcode successfully saved."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введите имя и выберите фото профиля."
+            "value" : "Код-пароль успешно сохранён."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Введіть ім'я та оберіть фото профілю."
+            "value" : "Код-пароль успішно збережено."
           }
         }
       }
     },
-    "setup_auth_title" : {
+    "settings.photo.read.error" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lassen Sie uns Ihr Konto fertig einrichten."
+            "value" : "Foto konnte nicht gelesen werden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Let's finish setting up your account"
+            "value" : "Failed to read the photo."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Давай завершим настройку аккаунта"
+            "value" : "Не удалось прочитать фото."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Давай завершимо сетап акаунта"
+            "value" : "Не вдалося прочитати фото."
           }
         }
       }
     },
-    "Sign in to continue." : {
+    "settings.privacy.and.security" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Melden Sie sich an, um fortzufahren."
+            "value" : "Datenschutz & Sicherheit"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy and Security"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Войдите, чтобы продолжить."
+            "value" : "Конфиденциальность и безопасность"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Увійдіть, щоб продовжити."
+            "value" : "Приватність та безпека"
           }
         }
       }
     },
-    "tab_map" : {
+    "settings.privacy.policy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutzrichtlinie"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Политика конфиденциальности"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Політика конфіденційності"
+          }
+        }
+      }
+    },
+    "settings.pwd.changed.success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort erfolgreich geändert."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password successfully changed."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль успешно изменён."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль успішно змінено."
+          }
+        }
+      }
+    },
+    "settings.pwd.created.success" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwort erfolgreich erstellt."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password successfully created."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль успешно создан."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пароль успішно створено."
+          }
+        }
+      }
+    },
+    "settings.share" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App teilen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share App"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поделиться приложением"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поділитися застосунком"
+          }
+        }
+      }
+    },
+    "settings.sign.out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abmelden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Out"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выйти"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вийти"
+          }
+        }
+      }
+    },
+    "settings.subscription.free.status" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non Pro"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non Pro"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non Pro"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non Pro"
+          }
+        }
+      }
+    },
+    "settings.subscription.pro.status" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro Mode"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro Mode"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro Mode"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pro Mode"
+          }
+        }
+      }
+    },
+    "settings.take.photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Foto aufnehmen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take Photo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сфотографировать"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сфотографувати"
+          }
+        }
+      }
+    },
+    "settings.terms.of.use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzungsbedingungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Условия использования"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Умови використання"
+          }
+        }
+      }
+    },
+    "settings.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Налаштування"
+          }
+        }
+      }
+    },
+    "subscription.premium.title" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo Premium"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo Premium"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo Premium"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timexo Premium"
+          }
+        }
+      }
+    },
+    "tab.map" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6364,65 +7217,7 @@
         }
       }
     },
-    "tab_profile" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profil"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profile"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Профиль"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Профіль"
-          }
-        }
-      }
-    },
-    "tab_terms" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Termine"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terms"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Термины"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Терміни"
-          }
-        }
-      }
-    },
-    "tab_timer" : {
+    "tab.timer" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6451,7 +7246,7 @@
         }
       }
     },
-    "term_form_add_meeting_address" : {
+    "term.form.add.meeting.address" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6480,7 +7275,7 @@
         }
       }
     },
-    "term_form_date" : {
+    "term.form.date" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6509,7 +7304,7 @@
         }
       }
     },
-    "term_form_date_and_time" : {
+    "term.form.date.and.time" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6538,7 +7333,7 @@
         }
       }
     },
-    "term_form_details_placeholder" : {
+    "term.form.details.placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6567,36 +7362,7 @@
         }
       }
     },
-    "term_form_edit_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bearbeiten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Редактировать"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Редагувати"
-          }
-        }
-      }
-    },
-    "term_form_location" : {
+    "term.form.location" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6625,7 +7391,7 @@
         }
       }
     },
-    "term_form_location_selected" : {
+    "term.form.location.selected" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6654,7 +7420,7 @@
         }
       }
     },
-    "term_form_location_unavailable_offline" : {
+    "term.form.location.unavailable.offline" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6683,7 +7449,7 @@
         }
       }
     },
-    "term_form_new_title" : {
+    "term.form.new.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6712,7 +7478,7 @@
         }
       }
     },
-    "term_form_notify_about_term" : {
+    "term.form.notify.about.term" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6741,7 +7507,7 @@
         }
       }
     },
-    "term_form_offline" : {
+    "term.form.offline" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6770,7 +7536,7 @@
         }
       }
     },
-    "term_form_reminder" : {
+    "term.form.reminder" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6799,7 +7565,7 @@
         }
       }
     },
-    "term_form_time" : {
+    "term.form.time" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6828,7 +7594,7 @@
         }
       }
     },
-    "term_form_title_placeholder" : {
+    "term.form.title.placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6857,7 +7623,7 @@
         }
       }
     },
-    "term_form_when" : {
+    "term.form.when" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6886,39 +7652,36 @@
         }
       }
     },
-    "Terms and conditions" : {
-
-    },
-    "timer_done" : {
+    "terms.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fertig"
+            "value" : "Termine"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Done"
+            "value" : "Terms"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Готово"
+            "value" : "Термины"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Готово"
+            "value" : "Терміни"
           }
         }
       }
     },
-    "timer_duration" : {
+    "timer.duration" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6947,7 +7710,7 @@
         }
       }
     },
-    "timer_finish" : {
+    "timer.finish" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -6976,7 +7739,7 @@
         }
       }
     },
-    "timer_focus_time" : {
+    "timer.focus.time" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7005,7 +7768,7 @@
         }
       }
     },
-    "timer_hint_change_duration" : {
+    "timer.hint.change.duration" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7034,7 +7797,7 @@
         }
       }
     },
-    "timer_notifications_disabled" : {
+    "timer.notifications.disabled" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7063,7 +7826,7 @@
         }
       }
     },
-    "timer_pause" : {
+    "timer.pause" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7092,7 +7855,7 @@
         }
       }
     },
-    "timer_relax" : {
+    "timer.relax" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7121,7 +7884,7 @@
         }
       }
     },
-    "timer_start" : {
+    "timer.start" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7150,7 +7913,7 @@
         }
       }
     },
-    "timer_stop" : {
+    "timer.stop" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7178,9 +7941,6 @@
           }
         }
       }
-    },
-    "Timexo Premium" : {
-
     },
     "toast.title.copied" : {
       "extractionState" : "manual",
@@ -7240,30 +8000,7 @@
         }
       }
     },
-    "Unlock Timexo Premium to keep terms, reminders, and focus tools fully available." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schalte Timexo Premium frei, um Termine, Erinnerungen und Fokus-Tools vollständig verfügbar zu halten."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Разблокируй Timexo Premium, чтобы термины, напоминания и инструменты фокуса были полностью доступны."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Розблокуй Timexo Premium, щоб терміни, нагадування та інструменти фокусу були повністю доступні."
-          }
-        }
-      }
-    },
-    "validation_empty_confirm_password" : {
+    "validation.empty.confirm.password" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7292,7 +8029,7 @@
         }
       }
     },
-    "validation_empty_current_password" : {
+    "validation.empty.current.password" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7321,7 +8058,7 @@
         }
       }
     },
-    "validation_empty_email" : {
+    "validation.empty.email" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7350,7 +8087,7 @@
         }
       }
     },
-    "validation_empty_password" : {
+    "validation.empty.password" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7379,7 +8116,7 @@
         }
       }
     },
-    "validation_invalid_email_format" : {
+    "validation.invalid.email.format" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7408,7 +8145,7 @@
         }
       }
     },
-    "validation_password_missing_digit" : {
+    "validation.password.missing.digit" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7437,7 +8174,7 @@
         }
       }
     },
-    "validation_password_missing_lowercase" : {
+    "validation.password.missing.lowercase" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7466,7 +8203,7 @@
         }
       }
     },
-    "validation_password_missing_uppercase" : {
+    "validation.password.missing.uppercase" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7495,7 +8232,7 @@
         }
       }
     },
-    "validation_password_too_short" : {
+    "validation.password.too.short" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7524,7 +8261,7 @@
         }
       }
     },
-    "validation_passwords_do_not_match" : {
+    "validation.passwords.do.not.match" : {
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
@@ -7553,1159 +8290,6 @@
         }
       }
     },
-    "Welcome back" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Willkommen zurück"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "С возвращением"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "З поверненням"
-          }
-        }
-      }
-    },
-    "або" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "oder"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "or"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "или"
-          }
-        }
-      }
-    },
-    "Без дозволу на сповіщення ви не отримаєте нагадування про термін." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ohne Benachrichtigungserlaubnis erhalten Sie keine Terminerinnerungen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Without notification permission you won't receive deadline reminders."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Без разрешения на уведомления вы не получите напоминания о сроках."
-          }
-        }
-      }
-    },
-    "Блокування код-паролем" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Codesperre"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passcode Lock"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Блокировка код-паролем"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Блокування код-паролем"
-          }
-        }
-      }
-    },
-    "Введіть ваш пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Geben Sie Ihr Passwort ein"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enter your password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Введите ваш пароль"
-          }
-        }
-      }
-    },
-    "Введіть ім'я та оберіть фото профілю." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Geben Sie einen Namen ein und wählen Sie ein Profilfoto."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enter a name and choose a profile photo."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Введите имя и выберите фото профиля."
-          }
-        }
-      }
-    },
-    "Введіть код-пароль Timexo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timexo-Passcode eingeben"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enter Timexo Passcode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Введите пароль Timexo"
-          }
-        }
-      }
-    },
-    "Вид" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Modus"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Режим"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Режим"
-          }
-        }
-      }
-    },
-    "Видалення акаунту" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Konto löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Delete Account"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Удаление аккаунта"
-          }
-        }
-      }
-    },
-    "Видалення акаунту призведе до повного та безповоротного знищення всіх ваших даних, включаючи збережені терміни, профіль та налаштування." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Das Löschen des Kontos führt zur vollständigen und unwiderruflichen Vernichtung aller Ihrer Daten, einschließlich gespeicherter Termine, Profil und Einstellungen."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Deleting your account will permanently and irreversibly destroy all your data, including saved terms, profile, and settings."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Удаление аккаунта приведёт к полному и безвозвратному уничтожению всех ваших данных, включая сохранённые термины, профиль и настройки."
-          }
-        }
-      }
-    },
-    "Вимкнути код-пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passcode deaktivieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Turn Off Passcode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отключить пароль"
-          }
-        }
-      }
-    },
-    "Відкрити налаштування" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einstellungen öffnen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open Settings"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Открыть настройки"
-          }
-        }
-      }
-    },
-    "Готово" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fertig"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Done"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Готово"
-          }
-        }
-      }
-    },
-    "Давай завершимо сетап акаунта" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lass uns die Kontoeinrichtung abschließen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Let's finish setting up your account"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Давай завершим настройку аккаунта"
-          }
-        }
-      }
-    },
-    "Додати email" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "E-Mail hinzufügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add email"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить email"
-          }
-        }
-      }
-    },
-    "Зберегти" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Speichern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Save"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сохранить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зберегти"
-          }
-        }
-      }
-    },
-    "Зміна Email" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "E-Mail ändern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change Email"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Смена Email"
-          }
-        }
-      }
-    },
-    "Зміна іконки недоступна на цьому пристрої." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Das Ändern des App-Symbols ist auf diesem Gerät nicht verfügbar."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Changing the app icon is not available on this device."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изменение иконки недоступно на этом устройстве."
-          }
-        }
-      }
-    },
-    "Зміна паролю" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort ändern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Смена пароля"
-          }
-        }
-      }
-    },
-    "Змінити код-пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passcode ändern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change Passcode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изменить пароль"
-          }
-        }
-      }
-    },
-    "Змінити фото профілю" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profilfoto ändern"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Change Profile Photo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изменить фото профиля"
-          }
-        }
-      }
-    },
-    "Іконка застосунку" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "App-Icon"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "App Icon"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Иконка приложения"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Іконка застосунку"
-          }
-        }
-      }
-    },
-    "Ім'я" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Name"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Name"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Имя"
-          }
-        }
-      }
-    },
-    "Код підтвердження" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigungscode"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmation Code"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Код подтверждения"
-          }
-        }
-      }
-    },
-    "Коли код-пароль увімкнено, Timexo буде запитувати його при запуску або після повернення у застосунок згідно з Auto-Lock." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wenn der Code aktiviert ist, fordert Timexo ihn beim Start oder bei der Rückkehr in die App gemäß Auto-Lock an."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "When passcode is on, Timexo will require it upon launch or returning to the app according to Auto-Lock."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Когда код-пароль включен, Timexo будет запрашивать его при запуске или после возврата в приложение согласно Auto-Lock."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Коли код-пароль увімкнено, Timexo буде запитувати його при запуску або після повернення у застосунок згідно з Auto-Lock."
-          }
-        }
-      }
-    },
-    "Надіслати" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Senden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Send"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отправить"
-          }
-        }
-      }
-    },
-    "Назад" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zurück"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Back"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Назад"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Назад"
-          }
-        }
-      }
-    },
-    "Налаштувати фото профіля" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Profilfoto einrichten"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Set Up Profile Photo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настроить фото профиля"
-          }
-        }
-      }
-    },
-    "Не вдалося змінити іконку" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Icon konnte nicht geändert werden"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Failed to change icon"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не удалось изменить иконку"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Не вдалося змінити іконку"
-          }
-        }
-      }
-    },
-    "Новий email" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Neue E-Mail"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New email"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Новый email"
-          }
-        }
-      }
-    },
-    "Новий Email" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Neue E-Mail"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New email"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Новый email"
-          }
-        }
-      }
-    },
-    "Новий пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Neues Passwort"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Новый пароль"
-          }
-        }
-      }
-    },
-    "Обрати в галереї" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aus Galerie wählen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose from Gallery"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбрать из галереи"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Обрати в галереї"
-          }
-        }
-      }
-    },
-    "Пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль"
-          }
-        }
-      }
-    },
-    "Пароль повинен містити щонайменше 8 символів, велику та малу літери, а також цифру." : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Das Passwort muss mindestens 8 Zeichen enthalten, darunter Groß-, Kleinbuchstaben und eine Ziffer."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Password must contain at least 8 characters, including uppercase, lowercase, and a number."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пароль должен содержать не менее 8 символов, заглавную и строчную буквы, а также цифру."
-          }
-        }
-      }
-    },
-    "Підтвердження" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigung"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirmation"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтверждение"
-          }
-        }
-      }
-    },
-    "Підтвердження через Apple" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigung über Apple"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm with Apple"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтверждение через Apple"
-          }
-        }
-      }
-    },
-    "Підтвердження через Email / Пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigung über E-Mail / Passwort"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm with Email / Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтверждение через Email / Пароль"
-          }
-        }
-      }
-    },
-    "Підтвердження через Google" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigung über Google"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm with Google"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтверждение через Google"
-          }
-        }
-      }
-    },
-    "Підтвердити" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердить"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Підтвердити"
-          }
-        }
-      }
-    },
-    "Підтвердити та видалити акаунт" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bestätigen und Konto löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm and Delete Account"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердить и удалить аккаунт"
-          }
-        }
-      }
-    },
-    "Підтвердити через Apple та видалити" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mit Apple bestätigen und löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm with Apple and Delete"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердить через Apple и удалить"
-          }
-        }
-      }
-    },
-    "Підтвердити через Google та видалити" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mit Google bestätigen und löschen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm with Google and Delete"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердить через Google и удалить"
-          }
-        }
-      }
-    },
-    "Підтвердіть код-пароль Timexo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timexo-Passcode bestätigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm Timexo Passcode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердите пароль Timexo"
-          }
-        }
-      }
-    },
-    "Підтвердіть новий пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Neues Passwort bestätigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm New Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердите новый пароль"
-          }
-        }
-      }
-    },
-    "Підтвердіть пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passwort bestätigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Confirm Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Подтвердите пароль"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Підтвердіть пароль"
-          }
-        }
-      }
-    },
-    "Помилка" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fehler"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ошибка"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Помилка"
-          }
-        }
-      }
-    },
     "Поточний email: %@. Введіть код з листа Firebase, який прийшов на новий email. Якщо лист містить посилання, використайте значення параметра oobCode." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -8725,6 +8309,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Текущий email: %@. Введите код из письма Firebase, которое пришло на новый email. Если письмо содержит ссылку, используйте значение параметра oobCode."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поточний email: %@. Введіть код з листа Firebase, який прийшов на новий email. Якщо лист містить посилання, використайте значення параметра oobCode."
           }
         }
       }
@@ -8749,207 +8339,11 @@
             "state" : "translated",
             "value" : "Текущий email: %@. После подтверждения пароля на новый email придёт письмо для верификации."
           }
-        }
-      }
-    },
-    "Поточний пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aktuelles Passwort"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Current Password"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Текущий пароль"
-          }
-        }
-      }
-    },
-    "Потрібен дозвіл" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erlaubnis erforderlich"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Permission Required"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Необходимо разрешение"
-          }
-        }
-      }
-    },
-    "Режим" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Modus"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Режим"
-          }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Режим"
-          }
-        }
-      }
-    },
-    "Розблокування з Face ID" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mit Face ID entsperren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unlock with Face ID"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Разблокировка с Face ID"
-          }
-        }
-      }
-    },
-    "Скасувати" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Abbrechen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Отмена"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Скасувати"
-          }
-        }
-      }
-    },
-    "Сфотографувати" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Foto aufnehmen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Take Photo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сделать фото"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сфотографувати"
-          }
-        }
-      }
-    },
-    "Увага! Дія незворотна" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Achtung! Diese Aktion ist unwiderruflich"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Warning! This action is irreversible"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Внимание! Действие необратимо"
-          }
-        }
-      }
-    },
-    "Увімкнути код-пароль" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Passcode aktivieren"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Turn On Passcode"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Включить пароль"
+            "value" : "Поточний email: %@. Після підтвердження паролю, надійде лист на новий email для верифікації."
           }
         }
       }

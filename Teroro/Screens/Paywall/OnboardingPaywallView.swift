@@ -38,12 +38,12 @@ struct OnboardingPaywallView: View {
 
                 // Content area
                 VStack(spacing: 10) {
-                    Text("Manage Terms & Stay Focused")
+                    Text("paywall.hero.title")
                         .font(.system(size: 26, weight: .bold))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
                     
-                    Text("Unlock Timexo Premium to keep terms, reminders, and focus tools fully available.")
+                    Text("paywall.premium.description")
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(.white.opacity(0.7))
                         .multilineTextAlignment(.center)
@@ -52,7 +52,7 @@ struct OnboardingPaywallView: View {
                 .padding(.horizontal, 24)
                 // Dynamic price text
                 let price = subscriptionService.localizedPrice(for: AppConstants.weeklyTrialProductID)
-                Text("3 Days Free, then \(price)/week")
+                Text("paywall.trial.price \(price)")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.white.opacity(0.6))
 
@@ -72,7 +72,7 @@ struct OnboardingPaywallView: View {
                                     .tint(.white)
                             }
                             
-                            Text(subscriptionService.isPurchasing ? "paywall_processing" : "Get Started")
+                            Text(subscriptionService.isPurchasing ? "paywall.processing" : "onboarding.get.started.button")
                                 .font(.headline)
                         }
                         .foregroundStyle(.black)
@@ -99,14 +99,14 @@ struct OnboardingPaywallView: View {
         .task {
             await subscriptionService.bootstrap()
         }
-        .alert("common_error", isPresented: Binding(get: {
+        .alert("common.error", isPresented: Binding(get: {
             subscriptionService.errorMessage != nil
         }, set: { newValue in
             if !newValue {
                 subscriptionService.clearError()
             }
         }), actions: {
-            Button("common_ok") {
+            Button("common.ok") {
                 subscriptionService.clearError()
             }
         }, message: {
@@ -116,7 +116,7 @@ struct OnboardingPaywallView: View {
 
     private var footerLinks: some View {
         HStack(spacing: 12) {
-            Button("Restore") {
+            Button("paywall.restore.button") {
                 Task {
                     let didRestore = await subscriptionService.restore()
                     if didRestore {
@@ -125,17 +125,17 @@ struct OnboardingPaywallView: View {
                 }
             }
 
-            Text("•")
+            Text("paywall.feature.bullet")
                 .foregroundStyle(.white.opacity(0.3))
 
-            Button("Terms and conditions") {
+            Button("paywall.legal.terms") {
                 open(AppConstants.termsOfUseLink)
             }
 
-            Text("•")
+            Text("paywall.feature.bullet")
                 .foregroundStyle(.white.opacity(0.3))
 
-            Button("Privacy policy") {
+            Button("paywall.legal.privacy.policy") {
                 open(AppConstants.privacyPolicyLink)
             }
         }

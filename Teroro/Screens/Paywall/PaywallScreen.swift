@@ -41,14 +41,14 @@ struct PaywallScreen: View {
         .task {
             await subscriptionService.bootstrap()
         }
-        .alert("common_error", isPresented: Binding(get: {
+        .alert("common.error", isPresented: Binding(get: {
             subscriptionService.errorMessage != nil
         }, set: { newValue in
             if !newValue {
                 subscriptionService.clearError()
             }
         }), actions: {
-            Button("common_ok") {
+            Button("common.ok") {
                 subscriptionService.clearError()
             }
         }, message: {
@@ -71,10 +71,10 @@ struct PaywallScreen: View {
 //                .padding(.top, isSmallScreen ? 0 : 100)
 
             VStack(spacing: 8) {
-                Text(languageManager.localizedString(forKey: "paywall_unlock_pro"))
+                Text(languageManager.localizedString(forKey: "paywall.unlock.pro"))
                     .font(.system(size: 32, weight: .bold))
 
-                Text(languageManager.localizedString(forKey: "paywall_subtitle"))
+                Text(languageManager.localizedString(forKey: "paywall.subtitle"))
                     .font(.subheadline.weight(.medium))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -114,7 +114,7 @@ struct PaywallScreen: View {
                                 .tint(.white)
                         }
 
-                        Text(subscriptionService.isPurchasing ? languageManager.localizedString(forKey: "paywall_processing") : languageManager.localizedString(forKey: "paywall_continue"))
+                        Text(subscriptionService.isPurchasing ? languageManager.localizedString(forKey: "paywall.processing") : languageManager.localizedString(forKey: "paywall.continue"))
                             .font(.headline)
                     }
                     .foregroundStyle(.white)
@@ -148,7 +148,7 @@ struct PaywallScreen: View {
                         .background(.ultraThinMaterial, in: Circle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel(languageManager.localizedString(forKey: "paywall_close"))
+                .accessibilityLabel(languageManager.localizedString(forKey: "paywall.close"))
 
                 Spacer()
             }
@@ -157,7 +157,7 @@ struct PaywallScreen: View {
 
     private var footerLinks: some View {
         HStack(spacing: 12) {
-            Button("Restore") {
+            Button("paywall.restore.button") {
                 Task {
                     let didRestore = await subscriptionService.restore()
                     if didRestore {
@@ -166,17 +166,17 @@ struct PaywallScreen: View {
                 }
             }
 
-            Text("•")
+            Text("paywall.feature.bullet")
                 .foregroundStyle(.secondary)
 
-            Button("Terms and conditions") {
+            Button("paywall.legal.terms") {
                 open(AppConstants.termsOfUseLink)
             }
 
-            Text("•")
+            Text("paywall.feature.bullet")
                 .foregroundStyle(.secondary)
 
-            Button("Privacy policy") {
+            Button("paywall.legal.privacy.policy") {
                 open(AppConstants.privacyPolicyLink)
             }
         }
@@ -226,7 +226,7 @@ private struct PlanOptionView: View {
                     Text(period.localizedTitle)
                         .font(.title3.weight(.bold))
 
-                    Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall_get_free_trial") : period.localizedProductTitle)
+                    Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall.get.free.trial") : period.localizedProductTitle)
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.secondary)
                 }
@@ -264,9 +264,9 @@ private struct TrialToggleView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 3) {
-                Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall_free_trial_enabled") : LanguageManager.shared.localizedString(forKey: "paywall_free_trial_disabled"))
+                Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall.free.trial.enabled") : LanguageManager.shared.localizedString(forKey: "paywall.free.trial.disabled"))
                     .font(.headline)
-                Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall_trial_includes_desc") : LanguageManager.shared.localizedString(forKey: "paywall_trial_starts_without_desc"))
+                Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall.trial.includes.desc") : LanguageManager.shared.localizedString(forKey: "paywall.trial.starts.without.desc"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

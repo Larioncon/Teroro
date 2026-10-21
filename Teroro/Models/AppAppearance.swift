@@ -10,9 +10,9 @@ enum AppAppearance: Int, CaseIterable, Identifiable {
     @MainActor
     var title: String {
         switch self {
-        case .system: return LanguageManager.shared.localizedString(forKey: "appearance_system")
-        case .light: return LanguageManager.shared.localizedString(forKey: "appearance_light")
-        case .dark: return LanguageManager.shared.localizedString(forKey: "appearance_dark")
+        case .system: return LanguageManager.shared.localizedString(forKey: "appearance.system")
+        case .light: return LanguageManager.shared.localizedString(forKey: "appearance.light")
+        case .dark: return LanguageManager.shared.localizedString(forKey: "appearance.dark")
         }
     }
 

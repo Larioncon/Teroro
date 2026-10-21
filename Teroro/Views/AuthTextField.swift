@@ -86,8 +86,8 @@ struct AuthTextField: View {
 #Preview {
     @State var text = ""
     return VStack(spacing: 20) {
-        AuthTextField(title: "Email", text: $text, keyboardType: .emailAddress)
-        AuthTextField(title: "Password", text: $text, isSecure: true)
+        AuthTextField(title: "form.email.placeholder", text: $text, keyboardType: .emailAddress)
+        AuthTextField(title: "security.password.placeholder", text: $text, isSecure: true)
     }
     .padding()
 }

@@ -11,25 +11,25 @@ struct AddEmailPasswordSheetView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Email", text: $email)
+                    TextField("form.email.placeholder", text: $email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
 
-                    SecureField("Password", text: $password)
-                    SecureField("Confirm password", text: $confirmPassword)
+                    SecureField("security.password.placeholder", text: $password)
+                    SecureField("auth.password.confirm.label", text: $confirmPassword)
                 } footer: {
-                    Text("Пароль повинен містити щонайменше 8 символів, велику та малу літери, а також цифру.")
+                    Text("security.password.requirements")
                 }
             }
-            .navigationTitle("Додати email")
+            .navigationTitle("security.email.add.title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("common_cancel") { dismiss() }
+                    Button("common.cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("common_save") {
+                    Button("common.save") {
                         Task {
                             let success = await viewModel.addEmailAndPassword(
                                 email: email,

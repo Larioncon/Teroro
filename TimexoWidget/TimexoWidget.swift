@@ -58,7 +58,7 @@ struct TimexoWidget: Widget {
                 .environment(\.locale, WidgetAppLocale.current)
                 .applyWidgetBackground()
         }
-        .configurationDisplayName(LocalizedStringResource("widget.next_term", locale: WidgetAppLocale.current))
+        .configurationDisplayName(LocalizedStringResource("widget.next.term", locale: WidgetAppLocale.current))
         .description(LocalizedStringResource("widget.description", locale: WidgetAppLocale.current))
         .supportedFamilies([.systemSmall, .systemMedium])
     }
@@ -73,8 +73,8 @@ struct TimexoHorizontalWidget: Widget {
                 .environment(\.locale, WidgetAppLocale.current)
                 .applyWidgetBackground()
         }
-        .configurationDisplayName(LocalizedStringResource("widget.next_term", locale: WidgetAppLocale.current))
-        .description(LocalizedStringResource("widget.horizontal_description", locale: WidgetAppLocale.current))
+        .configurationDisplayName(LocalizedStringResource("widget.next.term", locale: WidgetAppLocale.current))
+        .description(LocalizedStringResource("widget.horizontal.description", locale: WidgetAppLocale.current))
         .supportedFamilies([.systemMedium])
     }
 }

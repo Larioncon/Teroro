@@ -13,7 +13,7 @@ struct SearchField: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 ZStack(alignment: .leading) {
-                    TextField(LanguageManager.shared.localizedString(forKey: "map_search_placeholder"), text: $text)
+                    TextField(LanguageManager.shared.localizedString(forKey: "map.search.placeholder"), text: $text)
                         .focused($isFocused)
                         .padding(.leading, 40)
                         .padding(.trailing, 14)

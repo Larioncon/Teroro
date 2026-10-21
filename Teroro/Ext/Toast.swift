@@ -23,7 +23,7 @@ struct Toast: Identifiable, Equatable {
         timing: ToastFrame = .long
     ) -> Toast {
         Toast(
-            title: title ?? "common_error".localized,
+            title: title ?? "common.error".localized,
             message: message,
             symbol: "exclamationmark.triangle.fill",
             tint: .red,
@@ -53,7 +53,7 @@ struct Toast: Identifiable, Equatable {
         timing: ToastFrame = .medium
     ) -> Toast {
         Toast(
-            title: title ?? "common_success".localized,
+            title: title ?? "common.success".localized,
             message: message,
             symbol: "checkmark.circle.fill",
             tint: .green,

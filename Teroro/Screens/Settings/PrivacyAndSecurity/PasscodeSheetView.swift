@@ -19,7 +19,7 @@ struct PasscodeSheetView: View {
                 PasscodeSecurityGroup(viewModel: viewModel)
                     .disabled(!viewModel.isPasscodeEnabled)
             }
-            .navigationTitle(languageManager.localizedString(forKey: "security_passcode_lock_title"))
+            .navigationTitle(languageManager.localizedString(forKey: "security.passcode.lock.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -31,7 +31,7 @@ struct PasscodeSheetView: View {
                             .foregroundStyle(.primary)
                             .frame(width: 33, height: 33)
                     }
-                    .accessibilityLabel(languageManager.localizedString(forKey: "common_back"))
+                    .accessibilityLabel(languageManager.localizedString(forKey: "common.back"))
                 }
             }
             .fullScreenCover(item: $passcodeFlow) { _ in
@@ -58,15 +58,15 @@ private struct PasscodeActionGroup: View {
     var body: some View {
         Section {
             if isPasscodeEnabled {
-                Button(languageManager.localizedString(forKey: "security_turn_off_passcode"), action: onTurnOff)
+                Button(languageManager.localizedString(forKey: "security.turn.off.passcode"), action: onTurnOff)
                     .foregroundStyle(.red)
 
-                Button(languageManager.localizedString(forKey: "security_change_passcode"), action: onChange)
+                Button(languageManager.localizedString(forKey: "security.change.passcode"), action: onChange)
             } else {
-                Button(languageManager.localizedString(forKey: "security_turn_on_passcode"), action: onChange)
+                Button(languageManager.localizedString(forKey: "security.turn.on.passcode"), action: onChange)
             }
         } footer: {
-            Text(languageManager.localizedString(forKey: "security_auto_lock_desc"))
+            Text(languageManager.localizedString(forKey: "security.autolock.description"))
         }
     }
 }
@@ -77,7 +77,7 @@ private struct PasscodeSecurityGroup: View {
 
     var body: some View {
         Section {
-            Picker("Auto-Lock", selection: Binding(get: {
+            Picker("security.autolock.title", selection: Binding(get: {
                 viewModel.passcodeAutoLockOption
             }, set: { option in
                 viewModel.passcodeAutoLockOption = option
@@ -93,7 +93,7 @@ private struct PasscodeSecurityGroup: View {
             }, set: { newValue in
                 viewModel.toggleFaceID(enabled: newValue)
             })) {
-                Label(languageManager.localizedString(forKey: "security_unlock_face_id"), systemImage: "faceid")
+                Label(languageManager.localizedString(forKey: "security.unlock.face.id"), systemImage: "faceid")
             }
         }
     }
@@ -124,7 +124,7 @@ private struct PasscodeSetupEntryView: View {
                     Spacer()
 
                     VStack(spacing: 28) {
-                        Text(isConfirming ? languageManager.localizedString(forKey: "security_confirm_passcode") : languageManager.localizedString(forKey: "security_enter_passcode"))
+                        Text(isConfirming ? languageManager.localizedString(forKey: "security.confirm.passcode") : languageManager.localizedString(forKey: "security.enter.passcode"))
                             .font(.title2)
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.center)
@@ -144,7 +144,7 @@ private struct PasscodeSetupEntryView: View {
                 }
                 .padding(.horizontal, 24)
             }
-            .navigationTitle(languageManager.localizedString(forKey: "security_passcode_lock_title"))
+            .navigationTitle(languageManager.localizedString(forKey: "security.passcode.lock.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -156,7 +156,7 @@ private struct PasscodeSetupEntryView: View {
                             .foregroundStyle(.primary)
                             .frame(width: 44, height: 44)
                     }
-                    .accessibilityLabel(languageManager.localizedString(forKey: "common_back"))
+                    .accessibilityLabel(languageManager.localizedString(forKey: "common.back"))
                 }
             }
         }
@@ -184,7 +184,7 @@ private struct PasscodeSetupEntryView: View {
                 viewModel.savePasscode(digits)
                 dismiss()
             } else {
-                errorMessage = languageManager.localizedString(forKey: "security_passcodes_do_not_match")
+                errorMessage = languageManager.localizedString(forKey: "security.passcodes.do.not.match")
                 firstPasscode = ""
                 currentPasscode = ""
                 isConfirming = false

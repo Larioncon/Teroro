@@ -38,7 +38,7 @@ struct AppLockScreen: View {
                     .frame(height: 100)
 
                 VStack(spacing: 30) {
-                    Text("Enter your Timexo Passcode")
+                    Text("security.passcode.enter.lock.screen")
                         .font(.system(size: 28, weight: .regular))
                         .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
@@ -57,13 +57,13 @@ struct AppLockScreen: View {
 
                 HStack {
                     if isFaceIDEnabled {
-                        Button("Face ID", action: authenticateWithBiometrics)
+                        Button("security.faceid.button", action: authenticateWithBiometrics)
                             .foregroundStyle(.white)
                     }
 
                     Spacer()
 
-                    Button("common_delete", action: deleteDigit)
+                    Button("common.delete", action: deleteDigit)
                         .foregroundStyle(.white)
                         .padding(.bottom, 10)
                 }

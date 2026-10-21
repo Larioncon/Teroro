@@ -22,11 +22,11 @@ enum SubscriptionPlanPeriod: String, CaseIterable, Identifiable {
     var localizedTitle: String {
         switch self {
         case .week:
-            return LanguageManager.shared.localizedString(forKey: "plan_period_week")
+            return LanguageManager.shared.localizedString(forKey: "plan.period.week")
         case .month:
-            return LanguageManager.shared.localizedString(forKey: "plan_period_month")
+            return LanguageManager.shared.localizedString(forKey: "plan.period.month")
         case .year:
-            return LanguageManager.shared.localizedString(forKey: "plan_period_year")
+            return LanguageManager.shared.localizedString(forKey: "plan.period.year")
         }
     }
 
@@ -45,11 +45,11 @@ enum SubscriptionPlanPeriod: String, CaseIterable, Identifiable {
     var localizedProductTitle: String {
         switch self {
         case .week:
-            return LanguageManager.shared.localizedString(forKey: "plan_get_weekly")
+            return LanguageManager.shared.localizedString(forKey: "plan.get.weekly")
         case .month:
-            return LanguageManager.shared.localizedString(forKey: "plan_get_monthly")
+            return LanguageManager.shared.localizedString(forKey: "plan.get.monthly")
         case .year:
-            return LanguageManager.shared.localizedString(forKey: "plan_get_annual")
+            return LanguageManager.shared.localizedString(forKey: "plan.get.annual")
         }
     }
 

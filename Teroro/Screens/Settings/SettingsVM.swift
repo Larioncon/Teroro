@@ -194,7 +194,7 @@ final class SettingsVM: ObservableObject {
                     let data = try await item.loadTransferable(type: Data.self),
                     let image = UIImage(data: data)
                 else {
-                    signOutErrorMessage = "settings_photo_read_error".localized
+                    signOutErrorMessage = "settings.photo.read.error".localized
                     return
                 }
                 updateAvatar(with: image)
@@ -290,7 +290,7 @@ final class SettingsVM: ObservableObject {
         var error: NSError?
 
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = enabled ? "settings.faceid.reason_enable".localized : "settings.faceid.reason_disable".localized
+            let reason = enabled ? "settings.faceid.reason.enable".localized : "settings.faceid.reason.disable".localized
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authError in
                 Task { @MainActor in
                     if success {
@@ -305,7 +305,7 @@ final class SettingsVM: ObservableObject {
             }
         } else {
             isFaceIDEnabled = false
-            securityAlertMessage = error?.localizedDescription ?? "settings.faceid.not_supported".localized
+            securityAlertMessage = error?.localizedDescription ?? "settings.faceid.not.supported".localized
         }
     }
 
@@ -339,7 +339,7 @@ final class SettingsVM: ObservableObject {
                 emailForLinking: currentUser?.email
             )
             refreshLinkedProviders()
-            securitySuccessMessage = hadPassword ? "settings_pwd_changed_success".localized : "settings_pwd_created_success".localized
+            securitySuccessMessage = hadPassword ? "settings.pwd.changed.success".localized : "settings.pwd.created.success".localized
             return true
         } catch {
             securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
@@ -375,7 +375,7 @@ final class SettingsVM: ObservableObject {
         do {
             try await authService.linkEmailPasswordToCurrentUser(email: validEmail, password: validPassword)
             refreshLinkedProviders()
-            securitySuccessMessage = "settings_email_pwd_linked_success".localized
+            securitySuccessMessage = "settings.email.pwd.linked.success".localized
             return true
         } catch {
             securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
@@ -403,7 +403,7 @@ final class SettingsVM: ObservableObject {
 
         do {
             try await authService.changeUserEmail(newEmail: validEmail, currentPassword: currentPassword)
-            securitySuccessMessage = "settings_email_code_sent_success".localized
+            securitySuccessMessage = "settings.email.code.sent.success".localized
             return true
         } catch {
             securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
@@ -417,7 +417,7 @@ final class SettingsVM: ObservableObject {
 
         let trimmedCode = actionCode.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedCode.isEmpty else {
-            securityAlertMessage = "settings_enter_confirm_code".localized
+            securityAlertMessage = "settings.enter.confirm.code".localized
             return false
         }
 
@@ -426,7 +426,7 @@ final class SettingsVM: ObservableObject {
 
         do {
             try await authService.confirmUserEmailChange(actionCode: trimmedCode, expectedEmail: expectedEmail)
-            securitySuccessMessage = "settings_email_changed_success".localized
+            securitySuccessMessage = "settings.email.changed.success".localized
             return true
         } catch {
             securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
@@ -443,7 +443,7 @@ final class SettingsVM: ObservableObject {
         do {
             try await authService.linkAppleToCurrentUser()
             refreshLinkedProviders()
-            securitySuccessMessage = "settings_apple_linked_success".localized
+            securitySuccessMessage = "settings.apple.linked.success".localized
             return true
         } catch {
             securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
@@ -460,7 +460,7 @@ final class SettingsVM: ObservableObject {
         do {
             try await authService.linkGoogleToCurrentUser()
             refreshLinkedProviders()
-            securitySuccessMessage = "settings_google_linked_success".localized
+            securitySuccessMessage = "settings.google.linked.success".localized
             return true
         } catch {
             securityAlertMessage = UserFacingAuthError(from: error).errorDescription ?? error.localizedDescription
@@ -477,7 +477,7 @@ final class SettingsVM: ObservableObject {
         if passcode.isEmpty {
             isFaceIDEnabled = false
         }
-        securitySuccessMessage = passcode.isEmpty ? "settings_passcode_disabled".localized : "settings_passcode_saved_success".localized
+        securitySuccessMessage = passcode.isEmpty ? "settings.passcode.disabled".localized : "settings.passcode.saved.success".localized
     }
 
     // MARK: - Account Deletion
@@ -498,7 +498,7 @@ final class SettingsVM: ObservableObject {
         securitySuccessMessage = nil
 
         guard !password.isEmpty else {
-            securityAlertMessage = "settings_enter_pwd_to_delete".localized
+            securityAlertMessage = "settings.enter.pwd.to.delete".localized
             return false
         }
 

@@ -16,12 +16,12 @@ struct DeleteAccountSheetView: View {
                                 .font(.title2)
                                 .foregroundStyle(.red)
 
-                            Text("Увага! Дія незворотна")
+                            Text("security.account.delete.warning.title")
                                 .font(.headline)
                                 .foregroundStyle(.red)
                         }
 
-                        Text("Видалення акаунту призведе до повного та безповоротного знищення всіх ваших даних, включаючи збережені терміни, профіль та налаштування.")
+                        Text("security.account.delete.warning.description")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -29,15 +29,15 @@ struct DeleteAccountSheetView: View {
                 }
 
                 if viewModel.hasPassword || (!viewModel.isGoogleLinked && !viewModel.isAppleLinked) {
-                    Section("Підтвердження через Email / Пароль") {
-                        TextField("Email", text: $email)
+                    Section("security.confirmation.email.password.section") {
+                        TextField("form.email.placeholder", text: $email)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                             .disabled(true)
                             .foregroundStyle(.secondary)
 
-                        SecureField("Введіть ваш пароль", text: $password)
+                        SecureField("security.enter.your.pwd", text: $password)
 
                         Button(role: .destructive) {
                             Task {
@@ -51,7 +51,7 @@ struct DeleteAccountSheetView: View {
                                     ProgressView()
                                         .tint(.red)
                                 } else {
-                                    Text("Підтвердити та видалити акаунт")
+                                    Text("security.account.delete.confirm.button")
                                         .font(.subheadline.weight(.semibold))
                                         .foregroundStyle(.red)
                                 }
@@ -63,7 +63,7 @@ struct DeleteAccountSheetView: View {
                 }
 
                 if viewModel.isGoogleLinked {
-                    Section("Підтвердження через Google") {
+                    Section("security.confirmation.google.section") {
                         Button {
                             Task {
                                 let success = await viewModel.deleteAccountWithGoogle()
@@ -73,7 +73,7 @@ struct DeleteAccountSheetView: View {
                             HStack {
                                 Image(systemName: "g.circle.fill")
                                     .foregroundStyle(.red)
-                                Text("Підтвердити через Google та видалити")
+                                Text("security.confirm.google.delete")
                                     .font(.subheadline.weight(.medium))
                                     .foregroundStyle(.red)
                                 Spacer()
@@ -88,7 +88,7 @@ struct DeleteAccountSheetView: View {
                 }
 
                 if viewModel.isAppleLinked {
-                    Section("Підтвердження через Apple") {
+                    Section("security.confirmation.apple.section") {
                         Button {
                             Task {
                                 let success = await viewModel.deleteAccountWithApple()
@@ -98,7 +98,7 @@ struct DeleteAccountSheetView: View {
                             HStack {
                                 Image(systemName: "apple.logo")
                                     .foregroundStyle(.red)
-                                Text("Підтвердити через Apple та видалити")
+                                Text("security.confirm.apple.delete")
                                     .font(.subheadline.weight(.medium))
                                     .foregroundStyle(.red)
                                 Spacer()
@@ -112,11 +112,11 @@ struct DeleteAccountSheetView: View {
                     }
                 }
             }
-            .navigationTitle("Видалення акаунту")
+            .navigationTitle("security.account.delete.title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("common_cancel") { dismiss() }
+                    Button("common.cancel") { dismiss() }
                         .disabled(viewModel.isSecurityProcessing)
                 }
             }

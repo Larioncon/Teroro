@@ -1,636 +1,665 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "Configuration" : {
-
-    },
-    "Favorite Emoji" : {
-
-    },
-    "L" : {
-
-    },
-    "T %@" : {
-
-    },
-    "This is an example widget." : {
-
-    },
-    "widget.activity_bottom %@" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unten %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bottom %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Внизу %@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Знизу %@"
+  "sourceLanguage": "en",
+  "strings": {
+    "widget.configuration.title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configuration"
           }
         }
       }
     },
-    "widget.activity_greeting %@" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hallo %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hello %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Привет, %@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Привіт, %@"
+    "widget.configuration.favorite.emoji": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favorite Emoji"
           }
         }
       }
     },
-    "widget.activity.bottom %@" : {
-
-    },
-    "widget.activity.greeting %@" : {
-
-    },
-    "widget.add_term" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Termin hinzufügen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Add term"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Добавить срок"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Додати термін"
+    "widget.activity.leading.short": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L"
           }
         }
       }
     },
-    "widget.control.description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ein Steuerelement zum Starten eines Timers."
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A control for starting a timer."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Элемент управления для запуска таймера."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Елемент керування для запуску таймера."
+    "widget.activity.trailing.short %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "T %@"
           }
         }
       }
     },
-    "widget.control.is_running" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timer läuft"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timer is running"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Таймер запущен"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Таймер запущено"
+    "widget.description.example": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is an example widget."
           }
         }
       }
     },
-    "widget.control.off" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aus"
+    "widget.activity.bottom %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unten %@"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Off"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bottom %@"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выкл."
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Внизу %@"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вимк."
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Знизу %@"
           }
         }
       }
     },
-    "widget.control.on" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ein"
+    "widget.activity.greeting %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hallo %@"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "On"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hello %@"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вкл."
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привет, %@"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Увімк."
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Привіт, %@"
           }
         }
       }
     },
-    "widget.control.start_timer" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timer starten"
+    "widget.add.term": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Termin hinzufügen"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start timer"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add term"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запустить таймер"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить срок"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Запустити таймер"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Додати термін"
           }
         }
       }
     },
-    "widget.control.timer" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timer"
+    "widget.control.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Steuerelement zum Starten eines Timers."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timer"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A control for starting a timer."
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Таймер"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Элемент управления для запуска таймера."
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Таймер"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Елемент керування для запуску таймера."
           }
         }
       }
     },
-    "widget.control.timer_configuration" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timername festlegen"
+    "widget.control.is.running": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timer läuft"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configure timer name"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timer is running"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настройка названия таймера"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таймер запущен"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Налаштування назви таймера"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таймер запущено"
           }
         }
       }
     },
-    "widget.control.timer_name" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timername"
+    "widget.control.off": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aus"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Timer name"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Название таймера"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выкл."
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Назва таймера"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вимк."
           }
         }
       }
     },
-    "widget.create" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erstellen"
+    "widget.control.on": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Create"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Создать"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вкл."
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Створити"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Увімк."
           }
         }
       }
     },
-    "widget.description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zeigt deinen nächsten geplanten Termin."
+    "widget.control.start.timer": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timer starten"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shows your next scheduled term."
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start timer"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показывает ближайший запланированный срок."
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запустить таймер"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показує найближчий запланований термін."
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запустити таймер"
           }
         }
       }
     },
-    "widget.horizontal_description" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zeigt deinen nächsten Termin und eine Karte in zwei Spalten."
+    "widget.control.timer": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timer"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Shows your next term and a map side by side."
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timer"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показывает ближайший срок и карту рядом в двух столбцах."
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таймер"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показує найближчий термін і мапу поруч у дві колонки."
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Таймер"
           }
         }
       }
     },
-    "widget.leading" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Links"
+    "widget.control.timer.configuration": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timername festlegen"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Leading"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configure timer name"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Слева"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройка названия таймера"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ліворуч"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Налаштування назви таймера"
           }
         }
       }
     },
-    "widget.next" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Als Nächstes"
+    "widget.control.timer.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timername"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Timer name"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Следующий"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название таймера"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Наступний"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Назва таймера"
           }
         }
       }
     },
-    "widget.next_term" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nächster Termin"
+    "widget.create": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erstellen"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next term"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Следующий срок"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Создать"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Наступний термін"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Створити"
           }
         }
       }
     },
-    "widget.tap_to_open" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tippe, um die App zu öffnen."
+    "widget.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt deinen nächsten geplanten Termin."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap to open the app."
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows your next scheduled term."
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Нажмите, чтобы открыть приложение."
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывает ближайший запланированный срок."
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Натисніть, щоб відкрити застосунок."
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показує найближчий запланований термін."
           }
         }
       }
     },
-    "widget.today" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Heute"
+    "widget.horizontal.description": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeigt deinen nächsten Termin und eine Karte in zwei Spalten."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shows your next term and a map side by side."
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сегодня"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показывает ближайший срок и карту рядом в двух столбцах."
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Сьогодні"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показує найближчий термін і мапу поруч у дві колонки."
           }
         }
       }
     },
-    "widget.tomorrow" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Morgen"
+    "widget.leading": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Links"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tomorrow"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leading"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Завтра"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слева"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Завтра"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ліворуч"
           }
         }
       }
     },
-    "widget.trailing" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rechts"
+    "widget.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Als Nächstes"
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trailing"
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Справа"
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Следующий"
           }
         },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Праворуч"
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наступний"
+          }
+        }
+      }
+    },
+    "widget.next.term": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nächster Termin"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next term"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Следующий срок"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наступний термін"
+          }
+        }
+      }
+    },
+    "widget.tap.to.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe, um die App zu öffnen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap to open the app."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нажмите, чтобы открыть приложение."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Натисніть, щоб відкрити застосунок."
+          }
+        }
+      }
+    },
+    "widget.today": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heute"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Today"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сегодня"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сьогодні"
+          }
+        }
+      }
+    },
+    "widget.tomorrow": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Morgen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tomorrow"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завтра"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Завтра"
+          }
+        }
+      }
+    },
+    "widget.trailing": {
+      "extractionState": "manual",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechts"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trailing"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Справа"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Праворуч"
           }
         }
       }
     }
   },
-  "version" : "1.1"
+  "version": "1.1"
 }

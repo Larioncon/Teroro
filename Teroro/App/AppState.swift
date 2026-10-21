@@ -32,7 +32,7 @@ struct AlertData: Identifiable {
 extension AppState {
     func showErrorAlert(_ message: String) {
         DispatchQueue.main.async {
-            self.alertData = AlertData(title: "common_error", message: message)
+            self.alertData = AlertData(title: "common.error", message: message)
         }
     }
 

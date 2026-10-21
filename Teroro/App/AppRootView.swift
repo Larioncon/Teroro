@@ -38,7 +38,7 @@ struct AppRootView: View {
             Alert(
                 title: Text(data.title),
                 message: Text(data.message),
-                dismissButton: .default(Text("common_ok"))
+                dismissButton: .default(Text("common.ok"))
             )
         }
         .onChange(of: authVM.isLoggedIn) { isLoggedIn in
@@ -122,13 +122,13 @@ private struct SessionContainerView: View {
                     }
                 }
                 .tabItem {
-                    Label(languageManager.localizedString(forKey: "tab_terms"), systemImage: "calendar")
+                    Label(languageManager.localizedString(forKey: "terms.title"), systemImage: "calendar")
                 }
                 .tag(AppRouter.Tab.terms)
 
                 TermsMapView(viewModel: mapVM, terms: homeVM.terms, isLoading: homeVM.isLoading)
                     .tabItem {
-                        Label(languageManager.localizedString(forKey: "tab_map"), systemImage: "map")
+                        Label(languageManager.localizedString(forKey: "tab.map"), systemImage: "map")
                     }
                     .tag(AppRouter.Tab.map)
 
@@ -136,7 +136,7 @@ private struct SessionContainerView: View {
                     PomodoroView(viewModel: pomodoroVM)
                 }
                 .tabItem {
-                    Label(languageManager.localizedString(forKey: "tab_timer"), systemImage: "timer")
+                    Label(languageManager.localizedString(forKey: "tab.timer"), systemImage: "timer")
                 }
                 .tag(AppRouter.Tab.timer)
 
@@ -165,7 +165,7 @@ private struct SessionContainerView: View {
                     }
                 }
                 .tabItem {
-                    Label(languageManager.localizedString(forKey: "tab_profile"), systemImage: "person.crop.circle")
+                    Label(languageManager.localizedString(forKey: "profile.title"), systemImage: "person.crop.circle")
                 }
                 .tag(AppRouter.Tab.profile)
             }

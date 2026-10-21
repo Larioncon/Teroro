@@ -41,20 +41,20 @@ struct LanguagesView: View {
                 }
             } header: {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text(languageManager.localizedString(forKey: "language_header_description"))
+                    Text(languageManager.localizedString(forKey: "language.header.description"))
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .textCase(.none)
                         .padding(.top, 4)
 
-                    Text(languageManager.localizedString(forKey: "language_section_interface"))
+                    Text(languageManager.localizedString(forKey: "language.section.interface"))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
             }
         }
         .listStyle(.insetGrouped)
-        .navigationTitle(languageManager.localizedString(forKey: "language_title"))
+        .navigationTitle(languageManager.localizedString(forKey: "language.title"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .tabBar)
     }

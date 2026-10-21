@@ -11,21 +11,21 @@ struct ChangePasswordSheetView: View {
         NavigationStack {
             Form {
                 Section {
-                    SecureField("Поточний пароль", text: $currentPassword)
-                    SecureField("Новий пароль", text: $newPassword)
-                    SecureField("Підтвердіть новий пароль", text: $confirmPassword)
+                    SecureField("security.current.pwd", text: $currentPassword)
+                    SecureField("security.new.pwd", text: $newPassword)
+                    SecureField("security.confirm.new.pwd", text: $confirmPassword)
                 } footer: {
-                    Text("Пароль повинен містити щонайменше 8 символів, велику та малу літери, а також цифру.")
+                    Text("security.password.requirements")
                 }
             }
-            .navigationTitle("Зміна паролю")
+            .navigationTitle("security.change.pwd.title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("common_cancel") { dismiss() }
+                    Button("common.cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("common_save") {
+                    Button("common.save") {
                         Task {
                             let success = await viewModel.changePassword(
                                 newPassword: newPassword,

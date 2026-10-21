@@ -29,7 +29,7 @@ struct LocationPickerView: View {
                     Image(systemName: "mappin.slash")
                         .font(.system(size: 40))
                         .foregroundStyle(.secondary)
-                    Text(languageManager.localizedString(forKey: "map_nothing_found"))
+                    Text(languageManager.localizedString(forKey: "map.nothing.found"))
                         .font(.headline)
                         .foregroundStyle(.secondary)
                     Spacer()
@@ -47,7 +47,7 @@ struct LocationPickerView: View {
                     }
                     
                     VStack(spacing: 4) {
-                        Text(loc.title ?? languageManager.localizedString(forKey: "map_location_on_map"))
+                        Text(loc.title ?? languageManager.localizedString(forKey: "map.location.on.map"))
                             .font(.title3.weight(.bold))
                             .multilineTextAlignment(.center)
                         if let address = loc.address {
@@ -67,7 +67,7 @@ struct LocationPickerView: View {
             }
 
             PrimaryButton(
-                title: Text("map_select_this_location"),
+                title: Text("map.select.this.location"),
                 style: .primaryWhiteText,
                 action: {
                     if let loc = vm.finalLocation {
@@ -82,7 +82,7 @@ struct LocationPickerView: View {
             .padding(.bottom, 30)
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle(languageManager.localizedString(forKey: "map_search_title"))
+        .navigationTitle(languageManager.localizedString(forKey: "map.search.title"))
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showMapPicker) {
             MapLocationPickerView { selectedLoc in

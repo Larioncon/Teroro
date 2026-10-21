@@ -296,6 +296,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				uk,
+				ru,
+				de,
 				Base,
 			);
 			mainGroup = 119A0EB82F60767000E71F4D;
@@ -590,9 +593,9 @@
 				INFOPLIST_FILE = Teroro/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Timexo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Застосунок використовує камеру, щоб ви могли зробити фото профілю.";
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "Застосунок використовує Face ID для захисту вашого акаунта та даних.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Застосунок використовує галерею, щоб ви могли обрати фото профілю.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Timexo uses the camera so you can take a profile photo.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Timexo uses Face ID to protect your account and data.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Timexo uses your photo library so you can choose a profile photo.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to analyze app performance and usage trends. This helps us provide a more personalized experience, improve app stability, and deliver content that is most relevant to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -639,9 +642,9 @@
 				INFOPLIST_FILE = Teroro/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Timexo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Застосунок використовує камеру, щоб ви могли зробити фото профілю.";
-				INFOPLIST_KEY_NSFaceIDUsageDescription = "Застосунок використовує Face ID для захисту вашого акаунта та даних.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Застосунок використовує галерею, щоб ви могли обрати фото профілю.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Timexo uses the camera so you can take a profile photo.";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Timexo uses Face ID to protect your account and data.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Timexo uses your photo library so you can choose a profile photo.";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Your data will be used to analyze app performance and usage trends. This helps us provide a more personalized experience, improve app stability, and deliver content that is most relevant to you.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

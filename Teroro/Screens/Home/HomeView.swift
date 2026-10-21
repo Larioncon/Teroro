@@ -36,7 +36,7 @@ struct HomeView: View {
                 TermsList(
                     viewModel: viewModel,
                     terms: displayedUpcoming,
-                    emptyText: languageManager.localizedString(forKey: "home_no_upcoming_terms"),
+                    emptyText: languageManager.localizedString(forKey: "home.no.upcoming.terms"),
                     isLoading: viewModel.isLoading,
                     onDeleteTerm: onDeleteTerm
                 )
@@ -49,7 +49,7 @@ struct HomeView: View {
                 TermsList(
                     viewModel: viewModel,
                     terms: displayedPast,
-                    emptyText: languageManager.localizedString(forKey: "home_no_past_terms"),
+                    emptyText: languageManager.localizedString(forKey: "home.no.past.terms"),
                     isLoading: viewModel.isLoading,
                     onDeleteTerm: onDeleteTerm
                 )
@@ -81,7 +81,7 @@ struct HomeView: View {
         }
         .toolbar(isOverlayVisible ? .hidden : .visible, for: .tabBar)
         .background(Color(uiColor: .systemGroupedBackground))
-        .navigationTitle(languageManager.localizedString(forKey: "home_terms"))
+        .navigationTitle(languageManager.localizedString(forKey: "terms.title"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.clear, for: .navigationBar)
         .toolbar {
@@ -102,13 +102,13 @@ struct HomeView: View {
                     )
                 }
                 .disabled(isPastToggleDisabled || isOverlayVisible)
-                .accessibilityLabel(isShowingPastTerms ? languageManager.localizedString(forKey: "home_current_terms_accessibility") : languageManager.localizedString(forKey: "home_past_terms"))
+                .accessibilityLabel(isShowingPastTerms ? languageManager.localizedString(forKey: "home.current.terms.accessibility") : languageManager.localizedString(forKey: "home.past.terms"))
 
                 Button(action: onAddTerm) {
                     Image(systemName: "plus")
                 }
                 .disabled(isOverlayVisible)
-                .accessibilityLabel(languageManager.localizedString(forKey: "home_add_term"))
+                .accessibilityLabel(languageManager.localizedString(forKey: "home.add.term"))
             }
         }
         .onAppear {
@@ -146,12 +146,12 @@ private struct AnimatedNavTitle: View {
 
     var body: some View {
         ZStack {
-            title(text: languageManager.localizedString(forKey: "home_terms"), isVisible: !isShowingPastTerms)
-            title(text: languageManager.localizedString(forKey: "home_past_terms"), isVisible: isShowingPastTerms)
+            title(text: languageManager.localizedString(forKey: "terms.title"), isVisible: !isShowingPastTerms)
+            title(text: languageManager.localizedString(forKey: "home.past.terms"), isVisible: isShowingPastTerms)
         }
         // Keep the title width stable to avoid "jumping" when the text changes.
         .fixedSize(horizontal: true, vertical: false)
-        .accessibilityLabel(isShowingPastTerms ? languageManager.localizedString(forKey: "home_past_terms") : languageManager.localizedString(forKey: "home_terms"))
+        .accessibilityLabel(isShowingPastTerms ? languageManager.localizedString(forKey: "home.past.terms") : languageManager.localizedString(forKey: "terms.title"))
     }
 
     private func title(text: String, isVisible: Bool) -> some View {
@@ -208,7 +208,7 @@ private struct TermsList: View {
                                 Button(role: .destructive) {
                                     onDeleteTerm(term)
                                 } label: {
-                                    Label(languageManager.localizedString(forKey: "common_delete"), systemImage: "trash")
+                                    Label(languageManager.localizedString(forKey: "common.delete"), systemImage: "trash")
                                 }
                             }
                     }

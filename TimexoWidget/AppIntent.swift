@@ -10,10 +10,10 @@ import AppIntents
 
 @available(iOS 17.0, *)
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "Configuration" }
-    static var description: IntentDescription { "This is an example widget." }
+    static var title: LocalizedStringResource { "widget.configuration.title" }
+    static var description: IntentDescription { "widget.description.example" }
 
     // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
+    @Parameter(title: "widget.configuration.favorite.emoji", default: "😃")
     var favoriteEmoji: String
 }

@@ -22,7 +22,7 @@ struct AuthScreen: View {
 
                         VStack(spacing: 12) {
                             AuthTextField(
-                                title: "Email",
+                                title: "form.email.placeholder",
                                 text: $viewModel.email,
                                 keyboardType: .emailAddress,
                                 contentType: .emailAddress,
@@ -32,7 +32,7 @@ struct AuthScreen: View {
                             .focused($focusedField, equals: .email)
 
                             AuthTextField(
-                                title: "Password",
+                                title: "security.password.placeholder",
                                 text: $viewModel.password,
                                 isSecure: true,
                                 contentType: .password,
@@ -46,7 +46,7 @@ struct AuthScreen: View {
 
                             if viewModel.mode == .signUp {
                                 AuthTextField(
-                                    title: "Confirm password",
+                                    title: "auth.password.confirm.label",
                                     text: $viewModel.confirmPassword,
                                     isSecure: true,
                                     contentType: .newPassword,
@@ -62,7 +62,7 @@ struct AuthScreen: View {
                         }
                         .animation(.easeInOut(duration: 0.25), value: viewModel.mode)
                         if viewModel.mode == .signIn {
-                            Button("Forgot password?") {
+                            Button("auth.password.reset.action") {
                                 viewModel.resetPassword()
                             }
                             .font(.subheadline.weight(.semibold))
@@ -97,7 +97,7 @@ struct AuthScreen: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .keyboard) {
                         Spacer()
-                        Button("Готово") { focusedField = nil }
+                        Button("common.done") { focusedField = nil }
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
@@ -124,14 +124,14 @@ struct AuthScreen: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(viewModel.mode == .signUp ? "Create account" : "Welcome back")
+            Text(viewModel.mode == .signUp ? "auth.account.create.title" : "auth.welcome.back.title")
                 .font(.system(size: 30, weight: .bold))
                 .foregroundStyle(.primary)
                 .transition(.opacity.combined(with: .move(edge: .trailing)))
 
             Text(viewModel.mode == .signUp
-                 ? "Create an account to start using Timexo."
-                 : "Sign in to continue.")
+                 ? "auth.account.create.description"
+                 : "auth.signin.description")
             .font(.subheadline)
             .foregroundStyle(.secondary)
         }
@@ -165,7 +165,7 @@ struct AuthScreen: View {
                 Rectangle()
                     .fill(Color.secondary.opacity(0.25))
                     .frame(height: 1)
-                Text("або")
+                Text("auth.signin.divider.or")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.secondary)
                 Rectangle()
@@ -173,14 +173,14 @@ struct AuthScreen: View {
                     .frame(height: 1)
             }
 
-            PrimaryButton(title: Text("Continue with Apple"), style: .siwa, frameHeight: 52) {
+            PrimaryButton(title: Text("auth.signin.apple.button"), style: .siwa, frameHeight: 52) {
                 focusedField = nil
                 viewModel.signInWithApple()
             }
             .disabled(viewModel.isLoading)
             .opacity(viewModel.isLoading ? 0.7 : 1)
 
-            PrimaryButton(title: Text("Continue with Google"), style: .siwg, frameHeight: 52) {
+            PrimaryButton(title: Text("auth.signin.google.button"), style: .siwg, frameHeight: 52) {
                 focusedField = nil
                 viewModel.signInWithGoogle(presenting: presentingViewController)
             }

@@ -29,7 +29,7 @@ struct TermsMapView: View {
                 ZStack(alignment: .trailing) {
                     if viewModel.isHintVisible(for: .location) {
                         SpeechBubbleView(
-                            languageManager.localizedString(forKey: "map_hint_location"),
+                            languageManager.localizedString(forKey: "map.hint.location"),
                             icon: "location.fill",
                             direction: .right,
                             backgroundColor: .blue,
@@ -53,7 +53,7 @@ struct TermsMapView: View {
                 ZStack(alignment: .trailing) {
                     if viewModel.isHintVisible(for: .standard) {
                         SpeechBubbleView(
-                            languageManager.localizedString(forKey: "map_hint_standard"),
+                            languageManager.localizedString(forKey: "map.hint.standard"),
                             icon: "map.fill",
                             direction: .right,
                             backgroundColor: .purple,
@@ -77,7 +77,7 @@ struct TermsMapView: View {
                 ZStack(alignment: .trailing) {
                     if viewModel.isHintVisible(for: .hybrid) {
                         SpeechBubbleView(
-                            languageManager.localizedString(forKey: "map_hint_hybrid"),
+                            languageManager.localizedString(forKey: "map.hint.hybrid"),
                             icon: "globe.americas.fill",
                             direction: .right,
                             backgroundColor: .orange,
@@ -135,19 +135,19 @@ struct TermsMapView: View {
                     switch viewModel.cardState(for: terms, isLoading: isLoading) {
                     case .loading:
                         EmptyStateCard(
-                            title: languageManager.localizedString(forKey: "map_loading_terms_title"),
-                            subtitle: languageManager.localizedString(forKey: "map_loading_terms_subtitle")
+                            title: languageManager.localizedString(forKey: "map.loading.terms.title"),
+                            subtitle: languageManager.localizedString(forKey: "map.loading.terms.subtitle")
                         )
                         .redacted(reason: .placeholder)
                     case .emptyUpcomingTerms:
                         EmptyStateCard(
-                            title: languageManager.localizedString(forKey: "map_empty_terms_title"),
-                            subtitle: languageManager.localizedString(forKey: "map_empty_terms_subtitle")
+                            title: languageManager.localizedString(forKey: "map.empty.terms.title"),
+                            subtitle: languageManager.localizedString(forKey: "map.empty.terms.subtitle")
                         )
                     case .emptyLocations:
                         EmptyStateCard(
-                            title: languageManager.localizedString(forKey: "map_empty_locations_title"),
-                            subtitle: languageManager.localizedString(forKey: "map_empty_locations_subtitle")
+                            title: languageManager.localizedString(forKey: "map.empty.locations.title"),
+                            subtitle: languageManager.localizedString(forKey: "map.empty.locations.subtitle")
                         )
                     case .hint:
                         HintCard()

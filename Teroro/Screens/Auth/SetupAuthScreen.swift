@@ -23,11 +23,11 @@ struct SetupAuthScreen: View {
                         .buttonStyle(.plain)
 
                         VStack(spacing: 6) {
-                            Text(languageManager.localizedString(forKey: "setup_auth_title"))
+                            Text(languageManager.localizedString(forKey: "auth.setup.title"))
                                 .font(.title2.weight(.bold))
                                 .multilineTextAlignment(.center)
 
-                            Text(languageManager.localizedString(forKey: "setup_auth_subtitle"))
+                            Text(languageManager.localizedString(forKey: "auth.setup.subtitle"))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.center)
@@ -35,12 +35,12 @@ struct SetupAuthScreen: View {
                     }
 
                     VStack(alignment: .leading, spacing: 12) {
-                        Text(languageManager.localizedString(forKey: "setup_auth_name_label"))
+                        Text(languageManager.localizedString(forKey: "profile.name.label"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.secondary)
 
                         AuthTextField(
-                            title: "setup_auth_name_placeholder",
+                            title: "auth.setup.name.placeholder",
                             text: $viewModel.name,
                             contentType: .name,
                             textInputAutocapitalization: .words,
@@ -50,7 +50,7 @@ struct SetupAuthScreen: View {
                     }
 
                     VStack(spacing: 16) {
-                        Text(languageManager.localizedString(forKey: "setup_auth_photo_section"))
+                        Text(languageManager.localizedString(forKey: "auth.setup.photo.section"))
                             .font(.headline)
 
                         HStack(spacing: 22) {
@@ -71,7 +71,7 @@ struct SetupAuthScreen: View {
                     }
 
                     PrimaryButton(
-                        title: Text(LocalizedStringKey(viewModel.isLoading ? "common_saving" : "setup_auth_finish")),
+                        title: Text(LocalizedStringKey(viewModel.isLoading ? "common.saving" : "auth.setup.finish")),
                         style: .primaryWhiteText,
                         action: viewModel.saveProfile
                     )
@@ -101,12 +101,12 @@ struct SetupAuthScreen: View {
             }
             .ignoresSafeArea()
         }
-        .alert(languageManager.localizedString(forKey: "common_error"), isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common.error"), isPresented: Binding(get: {
             viewModel.alertMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.alertMessage = nil }
         }), actions: {
-            Button("common_ok") { viewModel.alertMessage = nil }
+            Button("common.ok") { viewModel.alertMessage = nil }
         }, message: {
             Text(viewModel.alertMessage ?? "")
         })
@@ -117,14 +117,14 @@ struct SetupAuthScreen: View {
         Button {
             isCameraShowing = true
         } label: {
-            Label(languageManager.localizedString(forKey: "photo_take_photo"), systemImage: "camera.fill")
+            Label(languageManager.localizedString(forKey: "photo.take.photo"), systemImage: "camera.fill")
         }
         .disabled(!UIImagePickerController.isSourceTypeAvailable(.camera))
 
         Button {
             isPhotoPickerShowing = true
         } label: {
-            Label(languageManager.localizedString(forKey: "photo_choose_from_gallery"), systemImage: "photo.on.rectangle.angled")
+            Label(languageManager.localizedString(forKey: "photo.choose.from.gallery"), systemImage: "photo.on.rectangle.angled")
         }
     }
 
@@ -148,7 +148,7 @@ struct SetupAuthScreen: View {
         .background(Circle().fill(.thinMaterial))
         .overlay(Circle().strokeBorder(Color.secondary.opacity(0.2), lineWidth: 1))
         .contentShape(Circle())
-        .accessibilityLabel(languageManager.localizedString(forKey: "photo_change_profile_photo"))
+        .accessibilityLabel(languageManager.localizedString(forKey: "photo.change.profile.photo"))
     }
 
     private func loadSelectedPhoto(_ item: PhotosPickerItem?) {
@@ -160,7 +160,7 @@ struct SetupAuthScreen: View {
                     let data = try await item.loadTransferable(type: Data.self),
                     let image = UIImage(data: data)
                 else {
-                    viewModel.alertMessage = languageManager.localizedString(forKey: "photo_read_error")
+                    viewModel.alertMessage = languageManager.localizedString(forKey: "photo.read.error")
                     return
                 }
                 viewModel.selectImage(image)

@@ -254,7 +254,7 @@ private struct NoTermView: View {
             HStack(spacing: 8) {
                 IconBadge(compact: isCompact)
 
-                Text("widget.add_term")
+                Text("widget.add.term")
                     .font(.headline.bold())
                     .foregroundStyle(.primary)
                     .lineLimit(1)
@@ -265,7 +265,7 @@ private struct NoTermView: View {
             CreateButton(compact: isCompact)
 
             // Подсказка
-            Text("widget.tap_to_open")
+            Text("widget.tap.to.open")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -357,7 +357,7 @@ private struct TermHeader: View {
             Image(systemName: "mappin.circle.fill")
                 .font(compact ? .caption2 : .caption)
                 .foregroundStyle(.red)
-            Text(LocalizedStringKey(compact ? "widget.next" : "widget.next_term"))
+            Text(LocalizedStringKey(compact ? "widget.next" : "widget.next.term"))
                 .font(compact
                       ? .caption2.weight(.semibold)
                       : .caption.weight(.semibold))

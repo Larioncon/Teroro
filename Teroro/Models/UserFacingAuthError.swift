@@ -161,37 +161,37 @@ enum UserFacingAuthError: LocalizedError, Equatable {
         switch self {
         case .invalidEmail:
             return Self.l(
-                "auth.error.invalid_email",
+                "auth.error.invalid.email",
                 defaultValue: "Перевірте адресу електронної пошти та спробуйте ще раз.",
                 comment: "Shown when user enters an invalid email address."
             )
         case .wrongPassword:
             return Self.l(
-                "auth.error.wrong_password",
+                "auth.error.wrong.password",
                 defaultValue: "Невірний пароль. Спробуйте ще раз або відновіть пароль.",
                 comment: "Shown when password is incorrect."
             )
         case .userNotFound:
             return Self.l(
-                "auth.error.user_not_found",
+                "auth.error.user.not.found",
                 defaultValue: "Ми не знайшли акаунт з цією електронною поштою.",
                 comment: "Shown when no user exists for given email."
             )
         case .emailAlreadyInUse:
             return Self.l(
-                "auth.error.email_in_use",
+                "auth.error.email.in.use",
                 defaultValue: "Ця електронна пошта вже використовується. Увійдіть або відновіть пароль.",
                 comment: "Shown when trying to sign up with an email that already exists."
             )
         case .weakPassword:
             return Self.l(
-                "auth.error.weak_password",
+                "auth.error.weak.password",
                 defaultValue: "Пароль занадто простий. Спробуйте зробити його складнішим.",
                 comment: "Shown when password doesn't meet Firebase minimum strength."
             )
         case .userDisabled:
             return Self.l(
-                "auth.error.user_disabled",
+                "auth.error.user.disabled",
                 defaultValue: "Цей акаунт вимкнено. Зверніться до підтримки.",
                 comment: "Shown when user account is disabled."
             )
@@ -203,61 +203,61 @@ enum UserFacingAuthError: LocalizedError, Equatable {
             )
         case .tooManyRequests:
             return Self.l(
-                "auth.error.too_many_requests",
+                "auth.error.too.many.requests",
                 defaultValue: "Забагато спроб. Зачекайте трохи та повторіть.",
                 comment: "Shown when Firebase throttles requests due to too many attempts."
             )
         case .operationNotAllowed:
             return Self.l(
-                "auth.error.operation_not_allowed",
+                "auth.error.operation.not.allowed",
                 defaultValue: "Цей спосіб входу наразі недоступний. Спробуйте інший метод.",
                 comment: "Shown when sign-in method is not enabled in Firebase console."
             )
         case .requiresRecentLogin:
             return Self.l(
-                "auth.error.requires_recent_login",
+                "auth.error.requires.recent.login",
                 defaultValue: "Для цієї дії потрібно повторно увійти в акаунт.",
                 comment: "Shown when Firebase requires a recent login for sensitive actions."
             )
         case .invalidCredentials:
             return Self.l(
-                "auth.error.invalid_credentials",
+                "auth.error.invalid.credentials",
                 defaultValue: "Невірні дані для входу. Перевірте email та пароль.",
                 comment: "Shown on invalid credentials (email/password or provider credential)."
             )
         case .verificationCodeInvalidOrMissing:
             return Self.l(
-                "auth.error.verification_code_invalid",
+                "auth.error.verification.code.invalid",
                 defaultValue: "Невірний код підтвердження. Спробуйте ще раз.",
                 comment: "Shown when verification code is invalid or missing."
             )
         case .verificationExpired:
             return Self.l(
-                "auth.error.verification_expired",
+                "auth.error.verification.expired",
                 defaultValue: "Код підтвердження прострочений. Запросіть новий код.",
                 comment: "Shown when verification session/code is expired."
             )
         case .accountExistsWithDifferentCredential:
             return Self.l(
-                "auth.error.account_exists_different_credential",
+                "auth.error.account.exists.different.credential",
                 defaultValue: "Ця електронна пошта вже привʼязана до іншого способу входу. Спробуйте увійти іншим методом.",
                 comment: "Shown when account exists with different provider credential."
             )
         case .credentialAlreadyInUse:
             return Self.l(
-                "auth.error.credential_already_in_use",
+                "auth.error.credential.already.in.use",
                 defaultValue: "Ці дані входу вже використовуються іншим акаунтом.",
                 comment: "Shown when a credential is already linked to another user."
             )
         case .providerAlreadyLinked:
             return Self.l(
-                "auth.error.provider_already_linked",
+                "auth.error.provider.already.linked",
                 defaultValue: "Цей спосіб входу вже привʼязаний до вашого акаунта.",
                 comment: "Shown when provider is already linked."
             )
         case .sessionInvalid:
             return Self.l(
-                "auth.error.session_invalid",
+                "auth.error.session.invalid",
                 defaultValue: "Сесію завершено. Увійдіть знову.",
                 comment: "Shown when user token is invalid/expired."
             )

@@ -78,12 +78,12 @@ struct MapLocationPickerView: View {
                             HStack(spacing: 8) {
                                 ProgressView()
                                     .scaleEffect(0.8)
-                                Text(LanguageManager.shared.localizedString(forKey: "map_determining_address"))
+                                Text(LanguageManager.shared.localizedString(forKey: "map.determining.address"))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
                         } else {
-                            Text(vm.title.isEmpty ? LanguageManager.shared.localizedString(forKey: "map_location_on_map") : vm.title)
+                            Text(vm.title.isEmpty ? LanguageManager.shared.localizedString(forKey: "map.location.on.map") : vm.title)
                                 .font(.headline)
                                 .lineLimit(1)
                                 .multilineTextAlignment(.center)
@@ -102,13 +102,13 @@ struct MapLocationPickerView: View {
                     .padding(.horizontal, 12)
 
                     PrimaryButton(
-                        title: Text("common_confirm"),
+                        title: Text("common.confirm"),
                         style: .primaryWhiteText,
                         action: {
                             let selectedLoc = TermLocation(
                                 latitude: vm.region.center.latitude,
                                 longitude: vm.region.center.longitude,
-                                title: vm.title.isEmpty ? LanguageManager.shared.localizedString(forKey: "map_pin_on_map") : vm.title,
+                                title: vm.title.isEmpty ? LanguageManager.shared.localizedString(forKey: "map.pin.on.map") : vm.title,
                                 address: vm.address
                             )
                             onSelect(selectedLoc)

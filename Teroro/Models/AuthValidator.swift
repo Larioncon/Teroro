@@ -26,26 +26,26 @@ enum ValidationError: LocalizedError, Equatable {
     private var localizedDescriptionOnMainActor: String {
         switch self {
         case .emptyEmail:
-            return LanguageManager.shared.localizedString(forKey: "validation_empty_email")
+            return LanguageManager.shared.localizedString(forKey: "validation.empty.email")
         case .invalidEmailFormat:
-            return LanguageManager.shared.localizedString(forKey: "validation_invalid_email_format")
+            return LanguageManager.shared.localizedString(forKey: "validation.invalid.email.format")
         case .emptyPassword:
-            return LanguageManager.shared.localizedString(forKey: "validation_empty_password")
+            return LanguageManager.shared.localizedString(forKey: "validation.empty.password")
         case .passwordTooShort(let min):
-            let format = LanguageManager.shared.localizedString(forKey: "validation_password_too_short")
+            let format = LanguageManager.shared.localizedString(forKey: "validation.password.too.short")
             return String(format: format, min)
         case .passwordMissingUppercase:
-            return LanguageManager.shared.localizedString(forKey: "validation_password_missing_uppercase")
+            return LanguageManager.shared.localizedString(forKey: "validation.password.missing.uppercase")
         case .passwordMissingLowercase:
-            return LanguageManager.shared.localizedString(forKey: "validation_password_missing_lowercase")
+            return LanguageManager.shared.localizedString(forKey: "validation.password.missing.lowercase")
         case .passwordMissingDigit:
-            return LanguageManager.shared.localizedString(forKey: "validation_password_missing_digit")
+            return LanguageManager.shared.localizedString(forKey: "validation.password.missing.digit")
         case .emptyConfirmPassword:
-            return LanguageManager.shared.localizedString(forKey: "validation_empty_confirm_password")
+            return LanguageManager.shared.localizedString(forKey: "validation.empty.confirm.password")
         case .passwordsDoNotMatch:
-            return LanguageManager.shared.localizedString(forKey: "validation_passwords_do_not_match")
+            return LanguageManager.shared.localizedString(forKey: "validation.passwords.do.not.match")
         case .emptyCurrentPassword:
-            return LanguageManager.shared.localizedString(forKey: "validation_empty_current_password")
+            return LanguageManager.shared.localizedString(forKey: "validation.empty.current.password")
         case .custom(let message):
             return message
         }
@@ -54,26 +54,26 @@ enum ValidationError: LocalizedError, Equatable {
     private var fallbackDescription: String {
         switch self {
         case .emptyEmail:
-            return LanguageManager.resolveString(forKey: "validation_empty_email", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.empty.email", languageCode: LanguageManager.storedLanguageCode)
         case .invalidEmailFormat:
-            return LanguageManager.resolveString(forKey: "validation_invalid_email_format", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.invalid.email.format", languageCode: LanguageManager.storedLanguageCode)
         case .emptyPassword:
-            return LanguageManager.resolveString(forKey: "validation_empty_password", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.empty.password", languageCode: LanguageManager.storedLanguageCode)
         case .passwordTooShort(let min):
-            let format = LanguageManager.resolveString(forKey: "validation_password_too_short", languageCode: LanguageManager.storedLanguageCode)
+            let format = LanguageManager.resolveString(forKey: "validation.password.too.short", languageCode: LanguageManager.storedLanguageCode)
             return String(format: format, min)
         case .passwordMissingUppercase:
-            return LanguageManager.resolveString(forKey: "validation_password_missing_uppercase", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.password.missing.uppercase", languageCode: LanguageManager.storedLanguageCode)
         case .passwordMissingLowercase:
-            return LanguageManager.resolveString(forKey: "validation_password_missing_lowercase", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.password.missing.lowercase", languageCode: LanguageManager.storedLanguageCode)
         case .passwordMissingDigit:
-            return LanguageManager.resolveString(forKey: "validation_password_missing_digit", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.password.missing.digit", languageCode: LanguageManager.storedLanguageCode)
         case .emptyConfirmPassword:
-            return LanguageManager.resolveString(forKey: "validation_empty_confirm_password", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.empty.confirm.password", languageCode: LanguageManager.storedLanguageCode)
         case .passwordsDoNotMatch:
-            return LanguageManager.resolveString(forKey: "validation_passwords_do_not_match", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.passwords.do.not.match", languageCode: LanguageManager.storedLanguageCode)
         case .emptyCurrentPassword:
-            return LanguageManager.resolveString(forKey: "validation_empty_current_password", languageCode: LanguageManager.storedLanguageCode)
+            return LanguageManager.resolveString(forKey: "validation.empty.current.password", languageCode: LanguageManager.storedLanguageCode)
         case .custom(let message):
             return message
         }

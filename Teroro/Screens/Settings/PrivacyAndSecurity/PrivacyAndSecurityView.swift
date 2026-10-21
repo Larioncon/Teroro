@@ -13,13 +13,13 @@ struct PrivacyAndSecurityView: View {
                 } label: {
                     HStack {
                         Label {
-                            Text(languageManager.localizedString(forKey: "security_passcode"))
+                            Text(languageManager.localizedString(forKey: "security.passcode"))
                         } icon: {
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(.blue)
                         }
                         Spacer()
-                        Text(languageManager.localizedString(forKey: viewModel.isPasscodeEnabled ? "security_enabled" : "security_disabled"))
+                        Text(languageManager.localizedString(forKey: viewModel.isPasscodeEnabled ? "security.enabled" : "security.disabled"))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         Image(systemName: "chevron.forward")
@@ -35,7 +35,7 @@ struct PrivacyAndSecurityView: View {
                     } label: {
                         HStack {
                             Label {
-                                Text(languageManager.localizedString(forKey: "security_change_password"))
+                                Text(languageManager.localizedString(forKey: "security.change.password"))
                             } icon: {
                                 Image(systemName: "key.fill")
                                     .foregroundStyle(.blue)
@@ -54,14 +54,14 @@ struct PrivacyAndSecurityView: View {
                 } label: {
                     HStack {
                         Label {
-                            Text(languageManager.localizedString(forKey: "security_change_email"))
+                            Text(languageManager.localizedString(forKey: "security.change.email"))
                         } icon: {
                             Image(systemName: "envelope.fill")
                                 .foregroundStyle(.blue)
                         }
                         Spacer()
                         if !viewModel.hasPassword {
-                            Text(languageManager.localizedString(forKey: "security_add_email"))
+                            Text(languageManager.localizedString(forKey: "security.add.email"))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -74,7 +74,7 @@ struct PrivacyAndSecurityView: View {
                 .disabled(!viewModel.hasPassword)
             }
 
-            Section(languageManager.localizedString(forKey: "security_signin_methods")) {
+            Section(languageManager.localizedString(forKey: "security.signin.methods")) {
                 SignInProviderRow(
                     title: "Apple",
                     systemImage: "apple.logo",
@@ -112,7 +112,7 @@ struct PrivacyAndSecurityView: View {
                     Button {
                         viewModel.initiateDeleteAccount()
                     } label: {
-                        Text(languageManager.localizedString(forKey: "security_delete_account"))
+                        Text(languageManager.localizedString(forKey: "security.delete.account"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.red)
                             .padding(.horizontal, 18)
@@ -131,7 +131,7 @@ struct PrivacyAndSecurityView: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .navigationTitle(languageManager.localizedString(forKey: "settings_privacy_and_security"))
+        .navigationTitle(languageManager.localizedString(forKey: "settings.privacy.and.security"))
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $viewModel.isAddEmailPasswordSheetPresented) {
             AddEmailPasswordSheetView(viewModel: viewModel)
@@ -158,8 +158,8 @@ struct PrivacyAndSecurityView: View {
                 withAnimation {
                     toasts.insert(
                         Toast(
-                            title: languageManager.localizedString(forKey: "security_disable_passcode_toast_title"),
-                            message: languageManager.localizedString(forKey: "security_disable_passcode_toast_message"),
+                            title: languageManager.localizedString(forKey: "security.disable.passcode.toast.title"),
+                            message: languageManager.localizedString(forKey: "security.disable.passcode.toast.message"),
                             symbol: "exclamationmark.shield.fill",
                             tint: .orange,
                             timing: .long
@@ -171,21 +171,21 @@ struct PrivacyAndSecurityView: View {
             }
         }
         .toasts($toasts)
-        .alert(languageManager.localizedString(forKey: "common_error"), isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common.error"), isPresented: Binding(get: {
             viewModel.securityAlertMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.securityAlertMessage = nil }
         }), actions: {
-            Button("common_ok") { viewModel.securityAlertMessage = nil }
+            Button("common.ok") { viewModel.securityAlertMessage = nil }
         }, message: {
             Text(viewModel.securityAlertMessage ?? "")
         })
-        .alert(languageManager.localizedString(forKey: "common_success"), isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common.success"), isPresented: Binding(get: {
             viewModel.securitySuccessMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.securitySuccessMessage = nil }
         }), actions: {
-            Button("common_ok") { viewModel.securitySuccessMessage = nil }
+            Button("common.ok") { viewModel.securitySuccessMessage = nil }
         }, message: {
             Text(viewModel.securitySuccessMessage ?? "")
         })
@@ -211,11 +211,11 @@ private struct SignInProviderRow: View {
             Spacer()
 
             if isLinked {
-                Text(LanguageManager.shared.localizedString(forKey: "security_connected"))
+                Text(LanguageManager.shared.localizedString(forKey: "security.connected"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                Button(LanguageManager.shared.localizedString(forKey: "security_connect"), action: action)
+                Button(LanguageManager.shared.localizedString(forKey: "security.connect"), action: action)
                     .disabled(isProcessing)
             }
         }

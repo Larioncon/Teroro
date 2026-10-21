@@ -23,14 +23,14 @@ struct SettingsView: View {
                         Button {
                             isCameraShowing = true
                         } label: {
-                            Label(languageManager.localizedString(forKey: "settings_take_photo"), systemImage: "camera.fill")
+                            Label(languageManager.localizedString(forKey: "settings.take.photo"), systemImage: "camera.fill")
                         }
                         .disabled(!UIImagePickerController.isSourceTypeAvailable(.camera))
 
                         Button {
                             isPhotoPickerShowing = true
                         } label: {
-                            Label(languageManager.localizedString(forKey: "settings_choose_gallery"), systemImage: "photo.on.rectangle.angled")
+                            Label(languageManager.localizedString(forKey: "settings.choose.gallery"), systemImage: "photo.on.rectangle.angled")
                         }
                     } label: {
                         ZStack {
@@ -48,7 +48,7 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         if viewModel.isEditingName {
                             HStack(spacing: 6) {
-                                TextField(languageManager.localizedString(forKey: "settings_name_placeholder"), text: $viewModel.editedName)
+                                TextField(languageManager.localizedString(forKey: "profile.name.label"), text: $viewModel.editedName)
                                     .font(.headline)
                                     .textFieldStyle(.plain)
                                     .frame(height: 22)
@@ -94,11 +94,11 @@ struct SettingsView: View {
                                 Button {
                                     viewModel.startEditingName()
                                 } label: {
-                                    Label(languageManager.localizedString(forKey: "settings_edit"), systemImage: "pencil")
+                                    Label(languageManager.localizedString(forKey: "common.edit"), systemImage: "pencil")
                                 }
                             } label: {
                                 AutoScrollText(
-                                    text: viewModel.currentUser?.name ?? languageManager.localizedString(forKey: "settings_profile"),
+                                    text: viewModel.currentUser?.name ?? languageManager.localizedString(forKey: "profile.title"),
                                     font: .preferredFont(forTextStyle: .headline),
                                     textColor: .label
                                 )
@@ -108,7 +108,7 @@ struct SettingsView: View {
                                 Button {
                                     viewModel.startEditingName()
                                 } label: {
-                                    Label(languageManager.localizedString(forKey: "settings_edit"), systemImage: "pencil")
+                                    Label(languageManager.localizedString(forKey: "common.edit"), systemImage: "pencil")
                                 }
                             }
                         }
@@ -133,7 +133,7 @@ struct SettingsView: View {
                         onShowPaywall()
                     } label: {
                         HStack {
-                            Label("Timexo Premium", systemImage: "star.fill")
+                            Label("subscription.premium.title", systemImage: "star.fill")
                             Spacer()
                             Image(systemName: "chevron.forward")
                                 .font(.footnote.bold())
@@ -148,7 +148,7 @@ struct SettingsView: View {
                     viewModel.openSystemSettings()
                 } label: {
                     HStack {
-                        Label(languageManager.localizedString(forKey: "settings_notifications"), systemImage: "bell.fill")
+                        Label(languageManager.localizedString(forKey: "settings.notifications"), systemImage: "bell.fill")
                         Spacer()
                         NotificationPermissionStatusIcon(
                             showingEnabled: viewModel.isNotificationStatusIconShowingEnabled,
@@ -161,7 +161,7 @@ struct SettingsView: View {
                     onShowLanguages()
                 } label: {
                     HStack {
-                        Label(languageManager.localizedString(forKey: "settings_language"), systemImage: "globe")
+                        Label(languageManager.localizedString(forKey: "language.title"), systemImage: "globe")
                         Spacer()
                         Text(languageManager.currentLanguage.nativeName)
                             .font(.subheadline)
@@ -176,7 +176,7 @@ struct SettingsView: View {
                     onShowAppearance()
                 } label: {
                     HStack {
-                        Label(languageManager.localizedString(forKey: "settings_appearance"), systemImage: "circle.lefthalf.filled")
+                        Label(languageManager.localizedString(forKey: "settings.appearance"), systemImage: "circle.lefthalf.filled")
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .font(.footnote.bold())
@@ -188,7 +188,7 @@ struct SettingsView: View {
                     onShowPrivacyAndSecurity()
                 } label: {
                     HStack {
-                        Label(languageManager.localizedString(forKey: "settings_privacy_and_security"), systemImage: "lock.shield.fill")
+                        Label(languageManager.localizedString(forKey: "settings.privacy.and.security"), systemImage: "lock.shield.fill")
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .font(.footnote.bold())
@@ -201,29 +201,29 @@ struct SettingsView: View {
                 Button {
                     viewModel.openFeedback()
                 } label: {
-                    Label(languageManager.localizedString(forKey: "settings_feedback"), systemImage: "envelope.fill")
+                    Label(languageManager.localizedString(forKey: "settings.feedback"), systemImage: "envelope.fill")
                 }
 
                 if let appStoreURL = viewModel.appStoreURL {
                     ShareLink(item: appStoreURL) {
-                        Label(languageManager.localizedString(forKey: "settings_share"), systemImage: "square.and.arrow.up")
+                        Label(languageManager.localizedString(forKey: "settings.share"), systemImage: "square.and.arrow.up")
                     }
                 } else {
-                    Label(languageManager.localizedString(forKey: "settings_share"), systemImage: "square.and.arrow.up")
+                    Label(languageManager.localizedString(forKey: "settings.share"), systemImage: "square.and.arrow.up")
                         .foregroundStyle(.secondary)
                 }
 
                 Button {
                     viewModel.openTermsOfUse()
                 } label: {
-                    Label(languageManager.localizedString(forKey: "settings_terms_of_use"), systemImage: "doc.text")
+                    Label(languageManager.localizedString(forKey: "settings.terms.of.use"), systemImage: "doc.text")
                 }
                 .disabled(viewModel.termsURL == nil)
 
                 Button {
                     viewModel.openPrivacyPolicy()
                 } label: {
-                    Label(languageManager.localizedString(forKey: "settings_privacy_policy"), systemImage: "hand.raised.fill")
+                    Label(languageManager.localizedString(forKey: "settings.privacy.policy"), systemImage: "hand.raised.fill")
                 }
                 .disabled(viewModel.privacyURL == nil)
             }
@@ -234,7 +234,7 @@ struct SettingsView: View {
                     Button {
                         viewModel.signOut()
                     } label: {
-                        Text(languageManager.localizedString(forKey: "settings_sign_out"))
+                        Text(languageManager.localizedString(forKey: "settings.sign.out"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.red)
                             .padding(.horizontal, 18)
@@ -252,7 +252,7 @@ struct SettingsView: View {
                 .listRowBackground(Color.clear)
             }
         }
-        .navigationTitle(languageManager.localizedString(forKey: "settings_title"))
+        .navigationTitle(languageManager.localizedString(forKey: "settings.title"))
         .background {
             MinimalBackButtonConfigurator()
                 .frame(width: 0, height: 0)
@@ -276,12 +276,12 @@ struct SettingsView: View {
             }
             .ignoresSafeArea()
         }
-        .alert(languageManager.localizedString(forKey: "common_error"), isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common.error"), isPresented: Binding(get: {
             viewModel.signOutErrorMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.signOutErrorMessage = nil }
         }), actions: {
-            Button(languageManager.localizedString(forKey: "common_ok")) { viewModel.signOutErrorMessage = nil }
+            Button(languageManager.localizedString(forKey: "common.ok")) { viewModel.signOutErrorMessage = nil }
         }, message: {
             Text(viewModel.signOutErrorMessage ?? "")
         })
@@ -314,7 +314,7 @@ private struct PremiumStatusPill: View {
     let isPremium: Bool
 
     var body: some View {
-        Text(isPremium ? "Pro Mode" : "Non Pro")
+        Text(isPremium ? "settings.subscription.pro.status" : "settings.subscription.free.status")
             .font(.caption.weight(.semibold))
             .foregroundStyle(isPremium ? .green : .secondary)
             .padding(.horizontal, 10)

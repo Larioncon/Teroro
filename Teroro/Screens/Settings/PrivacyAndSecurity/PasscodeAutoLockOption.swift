@@ -23,15 +23,15 @@ enum PasscodeAutoLockOption: Double, CaseIterable, Hashable, Identifiable {
     var localizedTitle: String {
         switch self {
         case .always:
-            LanguageManager.shared.localizedString(forKey: "security_autolock_always")
+            LanguageManager.shared.localizedString(forKey: "security.autolock.always")
         case .oneMinute:
-            LanguageManager.shared.localizedString(forKey: "security_autolock_1min")
+            LanguageManager.shared.localizedString(forKey: "security.autolock.1min")
         case .fiveMinutes:
-            LanguageManager.shared.localizedString(forKey: "security_autolock_5min")
+            LanguageManager.shared.localizedString(forKey: "security.autolock.5min")
         case .oneHour:
-            LanguageManager.shared.localizedString(forKey: "security_autolock_1hour")
+            LanguageManager.shared.localizedString(forKey: "security.autolock.1hour")
         case .fiveHours:
-            LanguageManager.shared.localizedString(forKey: "security_autolock_5hours")
+            LanguageManager.shared.localizedString(forKey: "security.autolock.5hours")
         }
     }
 

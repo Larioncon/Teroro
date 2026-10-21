@@ -12,16 +12,16 @@ struct ChangeEmailSheetView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Новий email", text: $newEmail)
+                    TextField("security.email.new.placeholder", text: $newEmail)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         .disabled(isCodeSent)
 
-                    SecureField("Поточний пароль", text: $currentPassword)
+                    SecureField("security.current.pwd", text: $currentPassword)
                         .disabled(isCodeSent)
                 } header: {
-                    Text("Новий email")
+                    Text("security.email.new.placeholder")
                 } footer: {
                     if isCodeSent {
                         Text("Поточний email: \(viewModel.currentUser?.email ?? "—"). Введіть код з листа Firebase, який прийшов на новий email. Якщо лист містить посилання, використайте значення параметра oobCode.")
@@ -31,21 +31,21 @@ struct ChangeEmailSheetView: View {
                 }
 
                 if isCodeSent {
-                    Section("Підтвердження") {
-                        TextField("Код підтвердження", text: $verificationCode)
+                    Section("security.confirmation.section") {
+                        TextField("security.email.verification.code.field", text: $verificationCode)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
                     }
                 }
             }
-            .navigationTitle("Зміна Email")
+            .navigationTitle("security.change.email.title")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("common_cancel") { dismiss() }
+                    Button("common.cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(isCodeSent ? "common_confirm" : "Надіслати") {
+                    Button(isCodeSent ? "common.confirm" : "security.send") {
                         Task { await handleConfirmationAction() }
                     }
                     .disabled(isConfirmationDisabled)

@@ -5,6 +5,11 @@ struct PasscodeDotsView: View {
     let totalCount: Int
     let color: Color
 
+    private var accessibilityDescription: String {
+        let format = LanguageManager.shared.localizedString(forKey: "passcode.digits.entered")
+        return String(format: format, locale: LanguageManager.shared.locale, arguments: [filledCount, totalCount])
+    }
+
     var body: some View {
         HStack(spacing: 28) {
             ForEach(0..<totalCount, id: \.self) { index in
@@ -17,6 +22,6 @@ struct PasscodeDotsView: View {
                     .frame(width: 14, height: 14)
             }
         }
-        .accessibilityLabel("\(filledCount) з \(totalCount) цифр введено")
+        .accessibilityLabel(accessibilityDescription)
     }
 }

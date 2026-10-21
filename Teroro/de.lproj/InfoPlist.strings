@@ -1,0 +1,5 @@
+"NSLocationWhenInUseUsageDescription" = "Erlaube Timexo, deinen aktuellen Standort auf der Karte anzuzeigen.";
+"NSCameraUsageDescription" = "Timexo verwendet die Kamera, damit du ein Profilfoto aufnehmen kannst.";
+"NSPhotoLibraryUsageDescription" = "Timexo greift auf deine Fotomediathek zu, damit du ein Profilfoto auswählen kannst.";
+"NSFaceIDUsageDescription" = "Timexo verwendet Face ID, um deinen Account und deine Daten zu schützen.";
+"NSUserTrackingUsageDescription" = "Deine Daten werden verwendet, um die App-Leistung und Nutzungstrends zu analysieren. So können wir dein Nutzungserlebnis personalisieren, die Stabilität der App verbessern und passendere Inhalte anzeigen.";

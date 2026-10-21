@@ -78,7 +78,7 @@
 	<key>YEARLY_TRIAL_PRODUCT_ID</key>
 	<string>$(YEARLY_TRIAL_PRODUCT_ID)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Дозвіл потрібен для відображення вашої поточної геопозиції на карті.</string>
+	<string>Allow Timexo to show your current location on the map.</string>
 </dict>
 
 </plist>

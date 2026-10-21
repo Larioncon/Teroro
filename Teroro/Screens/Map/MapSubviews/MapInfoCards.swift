@@ -10,9 +10,9 @@ struct HintCard: View {
                 .foregroundStyle(.blue)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text(languageManager.localizedString(forKey: "map_terms_map_card_title"))
+                Text(languageManager.localizedString(forKey: "map.terms.map.card.title"))
                     .font(.headline)
-                Text(languageManager.localizedString(forKey: "map_terms_map_card_subtitle"))
+                Text(languageManager.localizedString(forKey: "map.terms.map.card.subtitle"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }

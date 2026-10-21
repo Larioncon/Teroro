@@ -18,7 +18,7 @@ struct PastTermsView: View {
         List {
             Section {
                 if terms.isEmpty && !viewModel.isLoading {
-                    Text(languageManager.localizedString(forKey: "home_no_past_terms"))
+                    Text(languageManager.localizedString(forKey: "home.no.past.terms"))
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(terms) { term in
@@ -45,7 +45,7 @@ struct PastTermsView: View {
                             Button(role: .destructive) {
                                 onDeleteTerm(term)
                             } label: {
-                                Label(languageManager.localizedString(forKey: "common_delete"), systemImage: "trash")
+                                Label(languageManager.localizedString(forKey: "common.delete"), systemImage: "trash")
                             }
                         }
                     }
@@ -53,7 +53,7 @@ struct PastTermsView: View {
             }
         }
         .listStyle(.insetGrouped)
-        .navigationTitle(languageManager.localizedString(forKey: "home_past_terms"))
+        .navigationTitle(languageManager.localizedString(forKey: "home.past.terms"))
     }
 }
 

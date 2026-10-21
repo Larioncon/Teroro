@@ -26,7 +26,7 @@ struct PomodoroView: View {
                     .buttonStyle(.plain)
                     .disabled(viewModel.isRunning)
 
-                    Text(viewModel.mode == .focus ? languageManager.localizedString(forKey: "timer_focus_time") : languageManager.localizedString(forKey: "timer_relax"))
+                    Text(viewModel.mode == .focus ? languageManager.localizedString(forKey: "timer.focus.time") : languageManager.localizedString(forKey: "timer.relax"))
                         .font(.system(size: 14, weight: .black))
                         .kerning(2)
                         .foregroundStyle(viewModel.mode == .focus ? Color.secondary : Color.green)
@@ -40,7 +40,7 @@ struct PomodoroView: View {
                         }) {
                             HStack(spacing: 4) {
                                 Image(systemName: "bell.slash.fill")
-                                Text(languageManager.localizedString(forKey: "timer_notifications_disabled"))
+                                Text(languageManager.localizedString(forKey: "timer.notifications.disabled"))
                             }
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(.red)
@@ -103,7 +103,7 @@ struct PomodoroView: View {
                 // Action Buttons
                 HStack(spacing: 30) {
                     PomodoroButton(
-                        title: viewModel.isRunning ? languageManager.localizedString(forKey: "timer_pause") : languageManager.localizedString(forKey: "timer_start"),
+                        title: viewModel.isRunning ? languageManager.localizedString(forKey: "timer.pause") : languageManager.localizedString(forKey: "timer.start"),
                         icon: viewModel.isRunning ? "pause.fill" : "play.fill",
                         color: .primary
                     ) {
@@ -111,7 +111,7 @@ struct PomodoroView: View {
                     }
 
                     PomodoroButton(
-                        title: viewModel.mode == .focus ? languageManager.localizedString(forKey: "timer_stop") : languageManager.localizedString(forKey: "timer_finish"),
+                        title: viewModel.mode == .focus ? languageManager.localizedString(forKey: "timer.stop") : languageManager.localizedString(forKey: "timer.finish"),
                         icon: "stop.fill",
                         color: .primary
                     ) {
@@ -139,7 +139,7 @@ struct PomodoroView: View {
 
                 // Card Content
                 VStack(spacing: 30) {
-                    Text(languageManager.localizedString(forKey: "timer_duration"))
+                    Text(languageManager.localizedString(forKey: "timer.duration"))
                         .font(.headline)
                         .foregroundStyle(.primary)
 
@@ -150,7 +150,7 @@ struct PomodoroView: View {
                             isShowingPicker = false
                         }
                     }) {
-                        Text(languageManager.localizedString(forKey: "timer_done"))
+                        Text(languageManager.localizedString(forKey: "common.done"))
                             .font(.headline)
                             .foregroundStyle(.white)
                             .padding(.horizontal, 40)
@@ -169,7 +169,7 @@ struct PomodoroView: View {
             if viewModel.showHint && isHintRevealed {
                 VStack {
                     SpeechBubbleView(
-                        languageManager.localizedString(forKey: "timer_hint_change_duration"),
+                        languageManager.localizedString(forKey: "timer.hint.change.duration"),
                         icon: "lightbulb.fill",
                         direction: .top,
                         backgroundColor: .cyan,

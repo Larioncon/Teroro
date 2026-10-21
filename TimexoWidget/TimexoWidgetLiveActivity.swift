@@ -50,10 +50,10 @@ struct TimexoWidgetLiveActivity: Widget {
                     // more content
                 }
             } compactLeading: {
-                Text("L")
+                Text("widget.activity.leading.short")
                     .environment(\.locale, WidgetAppLocale.current)
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text("widget.activity.trailing.short \(context.state.emoji)")
                     .environment(\.locale, WidgetAppLocale.current)
             } minimal: {
                 Text(context.state.emoji)

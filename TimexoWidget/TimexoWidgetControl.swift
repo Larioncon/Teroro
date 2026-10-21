@@ -19,7 +19,7 @@ struct TimexoWidgetControl: ControlWidget {
             provider: Provider()
         ) { value in
             ControlWidgetToggle(
-                LocalizedStringResource("widget.control.start_timer", locale: WidgetAppLocale.current),
+                LocalizedStringResource("widget.control.start.timer", locale: WidgetAppLocale.current),
                 isOn: value.isRunning,
                 action: StartTimerIntent(value.name)
             ) { isRunning in
@@ -57,10 +57,10 @@ extension TimexoWidgetControl {
 
 @available(iOS 18.0, *)
 struct TimerConfiguration: ControlConfigurationIntent {
-    static let title = LocalizedStringResource("widget.control.timer_configuration", locale: WidgetAppLocale.current)
+    static let title = LocalizedStringResource("widget.control.timer.configuration", locale: WidgetAppLocale.current)
 
     @Parameter(
-        title: LocalizedStringResource("widget.control.timer_name", locale: WidgetAppLocale.current),
+        title: LocalizedStringResource("widget.control.timer.name", locale: WidgetAppLocale.current),
         default: "Timer"
     )
     var timerName: String
@@ -68,12 +68,12 @@ struct TimerConfiguration: ControlConfigurationIntent {
 
 @available(iOS 18.0, *)
 struct StartTimerIntent: SetValueIntent {
-    static let title = LocalizedStringResource("widget.control.start_timer", locale: WidgetAppLocale.current)
+    static let title = LocalizedStringResource("widget.control.start.timer", locale: WidgetAppLocale.current)
 
-    @Parameter(title: LocalizedStringResource("widget.control.timer_name", locale: WidgetAppLocale.current))
+    @Parameter(title: LocalizedStringResource("widget.control.timer.name", locale: WidgetAppLocale.current))
     var name: String
 
-    @Parameter(title: LocalizedStringResource("widget.control.is_running", locale: WidgetAppLocale.current))
+    @Parameter(title: LocalizedStringResource("widget.control.is.running", locale: WidgetAppLocale.current))
     var value: Bool
 
     init() {}
