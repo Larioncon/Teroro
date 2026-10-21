@@ -116,7 +116,7 @@ struct DeleteAccountSheetView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Скасувати") { dismiss() }
+                    Button("common_cancel") { dismiss() }
                         .disabled(viewModel.isSecurityProcessing)
                 }
             }

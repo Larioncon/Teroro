@@ -71,7 +71,7 @@ struct AuthScreen: View {
                         }
 
                         PrimaryButton(
-                            title: viewModel.primaryButtonTitle,
+                            title: Text(viewModel.primaryButtonTitle),
                             style: .primaryWhiteText,
                             frameHeight: 54
                         ) {
@@ -153,7 +153,7 @@ struct AuthScreen: View {
                     .foregroundStyle(.blue)
                     .underline(true, color: .blue)
             }
-            .accessibilityLabel(viewModel.toggleActionTitle)
+            .accessibilityLabel(Text(viewModel.toggleActionTitle))
 
             Spacer(minLength: 0)
         }
@@ -173,14 +173,14 @@ struct AuthScreen: View {
                     .frame(height: 1)
             }
 
-            PrimaryButton(title: "Continue with Apple", style: .siwa, frameHeight: 52) {
+            PrimaryButton(title: Text("Continue with Apple"), style: .siwa, frameHeight: 52) {
                 focusedField = nil
                 viewModel.signInWithApple()
             }
             .disabled(viewModel.isLoading)
             .opacity(viewModel.isLoading ? 0.7 : 1)
 
-            PrimaryButton(title: "Continue with Google", style: .siwg, frameHeight: 52) {
+            PrimaryButton(title: Text("Continue with Google"), style: .siwg, frameHeight: 52) {
                 focusedField = nil
                 viewModel.signInWithGoogle(presenting: presentingViewController)
             }

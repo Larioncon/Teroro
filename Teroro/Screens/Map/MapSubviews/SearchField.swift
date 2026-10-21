@@ -2,6 +2,7 @@ import SwiftUI
 import MapKit
 
 struct SearchField: View {
+    @ObservedObject private var languageManager = LanguageManager.shared
     @Binding var text: String
     let suggestions: [MKLocalSearchCompletion]
     let onSelect: (MKLocalSearchCompletion) -> Void
@@ -12,7 +13,7 @@ struct SearchField: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 ZStack(alignment: .leading) {
-                    TextField("Місто або адреса", text: $text)
+                    TextField(LanguageManager.shared.localizedString(forKey: "map_search_placeholder"), text: $text)
                         .focused($isFocused)
                         .padding(.leading, 40)
                         .padding(.trailing, 14)

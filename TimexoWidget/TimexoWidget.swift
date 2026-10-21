@@ -55,10 +55,11 @@ struct TimexoWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: NextTermProvider()) { entry in
             NextTermWidgetView(entry: entry)
+                .environment(\.locale, WidgetAppLocale.current)
                 .applyWidgetBackground()
         }
-        .configurationDisplayName("Наступний термін")
-        .description("Показує найближчий запланований термін.")
+        .configurationDisplayName(LocalizedStringResource("widget.next_term", locale: WidgetAppLocale.current))
+        .description(LocalizedStringResource("widget.description", locale: WidgetAppLocale.current))
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
@@ -69,11 +70,21 @@ struct TimexoHorizontalWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: NextTermProvider()) { entry in
             NextTermHorizontalWidgetView(entry: entry)
+                .environment(\.locale, WidgetAppLocale.current)
                 .applyWidgetBackground()
         }
-        .configurationDisplayName("Наступний термін")
-        .description("Показує найближчий термін та мапу поруч у дві колонки.")
+        .configurationDisplayName(LocalizedStringResource("widget.next_term", locale: WidgetAppLocale.current))
+        .description(LocalizedStringResource("widget.horizontal_description", locale: WidgetAppLocale.current))
         .supportedFamilies([.systemMedium])
+    }
+}
+
+enum WidgetAppLocale {
+    static var current: Locale {
+        let code = UserDefaults(suiteName: "group.com.OleksaChmil.Timora")?.string(forKey: "app_language")
+            ?? Locale.preferredLanguages.first
+            ?? "en"
+        return Locale(identifier: code)
     }
 }
 

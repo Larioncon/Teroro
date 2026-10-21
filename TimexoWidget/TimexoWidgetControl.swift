@@ -19,15 +19,20 @@ struct TimexoWidgetControl: ControlWidget {
             provider: Provider()
         ) { value in
             ControlWidgetToggle(
-                "Start Timer",
+                LocalizedStringResource("widget.control.start_timer", locale: WidgetAppLocale.current),
                 isOn: value.isRunning,
                 action: StartTimerIntent(value.name)
             ) { isRunning in
-                Label(isRunning ? "On" : "Off", systemImage: "timer")
+                Label {
+                    Text(isRunning ? "widget.control.on" : "widget.control.off")
+                } icon: {
+                    Image(systemName: "timer")
+                }
+                .environment(\.locale, WidgetAppLocale.current)
             }
         }
-        .displayName("Timer")
-        .description("A an example control that runs a timer.")
+        .displayName(LocalizedStringResource("widget.control.timer", locale: WidgetAppLocale.current))
+        .description(LocalizedStringResource("widget.control.description", locale: WidgetAppLocale.current))
     }
 }
 
@@ -52,20 +57,23 @@ extension TimexoWidgetControl {
 
 @available(iOS 18.0, *)
 struct TimerConfiguration: ControlConfigurationIntent {
-    static let title: LocalizedStringResource = "Timer Name Configuration"
+    static let title = LocalizedStringResource("widget.control.timer_configuration", locale: WidgetAppLocale.current)
 
-    @Parameter(title: "Timer Name", default: "Timer")
+    @Parameter(
+        title: LocalizedStringResource("widget.control.timer_name", locale: WidgetAppLocale.current),
+        default: "Timer"
+    )
     var timerName: String
 }
 
 @available(iOS 18.0, *)
 struct StartTimerIntent: SetValueIntent {
-    static let title: LocalizedStringResource = "Start a timer"
+    static let title = LocalizedStringResource("widget.control.start_timer", locale: WidgetAppLocale.current)
 
-    @Parameter(title: "Timer Name")
+    @Parameter(title: LocalizedStringResource("widget.control.timer_name", locale: WidgetAppLocale.current))
     var name: String
 
-    @Parameter(title: "Timer is running")
+    @Parameter(title: LocalizedStringResource("widget.control.is_running", locale: WidgetAppLocale.current))
     var value: Bool
 
     init() {}

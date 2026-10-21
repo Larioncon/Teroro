@@ -8,6 +8,7 @@ struct SplashRootView: View {
     @StateObject private var onboardingVM = OnboardingFlowVM()
     @StateObject private var onboardingRouter = AppRouter()
     @StateObject private var subscriptionService = SubscriptionService.shared
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var hideMainUntilSplashCompletes = true
     @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
 
@@ -44,6 +45,7 @@ struct SplashRootView: View {
             .opacity(onboardingRouter.path.count > 0 ? 1 : 0)
             .allowsHitTesting(onboardingRouter.path.count > 0)
         }
+        .environment(\.locale, languageManager.locale)
         .preferredColorScheme(preferredColorScheme)
         .task {
             async let splashDelay: Void = Task.sleepIgnoringCancellation(nanoseconds: 3_000_000_000)

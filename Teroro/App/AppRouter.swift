@@ -85,5 +85,6 @@ enum AppRoute: Hashable {
     case settings
     case appearance
     case privacyAndSecurity
+    case languages
     case pw
 }

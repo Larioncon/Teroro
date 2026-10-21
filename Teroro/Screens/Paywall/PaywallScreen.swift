@@ -7,6 +7,7 @@ struct PaywallScreen: View {
     @Environment(\.openURL) private var openURL
 
     @StateObject private var subscriptionService = SubscriptionService.shared
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var selectedPeriod: SubscriptionPlanPeriod = .week
     @State private var isTrialEnabled = false
 
@@ -27,79 +28,12 @@ struct PaywallScreen: View {
             )
             .ignoresSafeArea()
 
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 18) {
-                    topBar
-
-                    Image(systemName: "calendar.badge.clock")
-                        .font(.system(size: 54, weight: .semibold))
-                        .foregroundStyle(Color.primaryColor)
-                        .frame(width: 116, height: 116)
-                        .background(.ultraThinMaterial, in: Circle())
-                        .overlay(Circle().strokeBorder(Color.primaryColor.opacity(0.25), lineWidth: 1))
-
-                    VStack(spacing: 8) {
-                        Text("Unlock Pro")
-                            .font(.system(size: 32, weight: .bold))
-
-                        Text("Keep terms, reminders and focus tools fully available.")
-                            .font(.subheadline.weight(.medium))
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 18)
-                    }
-
-                    VStack(spacing: 10) {
-                        ForEach(SubscriptionPlanPeriod.allCases) { period in
-                            PlanOptionView(
-                                period: period,
-                                price: subscriptionService.localizedPrice(for: period.productID(isTrialEnabled: isTrialEnabled)),
-                                isTrialEnabled: isTrialEnabled,
-                                isSelected: selectedPeriod == period
-                            ) {
-                                withAnimation(.spring(response: 0.28, dampingFraction: 0.82)) {
-                                    selectedPeriod = period
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 4)
-
-                    TrialToggleView(isTrialEnabled: $isTrialEnabled)
-
-                    VStack(spacing: 12) {
-                        Button {
-                            Task {
-                                let didPurchase = await subscriptionService.purchase(productID: selectedProductID)
-                                if didPurchase {
-                                    close()
-                                }
-                            }
-                        } label: {
-                            HStack(spacing: 10) {
-                                if subscriptionService.isPurchasing {
-                                    ProgressView()
-                                        .tint(.white)
-                                }
-
-                                Text(subscriptionService.isPurchasing ? "Processing..." : "Continue")
-                                    .font(.headline)
-                            }
-                            .foregroundStyle(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 54)
-                            .background(subscriptionService.isPurchasing ? Color.secondary.opacity(0.35) : Color.primaryColor, in: Capsule())
-                        }
-                        .buttonStyle(.plain)
-                        .disabled(subscriptionService.isPurchasing)
-
-                        footerLinks
-                    }
-                    .padding(.top, 8)
+            if isSmallScreen {
+                ScrollView(showsIndicators: false) {
+                    paywallContent
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, adaptivePaddingTop)
-                .padding(.bottom, 24)
+            } else {
+                paywallContent
             }
         }
         .applyLegacyNavigation()
@@ -107,19 +41,97 @@ struct PaywallScreen: View {
         .task {
             await subscriptionService.bootstrap()
         }
-        .alert("Error", isPresented: Binding(get: {
+        .alert("common_error", isPresented: Binding(get: {
             subscriptionService.errorMessage != nil
         }, set: { newValue in
             if !newValue {
                 subscriptionService.clearError()
             }
         }), actions: {
-            Button("OK") {
+            Button("common_ok") {
                 subscriptionService.clearError()
             }
         }, message: {
             Text(subscriptionService.errorMessage ?? "")
         })
+    }
+
+    private var paywallContent: some View {
+        VStack(spacing: 18) {
+            topBar
+
+            Spacer()
+            
+            Image(systemName: "calendar.badge.clock")
+                .font(.system(size: 54, weight: .semibold))
+                .foregroundStyle(Color.primaryColor)
+                .frame(width: 116, height: 116)
+                .background(.ultraThinMaterial, in: Circle())
+                .overlay(Circle().strokeBorder(Color.primaryColor.opacity(0.25), lineWidth: 1))
+//                .padding(.top, isSmallScreen ? 0 : 100)
+
+            VStack(spacing: 8) {
+                Text(languageManager.localizedString(forKey: "paywall_unlock_pro"))
+                    .font(.system(size: 32, weight: .bold))
+
+                Text(languageManager.localizedString(forKey: "paywall_subtitle"))
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 18)
+            }
+
+            VStack(spacing: 10) {
+                ForEach(SubscriptionPlanPeriod.allCases) { period in
+                    PlanOptionView(
+                        period: period,
+                        price: subscriptionService.localizedPrice(for: period.productID(isTrialEnabled: isTrialEnabled)),
+                        isTrialEnabled: isTrialEnabled,
+                        isSelected: selectedPeriod == period
+                    ) {
+                        withAnimation(.spring(response: 0.28, dampingFraction: 0.82)) {
+                            selectedPeriod = period
+                        }
+                    }
+                }
+            }
+            .padding(.top, 4)
+
+            TrialToggleView(isTrialEnabled: $isTrialEnabled)
+
+            VStack(spacing: 12) {
+                Button {
+                    Task {
+                        let didPurchase = await subscriptionService.purchase(productID: selectedProductID)
+                        if didPurchase {
+                            close()
+                        }
+                    }
+                } label: {
+                    HStack(spacing: 10) {
+                        if subscriptionService.isPurchasing {
+                            ProgressView()
+                                .tint(.white)
+                        }
+
+                        Text(subscriptionService.isPurchasing ? languageManager.localizedString(forKey: "paywall_processing") : languageManager.localizedString(forKey: "paywall_continue"))
+                            .font(.headline)
+                    }
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 54)
+                    .background(subscriptionService.isPurchasing ? Color.secondary.opacity(0.35) : Color.primaryColor, in: Capsule())
+                }
+                .buttonStyle(.plain)
+                .disabled(subscriptionService.isPurchasing)
+
+                footerLinks
+            }
+            .padding(.top, 8)
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, adaptivePaddingTopPW)
+        .padding(.bottom, 4)
     }
 
     @ViewBuilder
@@ -136,7 +148,7 @@ struct PaywallScreen: View {
                         .background(.ultraThinMaterial, in: Circle())
                 }
                 .buttonStyle(.plain)
-                .accessibilityLabel("Close")
+                .accessibilityLabel(languageManager.localizedString(forKey: "paywall_close"))
 
                 Spacer()
             }
@@ -211,10 +223,10 @@ private struct PlanOptionView: View {
         Button(action: action) {
             HStack(spacing: 14) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(period.title)
+                    Text(period.localizedTitle)
                         .font(.title3.weight(.bold))
 
-                    Text(isTrialEnabled ? "Get 3 Days Free Trial" : period.productTitle)
+                    Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall_get_free_trial") : period.localizedProductTitle)
                         .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.secondary)
                 }
@@ -252,9 +264,9 @@ private struct TrialToggleView: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 3) {
-                Text("Free Trial \(isTrialEnabled ? "Enabled" : "Disabled")")
+                Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall_free_trial_enabled") : LanguageManager.shared.localizedString(forKey: "paywall_free_trial_disabled"))
                     .font(.headline)
-                Text(isTrialEnabled ? "Plans include 3 days free trial." : "Plans start without trial.")
+                Text(isTrialEnabled ? LanguageManager.shared.localizedString(forKey: "paywall_trial_includes_desc") : LanguageManager.shared.localizedString(forKey: "paywall_trial_starts_without_desc"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

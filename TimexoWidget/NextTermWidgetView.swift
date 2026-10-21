@@ -64,6 +64,7 @@ struct NextTermHorizontalWidgetView: View {
 
 private struct SmallTermView: View {
     let term: WidgetTermDTO
+    @Environment(\.locale) private var locale
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -86,7 +87,7 @@ private struct SmallTermView: View {
                     .lineLimit(2)
             }
 
-            Text(formattedDate(term.date))
+            Text(formattedDate(term.date, locale: locale))
                 .font(.caption.weight(.medium))
                 .foregroundStyle(.secondary)
         }
@@ -101,6 +102,7 @@ private struct MediumTermView: View {
     let term: WidgetTermDTO
     let lightMapImage: UIImage?
     let darkMapImage: UIImage?
+    @Environment(\.locale) private var locale
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -133,7 +135,7 @@ private struct MediumTermView: View {
                              .lineLimit(1)
                      }
 
-                     Text(formattedDate(term.date))
+                     Text(formattedDate(term.date, locale: locale))
                          .font(.caption)
                          .foregroundStyle(.secondary)
                  }
@@ -182,6 +184,7 @@ private struct MediumHorizontalTermView: View {
     let term: WidgetTermDTO
     let lightMapImage: UIImage?
     let darkMapImage: UIImage?
+    @Environment(\.locale) private var locale
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -215,7 +218,7 @@ private struct MediumHorizontalTermView: View {
                             .lineLimit(2)
                     }
 
-                    Text(formattedDate(term.date))
+                    Text(formattedDate(term.date, locale: locale))
                         .font(.caption.weight(.medium))
                         .foregroundStyle(.secondary)
                 }
@@ -251,7 +254,7 @@ private struct NoTermView: View {
             HStack(spacing: 8) {
                 IconBadge(compact: isCompact)
 
-                Text("Додати термін")
+                Text("widget.add_term")
                     .font(.headline.bold())
                     .foregroundStyle(.primary)
                     .lineLimit(1)
@@ -262,7 +265,7 @@ private struct NoTermView: View {
             CreateButton(compact: isCompact)
 
             // Подсказка
-            Text("Натисніть для переходу в застосунок.")
+            Text("widget.tap_to_open")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -329,7 +332,7 @@ private struct CreateButton: View {
             Image(systemName: "plus")
                 .font(.system(size: compact ? 13 : 15, weight: .semibold))
                 .foregroundStyle(.primary)
-            Text("Створити")
+            Text("widget.create")
                 .font(compact
                        ? .caption2.weight(.semibold)
                        : .caption.weight(.semibold))
@@ -354,7 +357,7 @@ private struct TermHeader: View {
             Image(systemName: "mappin.circle.fill")
                 .font(compact ? .caption2 : .caption)
                 .foregroundStyle(.red)
-            Text(compact ? "Наступний" : "Наступний термін")
+            Text(LocalizedStringKey(compact ? "widget.next" : "widget.next_term"))
                 .font(compact
                       ? .caption2.weight(.semibold)
                       : .caption.weight(.semibold))
@@ -365,18 +368,22 @@ private struct TermHeader: View {
 
 // MARK: - Date formatting
 
-private func formattedDate(_ date: Date) -> String {
+private func formattedDate(_ date: Date, locale: Locale) -> String {
     let cal = Calendar.current
     let timeFmt = DateFormatter()
-    timeFmt.locale     = .current
+    timeFmt.locale     = locale
     timeFmt.dateFormat = "HH:mm"
     let time = timeFmt.string(from: date)
 
-    if cal.isDateInToday(date)    { return "Сьогодні, \(time)" }
-    if cal.isDateInTomorrow(date) { return "Завтра, \(time)" }
+    if cal.isDateInToday(date) {
+        return String(localized: "widget.today", locale: locale) + ", \(time)"
+    }
+    if cal.isDateInTomorrow(date) {
+        return String(localized: "widget.tomorrow", locale: locale) + ", \(time)"
+    }
 
     let dateFmt = DateFormatter()
-    dateFmt.locale     = .current
+    dateFmt.locale     = locale
     dateFmt.dateFormat = "d MMM"
     return "\(dateFmt.string(from: date)), \(time)"
 }

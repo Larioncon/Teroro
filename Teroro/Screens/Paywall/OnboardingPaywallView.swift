@@ -72,7 +72,7 @@ struct OnboardingPaywallView: View {
                                     .tint(.white)
                             }
                             
-                            Text(subscriptionService.isPurchasing ? "Processing..." : "Get Started")
+                            Text(subscriptionService.isPurchasing ? "paywall_processing" : "Get Started")
                                 .font(.headline)
                         }
                         .foregroundStyle(.black)
@@ -99,14 +99,14 @@ struct OnboardingPaywallView: View {
         .task {
             await subscriptionService.bootstrap()
         }
-        .alert("Error", isPresented: Binding(get: {
+        .alert("common_error", isPresented: Binding(get: {
             subscriptionService.errorMessage != nil
         }, set: { newValue in
             if !newValue {
                 subscriptionService.clearError()
             }
         }), actions: {
-            Button("OK") {
+            Button("common_ok") {
                 subscriptionService.clearError()
             }
         }, message: {

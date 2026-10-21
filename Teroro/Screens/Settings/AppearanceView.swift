@@ -3,6 +3,7 @@ import UIKit
 
 struct AppearanceView: View {
     @ObservedObject var viewModel: SettingsVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var selectedAppIconName: String?
     @State private var supportsAlternateIcons = false
     @State private var appIconErrorMessage: String?
@@ -13,7 +14,7 @@ struct AppearanceView: View {
     var body: some View {
         List {
             Section {
-                Picker("Режим", selection: Binding(get: {
+                Picker(languageManager.localizedString(forKey: "Вид"), selection: Binding(get: {
                     viewModel.appearance
                 }, set: { newValue in
                     viewModel.appearance = newValue
@@ -49,25 +50,25 @@ struct AppearanceView: View {
                     .disabled(!supportsAlternateIcons || isChangingAppIcon || selectedAppIconName == icon.iconName)
                 }
             } header: {
-                Text("Іконка застосунку")
+                Text(languageManager.localizedString(forKey: "appearance_app_icon"))
             } footer: {
                 if !supportsAlternateIcons {
-                    Text("Зміна іконки недоступна на цьому пристрої.")
+                    Text(languageManager.localizedString(forKey: "appearance_icon_not_supported"))
                 }
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .navigationTitle("Вид")
+        .navigationTitle(languageManager.localizedString(forKey: "settings_appearance"))
         .onAppear {
             selectedAppIconName = UIApplication.shared.alternateIconName
             supportsAlternateIcons = UIApplication.shared.supportsAlternateIcons
         }
-        .alert("Не вдалося змінити іконку", isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "appearance_icon_change_failed"), isPresented: Binding(get: {
             appIconErrorMessage != nil
         }, set: { newValue in
             if !newValue { appIconErrorMessage = nil }
         }), actions: {
-            Button("OK") { appIconErrorMessage = nil }
+            Button("common_ok") { appIconErrorMessage = nil }
         }, message: {
             Text(appIconErrorMessage ?? "")
         })
@@ -75,7 +76,7 @@ struct AppearanceView: View {
 
     private func setAppIcon(_ icon: AppIconOption) {
         guard supportsAlternateIcons else {
-            appIconErrorMessage = "Пристрій не підтримує alternate app icons."
+            appIconErrorMessage = languageManager.localizedString(forKey: "appearance_alternate_icons_not_supported")
             return
         }
 

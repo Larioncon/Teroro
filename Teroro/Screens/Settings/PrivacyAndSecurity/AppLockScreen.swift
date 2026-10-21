@@ -63,7 +63,7 @@ struct AppLockScreen: View {
 
                     Spacer()
 
-                    Button("Delete", action: deleteDigit)
+                    Button("common_delete", action: deleteDigit)
                         .foregroundStyle(.white)
                         .padding(.bottom, 10)
                 }

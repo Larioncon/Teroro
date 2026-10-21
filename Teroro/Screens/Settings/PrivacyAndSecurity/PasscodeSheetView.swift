@@ -3,6 +3,7 @@ import UIKit
 
 struct PasscodeSheetView: View {
     @ObservedObject var viewModel: SettingsVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     @Environment(\.dismiss) private var dismiss
     @State private var passcodeFlow: PasscodeSetupFlow?
 
@@ -18,7 +19,7 @@ struct PasscodeSheetView: View {
                 PasscodeSecurityGroup(viewModel: viewModel)
                     .disabled(!viewModel.isPasscodeEnabled)
             }
-            .navigationTitle("Блокування код-паролем")
+            .navigationTitle(languageManager.localizedString(forKey: "security_passcode_lock_title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -30,7 +31,7 @@ struct PasscodeSheetView: View {
                             .foregroundStyle(.primary)
                             .frame(width: 33, height: 33)
                     }
-                    .accessibilityLabel("Назад")
+                    .accessibilityLabel(languageManager.localizedString(forKey: "common_back"))
                 }
             }
             .fullScreenCover(item: $passcodeFlow) { _ in
@@ -52,25 +53,27 @@ private struct PasscodeActionGroup: View {
     let isPasscodeEnabled: Bool
     let onTurnOff: () -> Void
     let onChange: () -> Void
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         Section {
             if isPasscodeEnabled {
-                Button("Вимкнути код-пароль", action: onTurnOff)
+                Button(languageManager.localizedString(forKey: "security_turn_off_passcode"), action: onTurnOff)
                     .foregroundStyle(.red)
 
-                Button("Змінити код-пароль", action: onChange)
+                Button(languageManager.localizedString(forKey: "security_change_passcode"), action: onChange)
             } else {
-                Button("Увімкнути код-пароль", action: onChange)
+                Button(languageManager.localizedString(forKey: "security_turn_on_passcode"), action: onChange)
             }
         } footer: {
-            Text("Коли код-пароль увімкнено, Timexo буде запитувати його при запуску або після повернення у застосунок згідно з Auto-Lock.")
+            Text(languageManager.localizedString(forKey: "security_auto_lock_desc"))
         }
     }
 }
 
 private struct PasscodeSecurityGroup: View {
     @ObservedObject var viewModel: SettingsVM
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         Section {
@@ -80,7 +83,7 @@ private struct PasscodeSecurityGroup: View {
                 viewModel.passcodeAutoLockOption = option
             })) {
                 ForEach(PasscodeAutoLockOption.allCases) { option in
-                    Text(option.title)
+                    Text(option.localizedTitle)
                         .tag(option)
                 }
             }
@@ -90,7 +93,7 @@ private struct PasscodeSecurityGroup: View {
             }, set: { newValue in
                 viewModel.toggleFaceID(enabled: newValue)
             })) {
-                Label("Розблокування з Face ID", systemImage: "faceid")
+                Label(languageManager.localizedString(forKey: "security_unlock_face_id"), systemImage: "faceid")
             }
         }
     }
@@ -102,6 +105,7 @@ private struct PasscodeSetupFlow: Identifiable {
 
 private struct PasscodeSetupEntryView: View {
     @ObservedObject var viewModel: SettingsVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     @Environment(\.dismiss) private var dismiss
     @State private var firstPasscode = ""
     @State private var currentPasscode = ""
@@ -120,7 +124,7 @@ private struct PasscodeSetupEntryView: View {
                     Spacer()
 
                     VStack(spacing: 28) {
-                        Text(isConfirming ? "Підтвердіть код-пароль Timexo" : "Введіть код-пароль Timexo")
+                        Text(isConfirming ? languageManager.localizedString(forKey: "security_confirm_passcode") : languageManager.localizedString(forKey: "security_enter_passcode"))
                             .font(.title2)
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.center)
@@ -140,7 +144,7 @@ private struct PasscodeSetupEntryView: View {
                 }
                 .padding(.horizontal, 24)
             }
-            .navigationTitle("Блокування код-паролем")
+            .navigationTitle(languageManager.localizedString(forKey: "security_passcode_lock_title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -152,7 +156,7 @@ private struct PasscodeSetupEntryView: View {
                             .foregroundStyle(.primary)
                             .frame(width: 44, height: 44)
                     }
-                    .accessibilityLabel("Назад")
+                    .accessibilityLabel(languageManager.localizedString(forKey: "common_back"))
                 }
             }
         }
@@ -180,7 +184,7 @@ private struct PasscodeSetupEntryView: View {
                 viewModel.savePasscode(digits)
                 dismiss()
             } else {
-                errorMessage = "Коди-паролі не співпадають"
+                errorMessage = languageManager.localizedString(forKey: "security_passcodes_do_not_match")
                 firstPasscode = ""
                 currentPasscode = ""
                 isConfirming = false

@@ -16,13 +16,14 @@ struct Toast: Identifiable, Equatable {
         case long = 6.0
     }
 
+    @MainActor
     static func error(
-        title: String = "Помилка",
+        title: String? = nil,
         message: String,
         timing: ToastFrame = .long
     ) -> Toast {
         Toast(
-            title: title,
+            title: title ?? "common_error".localized,
             message: message,
             symbol: "exclamationmark.triangle.fill",
             tint: .red,
@@ -30,13 +31,14 @@ struct Toast: Identifiable, Equatable {
         )
     }
 
+    @MainActor
     static func warning(
-        title: String = "Увага",
+        title: String? = nil,
         message: String,
         timing: ToastFrame = .medium
     ) -> Toast {
         Toast(
-            title: title,
+            title: title ?? "toast.title.warning".localized,
             message: message,
             symbol: "exclamationmark.circle.fill",
             tint: .orange,
@@ -44,13 +46,14 @@ struct Toast: Identifiable, Equatable {
         )
     }
 
+    @MainActor
     static func success(
-        title: String = "Успішно",
+        title: String? = nil,
         message: String,
         timing: ToastFrame = .medium
     ) -> Toast {
         Toast(
-            title: title,
+            title: title ?? "common_success".localized,
             message: message,
             symbol: "checkmark.circle.fill",
             tint: .green,
@@ -58,6 +61,7 @@ struct Toast: Identifiable, Equatable {
         )
     }
 
+    @MainActor
     static func info(
         title: String,
         message: String? = nil,
@@ -72,14 +76,15 @@ struct Toast: Identifiable, Equatable {
         )
     }
 
+    @MainActor
     static func copied(
-        title: String = "Скопійовано в буфер",
+        title: String? = nil,
         message: String? = nil,
         symbol: String = "docOnDoc",
         timing: ToastFrame = .short
     ) -> Toast {
         Toast(
-            title: title,
+            title: title ?? "toast.title.copied".localized,
             message: message,
             symbol: symbol,
             tint: .primary,

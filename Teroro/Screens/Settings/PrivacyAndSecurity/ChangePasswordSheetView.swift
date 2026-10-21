@@ -22,10 +22,10 @@ struct ChangePasswordSheetView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Скасувати") { dismiss() }
+                    Button("common_cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Зберегти") {
+                    Button("common_save") {
                         Task {
                             let success = await viewModel.changePassword(
                                 newPassword: newPassword,

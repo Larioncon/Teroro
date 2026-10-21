@@ -4,6 +4,7 @@ import UIKit
 
 struct SetupAuthScreen: View {
     @StateObject var viewModel: SetupAuthVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     @Environment(\.scenePhase) private var scenePhase
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var isCameraShowing = false
@@ -22,11 +23,11 @@ struct SetupAuthScreen: View {
                         .buttonStyle(.plain)
 
                         VStack(spacing: 6) {
-                            Text("Давай завершимо сетап акаунта")
+                            Text(languageManager.localizedString(forKey: "setup_auth_title"))
                                 .font(.title2.weight(.bold))
                                 .multilineTextAlignment(.center)
 
-                            Text("Введіть ім'я та оберіть фото профілю.")
+                            Text(languageManager.localizedString(forKey: "setup_auth_subtitle"))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.center)
@@ -34,12 +35,12 @@ struct SetupAuthScreen: View {
                     }
 
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Ім'я")
+                        Text(languageManager.localizedString(forKey: "setup_auth_name_label"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.secondary)
 
                         AuthTextField(
-                            title: "Ваше ім'я",
+                            title: "setup_auth_name_placeholder",
                             text: $viewModel.name,
                             contentType: .name,
                             textInputAutocapitalization: .words,
@@ -49,7 +50,7 @@ struct SetupAuthScreen: View {
                     }
 
                     VStack(spacing: 16) {
-                        Text("Налаштувати фото профіля")
+                        Text(languageManager.localizedString(forKey: "setup_auth_photo_section"))
                             .font(.headline)
 
                         HStack(spacing: 22) {
@@ -70,7 +71,7 @@ struct SetupAuthScreen: View {
                     }
 
                     PrimaryButton(
-                        title: viewModel.isLoading ? "Зберігаємо..." : "Завершити",
+                        title: Text(LocalizedStringKey(viewModel.isLoading ? "common_saving" : "setup_auth_finish")),
                         style: .primaryWhiteText,
                         action: viewModel.saveProfile
                     )
@@ -100,12 +101,12 @@ struct SetupAuthScreen: View {
             }
             .ignoresSafeArea()
         }
-        .alert("Помилка", isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common_error"), isPresented: Binding(get: {
             viewModel.alertMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.alertMessage = nil }
         }), actions: {
-            Button("OK") { viewModel.alertMessage = nil }
+            Button("common_ok") { viewModel.alertMessage = nil }
         }, message: {
             Text(viewModel.alertMessage ?? "")
         })
@@ -116,14 +117,14 @@ struct SetupAuthScreen: View {
         Button {
             isCameraShowing = true
         } label: {
-            Label("Сфотографувати", systemImage: "camera.fill")
+            Label(languageManager.localizedString(forKey: "photo_take_photo"), systemImage: "camera.fill")
         }
         .disabled(!UIImagePickerController.isSourceTypeAvailable(.camera))
 
         Button {
             isPhotoPickerShowing = true
         } label: {
-            Label("Обрати в галереї", systemImage: "photo.on.rectangle.angled")
+            Label(languageManager.localizedString(forKey: "photo_choose_from_gallery"), systemImage: "photo.on.rectangle.angled")
         }
     }
 
@@ -147,7 +148,7 @@ struct SetupAuthScreen: View {
         .background(Circle().fill(.thinMaterial))
         .overlay(Circle().strokeBorder(Color.secondary.opacity(0.2), lineWidth: 1))
         .contentShape(Circle())
-        .accessibilityLabel("Змінити фото профілю")
+        .accessibilityLabel(languageManager.localizedString(forKey: "photo_change_profile_photo"))
     }
 
     private func loadSelectedPhoto(_ item: PhotosPickerItem?) {
@@ -159,7 +160,7 @@ struct SetupAuthScreen: View {
                     let data = try await item.loadTransferable(type: Data.self),
                     let image = UIImage(data: data)
                 else {
-                    viewModel.alertMessage = "Не вдалося прочитати фото."
+                    viewModel.alertMessage = languageManager.localizedString(forKey: "photo_read_error")
                     return
                 }
                 viewModel.selectImage(image)

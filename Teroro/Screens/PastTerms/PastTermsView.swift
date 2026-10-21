@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PastTermsView: View {
     @ObservedObject var viewModel: HomeVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     let onDeleteTerm: (Term) -> Void
 
     var body: some View {
@@ -17,7 +18,7 @@ struct PastTermsView: View {
         List {
             Section {
                 if terms.isEmpty && !viewModel.isLoading {
-                    Text("Немає минулих термінів")
+                    Text(languageManager.localizedString(forKey: "home_no_past_terms"))
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(terms) { term in
@@ -44,7 +45,7 @@ struct PastTermsView: View {
                             Button(role: .destructive) {
                                 onDeleteTerm(term)
                             } label: {
-                                Label("Видалити", systemImage: "trash")
+                                Label(languageManager.localizedString(forKey: "common_delete"), systemImage: "trash")
                             }
                         }
                     }
@@ -52,7 +53,7 @@ struct PastTermsView: View {
             }
         }
         .listStyle(.insetGrouped)
-        .navigationTitle("Минулі терміни")
+        .navigationTitle(languageManager.localizedString(forKey: "home_past_terms"))
     }
 }
 

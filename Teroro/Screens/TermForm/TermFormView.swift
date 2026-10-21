@@ -85,7 +85,7 @@ struct TermFormView<VM: TermFormViewModeling>: View {
             if focusedField != nil {
                 HStack {
                     Spacer()
-                    Button("Сховати") { hideKeyboard() }
+                    Button(LanguageManager.shared.localizedString(forKey: "common_hide")) { hideKeyboard() }
                         .font(.headline)
                         .padding(.horizontal, 14)
                         .padding(.vertical, 10)
@@ -122,6 +122,7 @@ private struct LocationSection: View {
     @Binding var location: TermLocation?
     var onCopyAddress: ((String) -> Void)? = nil
     @ObservedObject private var network = NetworkMonitor.shared
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     private var isOnline: Bool {
         network.isConnected
@@ -132,10 +133,10 @@ private struct LocationSection: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
-                        Text("Місце")
+                        Text(languageManager.localizedString(forKey: "term_form_location"))
                             .font(.headline)
                         if !isOnline {
-                            Text("(офлайн)")
+                            Text(languageManager.localizedString(forKey: "term_form_offline"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -144,12 +145,12 @@ private struct LocationSection: View {
                         HStack(spacing: 4) {
                             Image(systemName: "mappin.and.ellipse")
                                 .foregroundStyle(isOnline ? .red : .secondary)
-                            Text(location.title ?? location.address ?? "Локація обрана")
+                            Text(location.title ?? location.address ?? languageManager.localizedString(forKey: "term_form_location_selected"))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     } else {
-                        Text(isOnline ? "Додайте адресу для зустрічі" : "Вибір локації недоступний без інтернету")
+                        Text(isOnline ? languageManager.localizedString(forKey: "term_form_add_meeting_address") : languageManager.localizedString(forKey: "term_form_location_unavailable_offline"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -168,7 +169,7 @@ private struct LocationSection: View {
                 NavigationLink(value: TermFormRoute.locationPicker) {
                     HStack(spacing: 6) {
                         Image(systemName: "map")
-                        Text(location == nil ? "Додати" : "Змінити")
+                        Text(location == nil ? languageManager.localizedString(forKey: "common_add") : languageManager.localizedString(forKey: "common_change"))
                     }
                     .font(.subheadline.weight(.semibold))
                     .padding(.horizontal, 12)
@@ -199,10 +200,11 @@ private struct LocationSection: View {
 private struct TitleDetailsSection<VM: TermFormViewModeling>: View {
     @ObservedObject var viewModel: VM
     var focusedField: FocusState<TermFormField?>.Binding
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TextField("Заголовок", text: $viewModel.title)
+            TextField(languageManager.localizedString(forKey: "term_form_title_placeholder"), text: $viewModel.title)
                 .font(.title3.weight(.semibold))
                 .frame(height: 54)
                 .padding(.horizontal, 16)
@@ -213,7 +215,7 @@ private struct TitleDetailsSection<VM: TermFormViewModeling>: View {
                 .frame(height: 1)
                 .padding(.horizontal, 16)
 
-            TextField("Деталі", text: $viewModel.details, axis: .vertical)
+            TextField(languageManager.localizedString(forKey: "term_form_details_placeholder"), text: $viewModel.details, axis: .vertical)
                 .lineLimit(5, reservesSpace: true)
                 .padding(16)
                 .focused(focusedField, equals: .details)
@@ -231,11 +233,12 @@ private struct TitleDetailsSection<VM: TermFormViewModeling>: View {
 
 private struct DateTimeSection: View {
     @Binding var date: Date
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Label("Дата та час", systemImage: "calendar")
+                Label(languageManager.localizedString(forKey: "term_form_date_and_time"), systemImage: "calendar")
                     .font(.headline)
                 Spacer()
             }
@@ -243,7 +246,7 @@ private struct DateTimeSection: View {
             .padding(.bottom, 12)
 
             HStack {
-                Label("Дата", systemImage: "calendar.badge.clock")
+                Label(languageManager.localizedString(forKey: "term_form_date"), systemImage: "calendar.badge.clock")
                     .foregroundStyle(.secondary)
                 Spacer()
                 DatePicker("", selection: $date, displayedComponents: [.date])
@@ -259,7 +262,7 @@ private struct DateTimeSection: View {
                 .padding(.horizontal, 16)
 
             HStack {
-                Label("Час", systemImage: "clock")
+                Label(languageManager.localizedString(forKey: "term_form_time"), systemImage: "clock")
                     .foregroundStyle(.secondary)
                 Spacer()
                 DatePicker("", selection: $date, displayedComponents: [.hourAndMinute])
@@ -284,14 +287,15 @@ private struct ReminderSection: View {
     @Binding var enabled: Bool
     @Binding var reminderDate: Date
     let onStatusCheck: () -> Void
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Нагадування")
+                    Text(languageManager.localizedString(forKey: "term_form_reminder"))
                         .font(.headline)
-                    Text("Повідомити про термін")
+                    Text(languageManager.localizedString(forKey: "term_form_notify_about_term"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -308,7 +312,7 @@ private struct ReminderSection: View {
                     .padding(.horizontal, 16)
 
                 HStack {
-                    Label("Коли?", systemImage: "bell.fill")
+                    Label(languageManager.localizedString(forKey: "term_form_when"), systemImage: "bell.fill")
                         .foregroundStyle(.secondary)
                     Spacer()
                     DatePicker("", selection: $reminderDate, displayedComponents: [.date, .hourAndMinute])
@@ -338,16 +342,17 @@ private struct ActionButtonsSection: View {
     let isSaving: Bool
     let onSave: () -> Void
     let onCancel: () -> Void
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         HStack(spacing: 12) {
-            Button("Скасувати", action: onCancel)
+            Button(languageManager.localizedString(forKey: "common_cancel"), action: onCancel)
                 .frame(maxWidth: .infinity, minHeight: 52)
                 .background(Color(.secondarySystemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .foregroundStyle(.primary)
 
-            Button(isSaving ? "Збереження..." : "Зберегти", action: onSave)
+            Button(isSaving ? languageManager.localizedString(forKey: "common_saving") : languageManager.localizedString(forKey: "common_save"), action: onSave)
                 .frame(maxWidth: .infinity, minHeight: 52)
                 .background(isSaveEnabled ? Color.accentColor : Color.secondary.opacity(0.3))
                 .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -361,6 +366,7 @@ private struct ActionButtonsSection: View {
 
 struct AddTermView: View {
     @StateObject private var viewModel: AddTermVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     let onSave: () -> Void
     let onCancel: () -> Void
 
@@ -373,7 +379,7 @@ struct AddTermView: View {
     var body: some View {
         TermFormView(
             viewModel: viewModel,
-            title: "Новий термін",
+            title: languageManager.localizedString(forKey: "term_form_new_title"),
             onSave: onSave,
             onCancel: onCancel
         )
@@ -382,6 +388,7 @@ struct AddTermView: View {
 
 struct EditTermView: View {
     @StateObject private var viewModel: EditTermVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     let onSave: () -> Void
     let onCancel: () -> Void
 
@@ -394,7 +401,7 @@ struct EditTermView: View {
     var body: some View {
         TermFormView(
             viewModel: viewModel,
-            title: "Редагувати",
+            title: languageManager.localizedString(forKey: "term_form_edit_title"),
             onSave: onSave,
             onCancel: onCancel
         )
@@ -405,7 +412,7 @@ struct EditTermView: View {
     NavigationStack {
         TermFormView(
             viewModel: AddTermVM(),
-            title: "Новий термін",
+            title: "New Term",
             onSave: {},
             onCancel: {}
         )

@@ -52,7 +52,7 @@ struct OnboardingFlowView: View {
             OnboardingPageIndicator(count: viewModel.steps.count, index: viewModel.currentStep)
 
             PrimaryButton(
-                title: viewModel.isLastStep ? "Продовжити" : "Далі",
+                title: Text(LocalizedStringKey(viewModel.isLastStep ? "onboarding.button.continue" : "onboarding.button.next")),
                 style: .primaryWhiteText,
                 frameHeight: 54
             ) {
@@ -184,7 +184,7 @@ private struct SlidingSwapText: View {
     var body: some View {
         ZStack {
             if let prev = previous {
-                Text(prev)
+                Text(LocalizedStringKey(prev))
                     .font(font)
                     .foregroundStyle(color)
                     .multilineTextAlignment(.center)
@@ -193,7 +193,7 @@ private struct SlidingSwapText: View {
                     .opacity(showNew ? 0 : 1)
             }
 
-            Text(current)
+            Text(LocalizedStringKey(current))
                 .font(font)
                 .foregroundStyle(color)
                 .multilineTextAlignment(.center)

@@ -26,8 +26,9 @@ struct TimexoWidgetLiveActivity: Widget {
         ActivityConfiguration(for: TimexoWidgetAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.emoji)")
+                Text("widget.activity.greeting \(context.state.emoji)")
             }
+            .environment(\.locale, WidgetAppLocale.current)
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
 
@@ -36,19 +37,24 @@ struct TimexoWidgetLiveActivity: Widget {
                 // Expanded UI goes here.  Compose the expanded UI through
                 // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Text("widget.leading")
+                        .environment(\.locale, WidgetAppLocale.current)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text("widget.trailing")
+                        .environment(\.locale, WidgetAppLocale.current)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
+                    Text("widget.activity.bottom \(context.state.emoji)")
+                        .environment(\.locale, WidgetAppLocale.current)
                     // more content
                 }
             } compactLeading: {
                 Text("L")
+                    .environment(\.locale, WidgetAppLocale.current)
             } compactTrailing: {
                 Text("T \(context.state.emoji)")
+                    .environment(\.locale, WidgetAppLocale.current)
             } minimal: {
                 Text(context.state.emoji)
             }

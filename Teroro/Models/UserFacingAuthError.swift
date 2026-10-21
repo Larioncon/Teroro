@@ -4,7 +4,7 @@ import AuthenticationServices
 
 /// A user-friendly representation of Firebase Auth errors.
 ///
-/// This type is intended for UI (alerts/toasts) and uses `NSLocalizedString` for easy localization.
+/// This type is intended for UI (alerts/toasts) and resolves messages in the app's selected language.
 /// Add new cases as your UX grows; the mapping is centralized in `init(from:)`.
 enum UserFacingAuthError: LocalizedError, Equatable {
     // MARK: - Common Auth Errors
@@ -279,7 +279,17 @@ enum UserFacingAuthError: LocalizedError, Equatable {
     // MARK: - Helpers
 
     private static func l(_ key: String, defaultValue: String, comment: String) -> String {
-        NSLocalizedString(key, tableName: nil, bundle: .main, value: defaultValue, comment: comment)
+        if Thread.isMainThread {
+            return MainActor.assumeIsolated {
+                LanguageManager.shared.localizedString(forKey: key)
+            }
+        }
+
+        return LanguageManager.resolveString(
+            forKey: key,
+            languageCode: LanguageManager.storedLanguageCode,
+            defaultValue: defaultValue
+        )
     }
 
     /// Fallback mapping using Firebase Auth numeric error codes (stable across SDK versions).

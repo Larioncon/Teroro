@@ -5,6 +5,8 @@ struct AppRootView: View {
     @StateObject private var authVM = AuthVM()
     @AppStorage("appAppearance") private var appearanceRawValue: Int = AppAppearance.system.rawValue
 
+    @ObservedObject private var languageManager = LanguageManager.shared
+
     private var preferredColorScheme: ColorScheme? {
         (AppAppearance(rawValue: appearanceRawValue) ?? .system).preferredColorScheme
     }
@@ -22,6 +24,7 @@ struct AppRootView: View {
                 AuthScreen(viewModel: authVM)
             }
         }
+        .environment(\.locale, languageManager.locale)
         .preferredColorScheme(preferredColorScheme)
 //        .fullScreenCover(isPresented: $appState.isShowPaywall) {
 //            PaywallScreen()
@@ -35,7 +38,7 @@ struct AppRootView: View {
             Alert(
                 title: Text(data.title),
                 message: Text(data.message),
-                dismissButton: .default(Text("OK"))
+                dismissButton: .default(Text("common_ok"))
             )
         }
         .onChange(of: authVM.isLoggedIn) { isLoggedIn in
@@ -55,6 +58,7 @@ private struct SessionContainerView: View {
     @StateObject private var mapVM = TermsMapVM()
     @StateObject private var pomodoroVM = PomodoroVM()
     @StateObject private var settingsVM = SettingsVM()
+    @ObservedObject private var languageManager = LanguageManager.shared
     @AppStorage("isFaceIDEnabled") private var isFaceIDEnabled = false
     @AppStorage("isPasscodeEnabled") private var isPasscodeEnabled = false
     @AppStorage("userPasscode") private var userPasscode = ""
@@ -100,12 +104,15 @@ private struct SessionContainerView: View {
                                 viewModel: settingsVM,
                                 onShowPaywall: { navigator.push(.pw) },
                                 onShowAppearance: { navigator.push(.appearance) },
-                                onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) }
+                                onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) },
+                                onShowLanguages: { navigator.push(.languages) }
                             )
                         case .appearance:
                             AppearanceView(viewModel: settingsVM)
                         case .privacyAndSecurity:
                             PrivacyAndSecurityView(viewModel: settingsVM)
+                        case .languages:
+                            LanguagesView()
                         case .pw:
                             PaywallScreen()
                                 .environmentObject(appState)
@@ -115,13 +122,13 @@ private struct SessionContainerView: View {
                     }
                 }
                 .tabItem {
-                    Label("Терміни", systemImage: "calendar")
+                    Label(languageManager.localizedString(forKey: "tab_terms"), systemImage: "calendar")
                 }
                 .tag(AppRouter.Tab.terms)
 
                 TermsMapView(viewModel: mapVM, terms: homeVM.terms, isLoading: homeVM.isLoading)
                     .tabItem {
-                        Label("Мапа", systemImage: "map")
+                        Label(languageManager.localizedString(forKey: "tab_map"), systemImage: "map")
                     }
                     .tag(AppRouter.Tab.map)
 
@@ -129,7 +136,7 @@ private struct SessionContainerView: View {
                     PomodoroView(viewModel: pomodoroVM)
                 }
                 .tabItem {
-                    Label("Таймер", systemImage: "timer")
+                    Label(languageManager.localizedString(forKey: "tab_timer"), systemImage: "timer")
                 }
                 .tag(AppRouter.Tab.timer)
 
@@ -138,7 +145,8 @@ private struct SessionContainerView: View {
                         viewModel: settingsVM,
                         onShowPaywall: { navigator.push(.pw) },
                         onShowAppearance: { navigator.push(.appearance) },
-                        onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) }
+                        onShowPrivacyAndSecurity: { navigator.push(.privacyAndSecurity) },
+                        onShowLanguages: { navigator.push(.languages) }
                     )
                     .navigationDestination(for: AppRoute.self) { route in
                         switch route {
@@ -146,6 +154,8 @@ private struct SessionContainerView: View {
                             AppearanceView(viewModel: settingsVM)
                         case .privacyAndSecurity:
                             PrivacyAndSecurityView(viewModel: settingsVM)
+                        case .languages:
+                            LanguagesView()
                         case .pw:
                             PaywallScreen()
                                 .environmentObject(appState)
@@ -155,7 +165,7 @@ private struct SessionContainerView: View {
                     }
                 }
                 .tabItem {
-                    Label("Профіль", systemImage: "person.crop.circle")
+                    Label(languageManager.localizedString(forKey: "tab_profile"), systemImage: "person.crop.circle")
                 }
                 .tag(AppRouter.Tab.profile)
             }

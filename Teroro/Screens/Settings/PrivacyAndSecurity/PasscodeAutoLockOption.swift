@@ -19,19 +19,25 @@ enum PasscodeAutoLockOption: Double, CaseIterable, Hashable, Identifiable {
         }
     }
 
-    var title: String {
+    @MainActor
+    var localizedTitle: String {
         switch self {
         case .always:
-            "Завжди"
+            LanguageManager.shared.localizedString(forKey: "security_autolock_always")
         case .oneMinute:
-            "Якщо відсутній 1 хв"
+            LanguageManager.shared.localizedString(forKey: "security_autolock_1min")
         case .fiveMinutes:
-            "Якщо відсутній 5 хв"
+            LanguageManager.shared.localizedString(forKey: "security_autolock_5min")
         case .oneHour:
-            "Якщо відсутній 1 год"
+            LanguageManager.shared.localizedString(forKey: "security_autolock_1hour")
         case .fiveHours:
-            "Якщо відсутній 5 год"
+            LanguageManager.shared.localizedString(forKey: "security_autolock_5hours")
         }
+    }
+
+    @MainActor
+    var title: String {
+        localizedTitle
     }
 
     var lockInterval: TimeInterval {

@@ -12,6 +12,8 @@ struct SettingsView: View {
     let onShowPaywall: () -> Void
     let onShowAppearance: () -> Void
     let onShowPrivacyAndSecurity: () -> Void
+    let onShowLanguages: () -> Void
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         List {
@@ -21,14 +23,14 @@ struct SettingsView: View {
                         Button {
                             isCameraShowing = true
                         } label: {
-                            Label("Сфотографировать", systemImage: "camera.fill")
+                            Label(languageManager.localizedString(forKey: "settings_take_photo"), systemImage: "camera.fill")
                         }
                         .disabled(!UIImagePickerController.isSourceTypeAvailable(.camera))
 
                         Button {
                             isPhotoPickerShowing = true
                         } label: {
-                            Label("Выбрать в галерее", systemImage: "photo.on.rectangle.angled")
+                            Label(languageManager.localizedString(forKey: "settings_choose_gallery"), systemImage: "photo.on.rectangle.angled")
                         }
                     } label: {
                         ZStack {
@@ -46,7 +48,7 @@ struct SettingsView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         if viewModel.isEditingName {
                             HStack(spacing: 6) {
-                                TextField("Ім'я", text: $viewModel.editedName)
+                                TextField(languageManager.localizedString(forKey: "settings_name_placeholder"), text: $viewModel.editedName)
                                     .font(.headline)
                                     .textFieldStyle(.plain)
                                     .frame(height: 22)
@@ -92,11 +94,11 @@ struct SettingsView: View {
                                 Button {
                                     viewModel.startEditingName()
                                 } label: {
-                                    Label("Редагувати", systemImage: "pencil")
+                                    Label(languageManager.localizedString(forKey: "settings_edit"), systemImage: "pencil")
                                 }
                             } label: {
                                 AutoScrollText(
-                                    text: viewModel.currentUser?.name ?? "Профіль",
+                                    text: viewModel.currentUser?.name ?? languageManager.localizedString(forKey: "settings_profile"),
                                     font: .preferredFont(forTextStyle: .headline),
                                     textColor: .label
                                 )
@@ -106,7 +108,7 @@ struct SettingsView: View {
                                 Button {
                                     viewModel.startEditingName()
                                 } label: {
-                                    Label("Редагувати", systemImage: "pencil")
+                                    Label(languageManager.localizedString(forKey: "settings_edit"), systemImage: "pencil")
                                 }
                             }
                         }
@@ -146,7 +148,7 @@ struct SettingsView: View {
                     viewModel.openSystemSettings()
                 } label: {
                     HStack {
-                        Label("Сповіщення", systemImage: "bell.fill")
+                        Label(languageManager.localizedString(forKey: "settings_notifications"), systemImage: "bell.fill")
                         Spacer()
                         NotificationPermissionStatusIcon(
                             showingEnabled: viewModel.isNotificationStatusIconShowingEnabled,
@@ -156,10 +158,25 @@ struct SettingsView: View {
                 }
 
                 Button {
+                    onShowLanguages()
+                } label: {
+                    HStack {
+                        Label(languageManager.localizedString(forKey: "settings_language"), systemImage: "globe")
+                        Spacer()
+                        Text(languageManager.currentLanguage.nativeName)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                        Image(systemName: "chevron.forward")
+                            .font(.footnote.bold())
+                            .foregroundColor(.gray)
+                    }
+                }
+
+                Button {
                     onShowAppearance()
                 } label: {
                     HStack {
-                        Label("Вид", systemImage: "circle.lefthalf.filled")
+                        Label(languageManager.localizedString(forKey: "settings_appearance"), systemImage: "circle.lefthalf.filled")
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .font(.footnote.bold())
@@ -171,7 +188,7 @@ struct SettingsView: View {
                     onShowPrivacyAndSecurity()
                 } label: {
                     HStack {
-                        Label("Приватність та безпека", systemImage: "lock.shield.fill")
+                        Label(languageManager.localizedString(forKey: "settings_privacy_and_security"), systemImage: "lock.shield.fill")
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .font(.footnote.bold())
@@ -184,29 +201,29 @@ struct SettingsView: View {
                 Button {
                     viewModel.openFeedback()
                 } label: {
-                    Label("Написати фідбек", systemImage: "envelope.fill")
+                    Label(languageManager.localizedString(forKey: "settings_feedback"), systemImage: "envelope.fill")
                 }
 
                 if let appStoreURL = viewModel.appStoreURL {
                     ShareLink(item: appStoreURL) {
-                        Label("Поділитися застосунком", systemImage: "square.and.arrow.up")
+                        Label(languageManager.localizedString(forKey: "settings_share"), systemImage: "square.and.arrow.up")
                     }
                 } else {
-                    Label("Поділитися застосунком", systemImage: "square.and.arrow.up")
+                    Label(languageManager.localizedString(forKey: "settings_share"), systemImage: "square.and.arrow.up")
                         .foregroundStyle(.secondary)
                 }
 
                 Button {
                     viewModel.openTermsOfUse()
                 } label: {
-                    Label("Умови використання", systemImage: "doc.text")
+                    Label(languageManager.localizedString(forKey: "settings_terms_of_use"), systemImage: "doc.text")
                 }
                 .disabled(viewModel.termsURL == nil)
 
                 Button {
                     viewModel.openPrivacyPolicy()
                 } label: {
-                    Label("Політика конфіденційності", systemImage: "hand.raised.fill")
+                    Label(languageManager.localizedString(forKey: "settings_privacy_policy"), systemImage: "hand.raised.fill")
                 }
                 .disabled(viewModel.privacyURL == nil)
             }
@@ -217,7 +234,7 @@ struct SettingsView: View {
                     Button {
                         viewModel.signOut()
                     } label: {
-                        Text("Вийти")
+                        Text(languageManager.localizedString(forKey: "settings_sign_out"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.red)
                             .padding(.horizontal, 18)
@@ -235,7 +252,11 @@ struct SettingsView: View {
                 .listRowBackground(Color.clear)
             }
         }
-        .navigationTitle("Налаштування")
+        .navigationTitle(languageManager.localizedString(forKey: "settings_title"))
+        .background {
+            MinimalBackButtonConfigurator()
+                .frame(width: 0, height: 0)
+        }
         .onAppear {
             viewModel.onAppear()
         }
@@ -255,12 +276,12 @@ struct SettingsView: View {
             }
             .ignoresSafeArea()
         }
-        .alert("Помилка", isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common_error"), isPresented: Binding(get: {
             viewModel.signOutErrorMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.signOutErrorMessage = nil }
         }), actions: {
-            Button("OK") { viewModel.signOutErrorMessage = nil }
+            Button(languageManager.localizedString(forKey: "common_ok")) { viewModel.signOutErrorMessage = nil }
         }, message: {
             Text(viewModel.signOutErrorMessage ?? "")
         })

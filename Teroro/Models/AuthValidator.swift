@@ -15,27 +15,65 @@ enum ValidationError: LocalizedError, Equatable {
     case custom(String)
 
     var errorDescription: String? {
+        if Thread.isMainThread {
+            return MainActor.assumeIsolated { localizedDescriptionOnMainActor }
+        } else {
+            return fallbackDescription
+        }
+    }
+
+    @MainActor
+    private var localizedDescriptionOnMainActor: String {
         switch self {
         case .emptyEmail:
-            return "Введіть адресу електронної пошти."
+            return LanguageManager.shared.localizedString(forKey: "validation_empty_email")
         case .invalidEmailFormat:
-            return "Введіть дійсну адресу електронної пошти (наприклад: name@example.com)."
+            return LanguageManager.shared.localizedString(forKey: "validation_invalid_email_format")
         case .emptyPassword:
-            return "Введіть пароль."
+            return LanguageManager.shared.localizedString(forKey: "validation_empty_password")
         case .passwordTooShort(let min):
-            return "Пароль має містити щонайменше \(min) символів."
+            let format = LanguageManager.shared.localizedString(forKey: "validation_password_too_short")
+            return String(format: format, min)
         case .passwordMissingUppercase:
-            return "Пароль повинен містити щонайменше одну велику літеру (A-Z)."
+            return LanguageManager.shared.localizedString(forKey: "validation_password_missing_uppercase")
         case .passwordMissingLowercase:
-            return "Пароль повинен містити щонайменше одну малу літеру (a-z)."
+            return LanguageManager.shared.localizedString(forKey: "validation_password_missing_lowercase")
         case .passwordMissingDigit:
-            return "Пароль повинен містити щонайменше одну цифру (0-9)."
+            return LanguageManager.shared.localizedString(forKey: "validation_password_missing_digit")
         case .emptyConfirmPassword:
-            return "Підтвердіть пароль."
+            return LanguageManager.shared.localizedString(forKey: "validation_empty_confirm_password")
         case .passwordsDoNotMatch:
-            return "Паролі не співпадають."
+            return LanguageManager.shared.localizedString(forKey: "validation_passwords_do_not_match")
         case .emptyCurrentPassword:
-            return "Введіть поточний пароль."
+            return LanguageManager.shared.localizedString(forKey: "validation_empty_current_password")
+        case .custom(let message):
+            return message
+        }
+    }
+
+    private var fallbackDescription: String {
+        switch self {
+        case .emptyEmail:
+            return LanguageManager.resolveString(forKey: "validation_empty_email", languageCode: LanguageManager.storedLanguageCode)
+        case .invalidEmailFormat:
+            return LanguageManager.resolveString(forKey: "validation_invalid_email_format", languageCode: LanguageManager.storedLanguageCode)
+        case .emptyPassword:
+            return LanguageManager.resolveString(forKey: "validation_empty_password", languageCode: LanguageManager.storedLanguageCode)
+        case .passwordTooShort(let min):
+            let format = LanguageManager.resolveString(forKey: "validation_password_too_short", languageCode: LanguageManager.storedLanguageCode)
+            return String(format: format, min)
+        case .passwordMissingUppercase:
+            return LanguageManager.resolveString(forKey: "validation_password_missing_uppercase", languageCode: LanguageManager.storedLanguageCode)
+        case .passwordMissingLowercase:
+            return LanguageManager.resolveString(forKey: "validation_password_missing_lowercase", languageCode: LanguageManager.storedLanguageCode)
+        case .passwordMissingDigit:
+            return LanguageManager.resolveString(forKey: "validation_password_missing_digit", languageCode: LanguageManager.storedLanguageCode)
+        case .emptyConfirmPassword:
+            return LanguageManager.resolveString(forKey: "validation_empty_confirm_password", languageCode: LanguageManager.storedLanguageCode)
+        case .passwordsDoNotMatch:
+            return LanguageManager.resolveString(forKey: "validation_passwords_do_not_match", languageCode: LanguageManager.storedLanguageCode)
+        case .emptyCurrentPassword:
+            return LanguageManager.resolveString(forKey: "validation_empty_current_password", languageCode: LanguageManager.storedLanguageCode)
         case .custom(let message):
             return message
         }

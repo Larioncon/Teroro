@@ -55,24 +55,24 @@ final class AuthVM: ObservableObject {
         return currentUser?.isProfileComplete != true
     }
 
-    var primaryButtonTitle: String {
+    var primaryButtonTitle: LocalizedStringKey {
         switch mode {
-        case .signUp: return "Створити акаунт"
-        case .signIn: return "Увійти"
+        case .signUp: return "auth.primary.create_account"
+        case .signIn: return "auth.primary.sign_in"
         }
     }
 
-    var togglePrompt: String {
+    var togglePrompt: LocalizedStringKey {
         switch mode {
-        case .signUp: return "Have an account?"
-        case .signIn: return "New here?"
+        case .signUp: return "auth.toggle.have_account"
+        case .signIn: return "auth.toggle.new_here"
         }
     }
 
-    var toggleActionTitle: String {
+    var toggleActionTitle: LocalizedStringKey {
         switch mode {
-        case .signUp: return "Log In"
-        case .signIn: return "Sign Up"
+        case .signUp: return "auth.toggle.log_in"
+        case .signIn: return "auth.toggle.sign_up"
         }
     }
 
@@ -98,7 +98,7 @@ final class AuthVM: ObservableObject {
             let validationResult = AuthValidator.validateSignIn(email: email, password: password)
             switch validationResult {
             case .failure(let error):
-                showToast(.error(title: "Помилка", message: error.errorDescription ?? "Некоректні дані"), haptic: .error)
+                showToast(.error(message: error.errorDescription ?? "auth.error.invalid_credentials".localized), haptic: .error)
                 return
             case .success(let valid):
                 isLoading = true
@@ -108,7 +108,7 @@ final class AuthVM: ObservableObject {
                     } catch {
                         let message = UserFacingAuthError(from: error).errorDescription
                             ?? UserFacingAuthError.generic.errorDescription
-                        showToast(.error(message: message ?? "Помилка авторизації"), haptic: .error)
+                        showToast(.error(message: message ?? "auth.error.sign_in_failed".localized), haptic: .error)
                     }
                     isLoading = false
                 }
@@ -122,7 +122,7 @@ final class AuthVM: ObservableObject {
             )
             switch validationResult {
             case .failure(let error):
-                showToast(.error(title: "Помилка", message: error.errorDescription ?? "Некоректні дані"), haptic: .error)
+                showToast(.error(message: error.errorDescription ?? "auth.error.invalid_credentials".localized), haptic: .error)
                 return
             case .success(let valid):
                 isLoading = true
@@ -132,7 +132,7 @@ final class AuthVM: ObservableObject {
                     } catch {
                         let message = UserFacingAuthError(from: error).errorDescription
                             ?? UserFacingAuthError.generic.errorDescription
-                        showToast(.error(message: message ?? "Помилка реєстрації"), haptic: .error)
+                        showToast(.error(message: message ?? "auth.error.sign_up_failed".localized), haptic: .error)
                     }
                     isLoading = false
                 }
@@ -144,18 +144,18 @@ final class AuthVM: ObservableObject {
         let validationResult = AuthValidator.validateResetPassword(email: email)
         switch validationResult {
         case .failure(let error):
-            showToast(.error(title: "Помилка", message: error.errorDescription ?? "Некоректний email"), haptic: .error)
+            showToast(.error(message: error.errorDescription ?? "auth.error.invalid_email".localized), haptic: .error)
             return
         case .success(let validEmail):
             isLoading = true
             Task {
                 do {
                     try await auth.resetPassword(email: validEmail)
-                    showToast(.success(title: "Успішно", message: "Лист для відновлення паролю надіслано."), haptic: .success)
+                    showToast(.success(message: "auth.password_reset.sent".localized), haptic: .success)
                 } catch {
                     let message = UserFacingAuthError(from: error).errorDescription
                         ?? UserFacingAuthError.generic.errorDescription
-                    showToast(.error(message: message ?? "Не вдалося скинути пароль"), haptic: .error)
+                    showToast(.error(message: message ?? "auth.password_reset.failed".localized), haptic: .error)
                 }
                 isLoading = false
             }
@@ -169,14 +169,14 @@ final class AuthVM: ObservableObject {
         } catch {
             let message = UserFacingAuthError(from: error).errorDescription
                 ?? UserFacingAuthError.generic.errorDescription
-            showToast(.error(message: message ?? "Помилка виходу"), haptic: .error)
+            showToast(.error(message: message ?? "auth.sign_out.failed".localized), haptic: .error)
         }
     }
 
     func signInWithGoogle(presenting: UIViewController?) {
         alertMessage = nil
         guard let presenting else {
-            showToast(.error(message: "Не вдалося відкрити Google Sign-In."), haptic: .error)
+            showToast(.error(message: "auth.google.open_failed".localized), haptic: .error)
             return
         }
         isLoading = true
@@ -186,7 +186,7 @@ final class AuthVM: ObservableObject {
             } catch {
                 let message = UserFacingAuthError(from: error).errorDescription
                     ?? UserFacingAuthError.generic.errorDescription
-                showToast(.error(message: message ?? "Помилка Google Sign-In"), haptic: .error)
+                showToast(.error(message: message ?? "auth.google.sign_in_failed".localized), haptic: .error)
             }
             isLoading = false
         }
@@ -203,7 +203,7 @@ final class AuthVM: ObservableObject {
                 let authError = UserFacingAuthError(from: error)
                 if authError != .cancelled {
                     let message = authError.errorDescription ?? UserFacingAuthError.generic.errorDescription
-                    showToast(.error(message: message ?? "Помилка Apple Sign-In"), haptic: .error)
+                    showToast(.error(message: message ?? "auth.apple.sign_in_failed".localized), haptic: .error)
                 }
             }
             isLoading = false

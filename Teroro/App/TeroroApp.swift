@@ -15,12 +15,14 @@ struct TeroroApp: App {
         TabBarStyling.apply()
         // MARK: - FIREBASE INIT
         FirebaseApp.configure()
+        UIScreen.printScreenSize()
     }
 
   var body: some Scene {
     WindowGroup {
       SplashRootView(persistenceController: persistenceController)
         .environmentObject(appState)
+        .logScreenSizeOnAppear()
         .onOpenURL { url in
             appState.handleDeepLink(url)
         }

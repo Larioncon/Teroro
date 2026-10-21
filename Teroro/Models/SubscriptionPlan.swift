@@ -18,6 +18,18 @@ enum SubscriptionPlanPeriod: String, CaseIterable, Identifiable {
         }
     }
 
+    @MainActor
+    var localizedTitle: String {
+        switch self {
+        case .week:
+            return LanguageManager.shared.localizedString(forKey: "plan_period_week")
+        case .month:
+            return LanguageManager.shared.localizedString(forKey: "plan_period_month")
+        case .year:
+            return LanguageManager.shared.localizedString(forKey: "plan_period_year")
+        }
+    }
+
     var productTitle: String {
         switch self {
         case .week:
@@ -26,6 +38,18 @@ enum SubscriptionPlanPeriod: String, CaseIterable, Identifiable {
             return "Get monthly plan"
         case .year:
             return "Get annual plan"
+        }
+    }
+
+    @MainActor
+    var localizedProductTitle: String {
+        switch self {
+        case .week:
+            return LanguageManager.shared.localizedString(forKey: "plan_get_weekly")
+        case .month:
+            return LanguageManager.shared.localizedString(forKey: "plan_get_monthly")
+        case .year:
+            return LanguageManager.shared.localizedString(forKey: "plan_get_annual")
         }
     }
 

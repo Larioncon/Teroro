@@ -7,11 +7,12 @@ enum AppAppearance: Int, CaseIterable, Identifiable {
 
     var id: Int { rawValue }
 
+    @MainActor
     var title: String {
         switch self {
-        case .system: return "Системна"
-        case .light: return "Світла"
-        case .dark: return "Темна"
+        case .system: return LanguageManager.shared.localizedString(forKey: "appearance_system")
+        case .light: return LanguageManager.shared.localizedString(forKey: "appearance_light")
+        case .dark: return LanguageManager.shared.localizedString(forKey: "appearance_dark")
         }
     }
 

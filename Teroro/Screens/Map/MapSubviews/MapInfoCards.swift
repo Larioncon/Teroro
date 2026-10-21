@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct HintCard: View {
+    @ObservedObject private var languageManager = LanguageManager.shared
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: "info.circle")
@@ -8,9 +10,9 @@ struct HintCard: View {
                 .foregroundStyle(.blue)
 
             VStack(alignment: .leading, spacing: 2) {
-                Text("Мапа термінів")
+                Text(languageManager.localizedString(forKey: "map_terms_map_card_title"))
                     .font(.headline)
-                Text("Показує лише майбутні терміни з локацією.")
+                Text(languageManager.localizedString(forKey: "map_terms_map_card_subtitle"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }

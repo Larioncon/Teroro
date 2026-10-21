@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PomodoroView: View {
     @ObservedObject var viewModel: PomodoroVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var isShowingPicker = false
     @State private var isHintRevealed = false
     @Environment(\.scenePhase) private var scenePhase
@@ -25,7 +26,7 @@ struct PomodoroView: View {
                     .buttonStyle(.plain)
                     .disabled(viewModel.isRunning)
 
-                    Text(viewModel.mode == .focus ? "FOCUS TIME" : "RELAX")
+                    Text(viewModel.mode == .focus ? languageManager.localizedString(forKey: "timer_focus_time") : languageManager.localizedString(forKey: "timer_relax"))
                         .font(.system(size: 14, weight: .black))
                         .kerning(2)
                         .foregroundStyle(viewModel.mode == .focus ? Color.secondary : Color.green)
@@ -39,7 +40,7 @@ struct PomodoroView: View {
                         }) {
                             HStack(spacing: 4) {
                                 Image(systemName: "bell.slash.fill")
-                                Text("Сповіщення вимкнено")
+                                Text(languageManager.localizedString(forKey: "timer_notifications_disabled"))
                             }
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(.red)
@@ -102,7 +103,7 @@ struct PomodoroView: View {
                 // Action Buttons
                 HStack(spacing: 30) {
                     PomodoroButton(
-                        title: viewModel.isRunning ? "ПАУЗА" : "СТАРТ",
+                        title: viewModel.isRunning ? languageManager.localizedString(forKey: "timer_pause") : languageManager.localizedString(forKey: "timer_start"),
                         icon: viewModel.isRunning ? "pause.fill" : "play.fill",
                         color: .primary
                     ) {
@@ -110,7 +111,7 @@ struct PomodoroView: View {
                     }
 
                     PomodoroButton(
-                        title: viewModel.mode == .focus ? "СТОП" : "ЗАВЕРШИТИ",
+                        title: viewModel.mode == .focus ? languageManager.localizedString(forKey: "timer_stop") : languageManager.localizedString(forKey: "timer_finish"),
                         icon: "stop.fill",
                         color: .primary
                     ) {
@@ -138,7 +139,7 @@ struct PomodoroView: View {
 
                 // Card Content
                 VStack(spacing: 30) {
-                    Text("Тривалість")
+                    Text(languageManager.localizedString(forKey: "timer_duration"))
                         .font(.headline)
                         .foregroundStyle(.primary)
 
@@ -149,7 +150,7 @@ struct PomodoroView: View {
                             isShowingPicker = false
                         }
                     }) {
-                        Text("Готово")
+                        Text(languageManager.localizedString(forKey: "timer_done"))
                             .font(.headline)
                             .foregroundStyle(.white)
                             .padding(.horizontal, 40)
@@ -168,7 +169,7 @@ struct PomodoroView: View {
             if viewModel.showHint && isHintRevealed {
                 VStack {
                     SpeechBubbleView(
-                        "Нажмите чтоб изменить длительность периода.",
+                        languageManager.localizedString(forKey: "timer_hint_change_duration"),
                         icon: "lightbulb.fill",
                         direction: .top,
                         backgroundColor: .cyan,

@@ -3,6 +3,7 @@ import MapKit
 
 struct TermsMapView: View {
     @ObservedObject var viewModel: TermsMapVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     let terms: [Term]
     let isLoading: Bool
 
@@ -28,7 +29,7 @@ struct TermsMapView: View {
                 ZStack(alignment: .trailing) {
                     if viewModel.isHintVisible(for: .location) {
                         SpeechBubbleView(
-                            "Де я зараз? В один дотик знайдіть себе поруч зі своїми справами.",
+                            languageManager.localizedString(forKey: "map_hint_location"),
                             icon: "location.fill",
                             direction: .right,
                             backgroundColor: .blue,
@@ -52,7 +53,7 @@ struct TermsMapView: View {
                 ZStack(alignment: .trailing) {
                     if viewModel.isHintVisible(for: .standard) {
                         SpeechBubbleView(
-                            "Стандартний вигляд: проста схема без візуального шуму — лише вулиці й адреси.",
+                            languageManager.localizedString(forKey: "map_hint_standard"),
                             icon: "map.fill",
                             direction: .right,
                             backgroundColor: .purple,
@@ -76,7 +77,7 @@ struct TermsMapView: View {
                 ZStack(alignment: .trailing) {
                     if viewModel.isHintVisible(for: .hybrid) {
                         SpeechBubbleView(
-                            "Супутниковий шар: реальний вигляд будівель та орієнтирів.",
+                            languageManager.localizedString(forKey: "map_hint_hybrid"),
                             icon: "globe.americas.fill",
                             direction: .right,
                             backgroundColor: .orange,
@@ -134,19 +135,19 @@ struct TermsMapView: View {
                     switch viewModel.cardState(for: terms, isLoading: isLoading) {
                     case .loading:
                         EmptyStateCard(
-                            title: "Завантаження термінів",
-                            subtitle: "Мапа оновиться після синхронізації."
+                            title: languageManager.localizedString(forKey: "map_loading_terms_title"),
+                            subtitle: languageManager.localizedString(forKey: "map_loading_terms_subtitle")
                         )
                         .redacted(reason: .placeholder)
                     case .emptyUpcomingTerms:
                         EmptyStateCard(
-                            title: "Немає майбутніх термінів",
-                            subtitle: "Заплануйте новий термін, щоб побачити його на мапі."
+                            title: languageManager.localizedString(forKey: "map_empty_terms_title"),
+                            subtitle: languageManager.localizedString(forKey: "map_empty_terms_subtitle")
                         )
                     case .emptyLocations:
                         EmptyStateCard(
-                            title: "Немає локацій",
-                            subtitle: "Майбутні терміни без місця не відображаються на мапі."
+                            title: languageManager.localizedString(forKey: "map_empty_locations_title"),
+                            subtitle: languageManager.localizedString(forKey: "map_empty_locations_subtitle")
                         )
                     case .hint:
                         HintCard()

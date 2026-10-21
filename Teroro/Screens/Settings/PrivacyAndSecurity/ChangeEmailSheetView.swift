@@ -12,7 +12,7 @@ struct ChangeEmailSheetView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Новий Email", text: $newEmail)
+                    TextField("Новий email", text: $newEmail)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
@@ -42,10 +42,10 @@ struct ChangeEmailSheetView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Скасувати") { dismiss() }
+                    Button("common_cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(isCodeSent ? "Підтвердити" : "Надіслати") {
+                    Button(isCodeSent ? "common_confirm" : "Надіслати") {
                         Task { await handleConfirmationAction() }
                     }
                     .disabled(isConfirmationDisabled)

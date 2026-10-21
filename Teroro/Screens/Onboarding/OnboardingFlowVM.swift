@@ -118,28 +118,28 @@ extension OnboardingStep {
     static let defaults: [OnboardingStep] = [
         .init(
             img: "sparkles",
-            title: "Терміни під контролем",
-            subtitle: "Додавайте терміни з датою, часом та нагадуваннями."
+            title: "onboarding.step1.title",
+            subtitle: "onboarding.step1.subtitle"
         ),
         .init(
             img: "bell.badge",
-            title: "Нагадування вчасно",
-            subtitle: "Дозвольте сповіщення, щоб не пропустити важливе."
+            title: "onboarding.step2.title",
+            subtitle: "onboarding.step2.subtitle"
         ),
         .init(
             img: "star.bubble",
-            title: "Швидко звикнете",
-            subtitle: "Якщо подобається — залиште короткий відгук."
+            title: "onboarding.step3.title",
+            subtitle: "onboarding.step3.subtitle"
         ),
         .init(
             img: "map",
-            title: "На мапі — зручно",
-            subtitle: "Переглядайте терміни на мапі (локації налаштуємо пізніше)."
+            title: "onboarding.step4.title",
+            subtitle: "onboarding.step4.subtitle"
         ),
         .init(
             img: "timer",
-            title: "Фокус із таймером",
-            subtitle: "Запускайте Pomodoro, щоб тримати темп і не вигоріти."
+            title: "onboarding.step5.title",
+            subtitle: "onboarding.step5.subtitle"
         )
     ]
 }

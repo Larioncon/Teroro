@@ -10,6 +10,7 @@ import SwiftUI
 struct NotificationPermissionView: View {
     let onClose: () -> Void
     let onOpenSettings: () -> Void
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct NotificationPermissionView: View {
 
             VStack(spacing: 16) {
                 ZStack {
-                    Text("Потрібен дозвіл")
+                    Text(languageManager.localizedString(forKey: "notification.permission.title"))
                         .font(.title3.weight(.semibold))
                         .frame(maxWidth: .infinity, alignment: .center)
 
@@ -37,13 +38,13 @@ struct NotificationPermissionView: View {
                     }
                 }
 
-                Text("Без дозволу на сповіщення ви не отримаєте нагадування про термін.")
+                Text(languageManager.localizedString(forKey: "notification.permission.message"))
                     .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
 
                 Button(action: onOpenSettings) {
-                    Text("Відкрити налаштування")
+                    Text(languageManager.localizedString(forKey: "notification.permission.open.settings"))
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 50)
                         .background(

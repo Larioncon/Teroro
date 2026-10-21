@@ -48,13 +48,13 @@ enum ButtonVisualStyle {
 }
 
 struct PrimaryButton: View {
-    let title: String
+    let title: Text
     let style: ButtonVisualStyle
     let frameHeight: CGFloat
     let action: () -> Void
 
     init(
-        title: String,
+        title: Text,
         style: ButtonVisualStyle,
         frameHeight: CGFloat = 48,
         action: @escaping () -> Void
@@ -74,7 +74,7 @@ struct PrimaryButton: View {
                         .frame(width: 24, height: 24)
                 }
 
-                Text(title)
+                title
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(style.textColor)
             }
@@ -99,7 +99,7 @@ extension Color {
 
 #Preview {
     VStack(spacing: 12) {
-        PrimaryButton(title: "Продовжити", style: .primary) {}
+        PrimaryButton(title: Text("Продовжити"), style: .primary) {}
 //        PrimaryButton(title: "Secondary", style: .secondary) {}
     }
     .padding()

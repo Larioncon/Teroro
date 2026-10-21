@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AuthTextField: View {
-    let title: String
+    let title: LocalizedStringKey
     @Binding var text: String
     var isSecure: Bool = false
     var keyboardType: UIKeyboardType = .default
@@ -13,14 +13,34 @@ struct AuthTextField: View {
     @State private var isPasswordVisible: Bool = false
     @FocusState private var isFocused: Bool
 
+    init(
+        title: LocalizedStringKey,
+        text: Binding<String>,
+        isSecure: Bool = false,
+        keyboardType: UIKeyboardType = .default,
+        contentType: UITextContentType? = nil,
+        textInputAutocapitalization: TextInputAutocapitalization = .never,
+        submitLabel: SubmitLabel = .done,
+        onSubmit: (() -> Void)? = nil
+    ) {
+        self.title = title
+        self._text = text
+        self.isSecure = isSecure
+        self.keyboardType = keyboardType
+        self.contentType = contentType
+        self.textInputAutocapitalization = textInputAutocapitalization
+        self.submitLabel = submitLabel
+        self.onSubmit = onSubmit
+    }
+
     var body: some View {
         ZStack(alignment: .trailing) {
             Group {
                 if isSecure && !isPasswordVisible {
-                    SecureField(title, text: $text)
+                    SecureField(text: $text, prompt: prompt) { fieldLabel }
                         .textContentType(contentType)
                 } else {
-                    TextField(title, text: $text)
+                    TextField(text: $text, prompt: prompt) { fieldLabel }
                         .keyboardType(keyboardType)
                         .textContentType(contentType)
                 }
@@ -55,6 +75,12 @@ struct AuthTextField: View {
         )
         .animation(.easeInOut(duration: 0.2), value: isFocused)
     }
+
+    private var fieldLabel: Text {
+        Text(title)
+    }
+
+    private var prompt: Text? { fieldLabel }
 }
 
 #Preview {

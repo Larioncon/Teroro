@@ -11,6 +11,7 @@ import UIKit
 
 struct HomeView: View {
     @ObservedObject var viewModel: HomeVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     let onAddTerm: () -> Void
     let onDeleteTerm: (Term) -> Void
     @Environment(\.openURL) private var openURL
@@ -35,7 +36,7 @@ struct HomeView: View {
                 TermsList(
                     viewModel: viewModel,
                     terms: displayedUpcoming,
-                    emptyText: "Немає актуальних термінів",
+                    emptyText: languageManager.localizedString(forKey: "home_no_upcoming_terms"),
                     isLoading: viewModel.isLoading,
                     onDeleteTerm: onDeleteTerm
                 )
@@ -48,7 +49,7 @@ struct HomeView: View {
                 TermsList(
                     viewModel: viewModel,
                     terms: displayedPast,
-                    emptyText: "Немає минулих термінів",
+                    emptyText: languageManager.localizedString(forKey: "home_no_past_terms"),
                     isLoading: viewModel.isLoading,
                     onDeleteTerm: onDeleteTerm
                 )
@@ -80,6 +81,7 @@ struct HomeView: View {
         }
         .toolbar(isOverlayVisible ? .hidden : .visible, for: .tabBar)
         .background(Color(uiColor: .systemGroupedBackground))
+        .navigationTitle(languageManager.localizedString(forKey: "home_terms"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.clear, for: .navigationBar)
         .toolbar {
@@ -100,13 +102,13 @@ struct HomeView: View {
                     )
                 }
                 .disabled(isPastToggleDisabled || isOverlayVisible)
-                .accessibilityLabel(isShowingPastTerms ? "Актуальні терміни" : "Минулі терміни")
+                .accessibilityLabel(isShowingPastTerms ? languageManager.localizedString(forKey: "home_current_terms_accessibility") : languageManager.localizedString(forKey: "home_past_terms"))
 
                 Button(action: onAddTerm) {
                     Image(systemName: "plus")
                 }
                 .disabled(isOverlayVisible)
-                .accessibilityLabel("Додати термін")
+                .accessibilityLabel(languageManager.localizedString(forKey: "home_add_term"))
             }
         }
         .onAppear {
@@ -140,15 +142,16 @@ struct HomeView: View {
 
 private struct AnimatedNavTitle: View {
     let isShowingPastTerms: Bool
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         ZStack {
-            title(text: "Терміни", isVisible: !isShowingPastTerms)
-            title(text: "Минулі терміни", isVisible: isShowingPastTerms)
+            title(text: languageManager.localizedString(forKey: "home_terms"), isVisible: !isShowingPastTerms)
+            title(text: languageManager.localizedString(forKey: "home_past_terms"), isVisible: isShowingPastTerms)
         }
         // Keep the title width stable to avoid "jumping" when the text changes.
         .fixedSize(horizontal: true, vertical: false)
-        .accessibilityLabel(isShowingPastTerms ? "Минулі терміни" : "Терміни")
+        .accessibilityLabel(isShowingPastTerms ? languageManager.localizedString(forKey: "home_past_terms") : languageManager.localizedString(forKey: "home_terms"))
     }
 
     private func title(text: String, isVisible: Bool) -> some View {
@@ -188,6 +191,7 @@ private struct TermsList: View {
     let emptyText: String
     let isLoading: Bool
     let onDeleteTerm: (Term) -> Void
+    @ObservedObject private var languageManager = LanguageManager.shared
 
     var body: some View {
         List {
@@ -204,7 +208,7 @@ private struct TermsList: View {
                                 Button(role: .destructive) {
                                     onDeleteTerm(term)
                                 } label: {
-                                    Label("Видалити", systemImage: "trash")
+                                    Label(languageManager.localizedString(forKey: "common_delete"), systemImage: "trash")
                                 }
                             }
                     }

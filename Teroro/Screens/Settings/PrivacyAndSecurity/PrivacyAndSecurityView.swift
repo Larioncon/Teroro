@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PrivacyAndSecurityView: View {
     @ObservedObject var viewModel: SettingsVM
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var toasts: [Toast] = []
 
     var body: some View {
@@ -12,13 +13,13 @@ struct PrivacyAndSecurityView: View {
                 } label: {
                     HStack {
                         Label {
-                            Text("Код-пароль")
+                            Text(languageManager.localizedString(forKey: "security_passcode"))
                         } icon: {
                             Image(systemName: "lock.fill")
                                 .foregroundStyle(.blue)
                         }
                         Spacer()
-                        Text(viewModel.isPasscodeEnabled ? "Увімкнено" : "Вимкнено")
+                        Text(languageManager.localizedString(forKey: viewModel.isPasscodeEnabled ? "security_enabled" : "security_disabled"))
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         Image(systemName: "chevron.forward")
@@ -34,7 +35,7 @@ struct PrivacyAndSecurityView: View {
                     } label: {
                         HStack {
                             Label {
-                                Text("Змінити пароль")
+                                Text(languageManager.localizedString(forKey: "security_change_password"))
                             } icon: {
                                 Image(systemName: "key.fill")
                                     .foregroundStyle(.blue)
@@ -53,14 +54,14 @@ struct PrivacyAndSecurityView: View {
                 } label: {
                     HStack {
                         Label {
-                            Text("Змінити email")
+                            Text(languageManager.localizedString(forKey: "security_change_email"))
                         } icon: {
                             Image(systemName: "envelope.fill")
                                 .foregroundStyle(.blue)
                         }
                         Spacer()
                         if !viewModel.hasPassword {
-                            Text("Додайте Email")
+                            Text(languageManager.localizedString(forKey: "security_add_email"))
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -73,7 +74,7 @@ struct PrivacyAndSecurityView: View {
                 .disabled(!viewModel.hasPassword)
             }
 
-            Section("Способи входу") {
+            Section(languageManager.localizedString(forKey: "security_signin_methods")) {
                 SignInProviderRow(
                     title: "Apple",
                     systemImage: "apple.logo",
@@ -111,7 +112,7 @@ struct PrivacyAndSecurityView: View {
                     Button {
                         viewModel.initiateDeleteAccount()
                     } label: {
-                        Text("Видалити акаунт")
+                        Text(languageManager.localizedString(forKey: "security_delete_account"))
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.red)
                             .padding(.horizontal, 18)
@@ -130,7 +131,7 @@ struct PrivacyAndSecurityView: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .navigationTitle("Приватність та безпека")
+        .navigationTitle(languageManager.localizedString(forKey: "settings_privacy_and_security"))
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $viewModel.isAddEmailPasswordSheetPresented) {
             AddEmailPasswordSheetView(viewModel: viewModel)
@@ -157,8 +158,8 @@ struct PrivacyAndSecurityView: View {
                 withAnimation {
                     toasts.insert(
                         Toast(
-                            title: "Вимкніть код-пароль",
-                            message: "Для видалення акаунту спочатку необхідно вимкнути код-пароль та Face ID у налаштуваннях безпеки.",
+                            title: languageManager.localizedString(forKey: "security_disable_passcode_toast_title"),
+                            message: languageManager.localizedString(forKey: "security_disable_passcode_toast_message"),
                             symbol: "exclamationmark.shield.fill",
                             tint: .orange,
                             timing: .long
@@ -170,21 +171,21 @@ struct PrivacyAndSecurityView: View {
             }
         }
         .toasts($toasts)
-        .alert("Помилка", isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common_error"), isPresented: Binding(get: {
             viewModel.securityAlertMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.securityAlertMessage = nil }
         }), actions: {
-            Button("OK") { viewModel.securityAlertMessage = nil }
+            Button("common_ok") { viewModel.securityAlertMessage = nil }
         }, message: {
             Text(viewModel.securityAlertMessage ?? "")
         })
-        .alert("Успішно", isPresented: Binding(get: {
+        .alert(languageManager.localizedString(forKey: "common_success"), isPresented: Binding(get: {
             viewModel.securitySuccessMessage != nil
         }, set: { newValue in
             if !newValue { viewModel.securitySuccessMessage = nil }
         }), actions: {
-            Button("OK") { viewModel.securitySuccessMessage = nil }
+            Button("common_ok") { viewModel.securitySuccessMessage = nil }
         }, message: {
             Text(viewModel.securitySuccessMessage ?? "")
         })
@@ -210,11 +211,11 @@ private struct SignInProviderRow: View {
             Spacer()
 
             if isLinked {
-                Text("Підключено")
+                Text(LanguageManager.shared.localizedString(forKey: "security_connected"))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                Button("Підключити", action: action)
+                Button(LanguageManager.shared.localizedString(forKey: "security_connect"), action: action)
                     .disabled(isProcessing)
             }
         }

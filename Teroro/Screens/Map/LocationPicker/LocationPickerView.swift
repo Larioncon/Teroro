@@ -4,6 +4,7 @@ import MapKit
 struct LocationPickerView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm = LocationPickerVM()
+    @ObservedObject private var languageManager = LanguageManager.shared
     @State private var showMapPicker = false
     let onSelect: (TermLocation) -> Void
 
@@ -28,7 +29,7 @@ struct LocationPickerView: View {
                     Image(systemName: "mappin.slash")
                         .font(.system(size: 40))
                         .foregroundStyle(.secondary)
-                    Text("Нічого не знайдено")
+                    Text(languageManager.localizedString(forKey: "map_nothing_found"))
                         .font(.headline)
                         .foregroundStyle(.secondary)
                     Spacer()
@@ -46,7 +47,7 @@ struct LocationPickerView: View {
                     }
                     
                     VStack(spacing: 4) {
-                        Text(loc.title ?? "Локація")
+                        Text(loc.title ?? languageManager.localizedString(forKey: "map_location_on_map"))
                             .font(.title3.weight(.bold))
                             .multilineTextAlignment(.center)
                         if let address = loc.address {
@@ -66,7 +67,7 @@ struct LocationPickerView: View {
             }
 
             PrimaryButton(
-                title: "Обрати цю локацію",
+                title: Text("map_select_this_location"),
                 style: .primaryWhiteText,
                 action: {
                     if let loc = vm.finalLocation {
@@ -81,7 +82,7 @@ struct LocationPickerView: View {
             .padding(.bottom, 30)
         }
         .background(Color(.systemGroupedBackground))
-        .navigationTitle("Пошук місця")
+        .navigationTitle(languageManager.localizedString(forKey: "map_search_title"))
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showMapPicker) {
             MapLocationPickerView { selectedLoc in
