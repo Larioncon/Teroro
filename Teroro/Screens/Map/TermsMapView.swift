@@ -16,155 +16,163 @@ struct TermsMapView: View {
     var body: some View {
         let items = viewModel.items(from: terms)
 
-        ZStack(alignment: .topTrailing) {
-            TermsMapViewRepresentable(
-                region: $viewModel.region,
-                items: items,
-                mapType: viewModel.mapType
-            )
-            .ignoresSafeArea()
+        DuoAdaptiveLayout { isDuo, isTrailingBar in
+            let topPadding: CGFloat = isDuo ? 160 : 60
+            let trailingPadding: CGFloat = isDuo ? 27 : 16
+            let hintTrailingPadding: CGFloat = isDuo ? 79 : 68
 
-            // Map Hint Bubbles (floating to the left of control buttons)
-            VStack(alignment: .trailing, spacing: 8) {
-                ZStack(alignment: .trailing) {
-                    if viewModel.isHintVisible(for: .location) {
-                        SpeechBubbleView(
-                            languageManager.localizedString(forKey: "map.hint.location"),
-                            icon: "location.fill",
-                            direction: .right,
-                            backgroundColor: .blue,
-                            foregroundColor: .white,
-                            font: .system(size: 13, weight: .regular),
-                            shadowColor: .black.opacity(0.12),
-                            shadowRadius: 10,
-                            shadowY: 5,
-                            closeButtonPosition: .topLeading,
-                            onClose: {
-                                viewModel.advanceHint()
-                            }
-                        )
-                        .frame(maxWidth: 240)
-                        .fixedSize()
-                        .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .trailing)))
+            ZStack(alignment: .topTrailing) {
+                TermsMapViewRepresentable(
+                    region: $viewModel.region,
+                    items: items,
+                    mapType: viewModel.mapType
+                )
+                .ignoresSafeArea()
+
+                // Map Hint Bubbles (floating to the left of control buttons)
+                VStack(alignment: .trailing, spacing: 8) {
+                    ZStack(alignment: .trailing) {
+                        if viewModel.isHintVisible(for: .location) {
+                            SpeechBubbleView(
+                                languageManager.localizedString(forKey: "map.hint.location"),
+                                icon: "location.fill",
+                                direction: .right,
+                                backgroundColor: .blue,
+                                foregroundColor: .white,
+                                font: .system(size: 13, weight: .regular),
+                                shadowColor: .black.opacity(0.12),
+                                shadowRadius: 10,
+                                shadowY: 5,
+                                closeButtonPosition: .topLeading,
+                                onClose: {
+                                    viewModel.advanceHint()
+                                }
+                            )
+                            .frame(maxWidth: 240)
+                            .fixedSize()
+                            .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .trailing)))
+                        }
+                    }
+                    .frame(height: 44)
+
+                    ZStack(alignment: .trailing) {
+                        if viewModel.isHintVisible(for: .standard) {
+                            SpeechBubbleView(
+                                languageManager.localizedString(forKey: "map.hint.standard"),
+                                icon: "map.fill",
+                                direction: .right,
+                                backgroundColor: .purple,
+                                foregroundColor: .white,
+                                font: .system(size: 13, weight: .regular),
+                                shadowColor: .black.opacity(0.12),
+                                shadowRadius: 10,
+                                shadowY: 5,
+                                closeButtonPosition: .topLeading,
+                                onClose: {
+                                    viewModel.advanceHint()
+                                }
+                            )
+                            .frame(maxWidth: 240)
+                            .fixedSize()
+                            .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .trailing)))
+                        }
+                    }
+                    .frame(height: 44)
+
+                    ZStack(alignment: .trailing) {
+                        if viewModel.isHintVisible(for: .hybrid) {
+                            SpeechBubbleView(
+                                languageManager.localizedString(forKey: "map.hint.hybrid"),
+                                icon: "globe.americas.fill",
+                                direction: .right,
+                                backgroundColor: .orange,
+                                foregroundColor: .white,
+                                font: .system(size: 13, weight: .regular),
+                                shadowColor: .black.opacity(0.12),
+                                shadowRadius: 10,
+                                shadowY: 5,
+                                closeButtonPosition: .topLeading,
+                                onClose: {
+                                    viewModel.advanceHint()
+                                }
+                            )
+                            .frame(maxWidth: 240)
+                            .fixedSize()
+                            .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .trailing)))
+                        }
+                    }
+                    .frame(height: 44)
+                }
+                .padding(.trailing, hintTrailingPadding)
+                .padding(.top, topPadding)
+                .ignoresSafeArea(.container, edges: isTrailingBar ? .trailing : [])
+
+                // Map Control Buttons (Location / Center)
+                VStack(spacing: 8) {
+                    Button {
+                        viewModel.centerOnUserOrTerms(terms: terms)
+                    } label: {
+                        Image(systemName: viewModel.userLocation != nil ? "location.fill" : "location")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundStyle(viewModel.userLocation != nil ? Color.accentColor : .primary)
+                            .frame(width: 44, height: 44)
+                            .glassBackground(Circle(), fill: .regularMaterial, withGradient: false)
+                            .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
+                            .contentShape(Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .contentShape(Circle())
+
+                    MapTypeButton(icon: "map.fill", isSelected: viewModel.mapType == .standard) {
+                        viewModel.selectStandardMap()
+                    }
+
+                    MapTypeButton(icon: "globe.americas.fill", isSelected: viewModel.mapType == .hybrid) {
+                        viewModel.selectHybridMap()
                     }
                 }
-                .frame(height: 44)
+                .padding(.trailing, trailingPadding)
+                .padding(.top, topPadding)
+                .ignoresSafeArea(.container, edges: isTrailingBar ? .trailing : [])
 
-                ZStack(alignment: .trailing) {
-                    if viewModel.isHintVisible(for: .standard) {
-                        SpeechBubbleView(
-                            languageManager.localizedString(forKey: "map.hint.standard"),
-                            icon: "map.fill",
-                            direction: .right,
-                            backgroundColor: .purple,
-                            foregroundColor: .white,
-                            font: .system(size: 13, weight: .regular),
-                            shadowColor: .black.opacity(0.12),
-                            shadowRadius: 10,
-                            shadowY: 5,
-                            closeButtonPosition: .topLeading,
-                            onClose: {
-                                viewModel.advanceHint()
-                            }
-                        )
-                        .frame(maxWidth: 240)
-                        .fixedSize()
-                        .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .trailing)))
+                // Bottom Info Card
+                VStack {
+                    Spacer()
+                    Group {
+                        switch viewModel.cardState(for: terms, isLoading: isLoading) {
+                        case .loading:
+                            EmptyStateCard(
+                                title: languageManager.localizedString(forKey: "map.loading.terms.title"),
+                                subtitle: languageManager.localizedString(forKey: "map.loading.terms.subtitle")
+                            )
+                            .redacted(reason: .placeholder)
+                        case .emptyUpcomingTerms:
+                            EmptyStateCard(
+                                title: languageManager.localizedString(forKey: "map.empty.terms.title"),
+                                subtitle: languageManager.localizedString(forKey: "map.empty.terms.subtitle")
+                            )
+                        case .emptyLocations:
+                            EmptyStateCard(
+                                title: languageManager.localizedString(forKey: "map.empty.locations.title"),
+                                subtitle: languageManager.localizedString(forKey: "map.empty.locations.subtitle")
+                            )
+                        case .hint:
+                            HintCard()
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 14)
                 }
-                .frame(height: 44)
-
-                ZStack(alignment: .trailing) {
-                    if viewModel.isHintVisible(for: .hybrid) {
-                        SpeechBubbleView(
-                            languageManager.localizedString(forKey: "map.hint.hybrid"),
-                            icon: "globe.americas.fill",
-                            direction: .right,
-                            backgroundColor: .orange,
-                            foregroundColor: .white,
-                            font: .system(size: 13, weight: .regular),
-                            shadowColor: .black.opacity(0.12),
-                            shadowRadius: 10,
-                            shadowY: 5,
-                            closeButtonPosition: .topLeading,
-                            onClose: {
-                                viewModel.advanceHint()
-                            }
-                        )
-                        .frame(maxWidth: 240)
-                        .fixedSize()
-                        .transition(.opacity.combined(with: .scale(scale: 0.92, anchor: .trailing)))
-                    }
-                }
-                .frame(height: 44)
             }
-            .padding(.trailing, 68)
-            .padding(.top, 60)
-
-            // Map Control Buttons (Location / Center)
-            VStack(spacing: 8) {
-                Button {
-                    viewModel.centerOnUserOrTerms(terms: terms)
-                } label: {
-                    Image(systemName: viewModel.userLocation != nil ? "location.fill" : "location")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(viewModel.userLocation != nil ? Color.accentColor : .primary)
-                        .frame(width: 44, height: 44)
-                        .glassBackground(Circle(), fill: .regularMaterial, withGradient: false)
-                        .shadow(color: .black.opacity(0.15), radius: 6, x: 0, y: 3)
-                        .contentShape(Circle())
-                }
-                .buttonStyle(.plain)
-                .contentShape(Circle())
-
-                MapTypeButton(icon: "map.fill", isSelected: viewModel.mapType == .standard) {
-                    viewModel.selectStandardMap()
-                }
-
-                MapTypeButton(icon: "globe.americas.fill", isSelected: viewModel.mapType == .hybrid) {
-                    viewModel.selectHybridMap()
-                }
+            .onAppear {
+                viewModel.onAppear(terms: terms)
             }
-            .padding(.trailing, 16)
-            .padding(.top, 60)
-
-            // Bottom Info Card
-            VStack {
-                Spacer()
-                Group {
-                    switch viewModel.cardState(for: terms, isLoading: isLoading) {
-                    case .loading:
-                        EmptyStateCard(
-                            title: languageManager.localizedString(forKey: "map.loading.terms.title"),
-                            subtitle: languageManager.localizedString(forKey: "map.loading.terms.subtitle")
-                        )
-                        .redacted(reason: .placeholder)
-                    case .emptyUpcomingTerms:
-                        EmptyStateCard(
-                            title: languageManager.localizedString(forKey: "map.empty.terms.title"),
-                            subtitle: languageManager.localizedString(forKey: "map.empty.terms.subtitle")
-                        )
-                    case .emptyLocations:
-                        EmptyStateCard(
-                            title: languageManager.localizedString(forKey: "map.empty.locations.title"),
-                            subtitle: languageManager.localizedString(forKey: "map.empty.locations.subtitle")
-                        )
-                    case .hint:
-                        HintCard()
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 14)
+            .onDisappear {
+                viewModel.onDisappear()
             }
-        }
-        .onAppear {
-            viewModel.onAppear(terms: terms)
-        }
-        .onDisappear {
-            viewModel.onDisappear()
-        }
-        .onChange(of: terms) { newTerms in
-            viewModel.setTerms(newTerms)
+            .onChange(of: terms) { newTerms in
+                viewModel.setTerms(newTerms)
+            }
         }
     }
 }

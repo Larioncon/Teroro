@@ -77,8 +77,5 @@
 	<string>$(YEARLY_SPECIAL_OFFER_PRODUCT_ID)</string>
 	<key>YEARLY_TRIAL_PRODUCT_ID</key>
 	<string>$(YEARLY_TRIAL_PRODUCT_ID)</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow Timexo to show your current location on the map.</string>
 </dict>
-
 </plist>
